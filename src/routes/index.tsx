@@ -2,10 +2,10 @@ import { createBrowserRouter } from "react-router-dom";
 import { Admin, LandingPage, Login, Signup, Therapists, TherapistPage, LoginAdmin, NotFound } from "../pages/index";
 import Layout from "../layout/Layout";
 const router = createBrowserRouter([
+    { path: '*', element: <NotFound /> },
     {
         path: "/",
         element: <Layout />,
-        errorElement: <NotFound />,
         children: [
             {
                 path: "/",

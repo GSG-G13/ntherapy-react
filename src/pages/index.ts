@@ -1,11 +1,11 @@
-import  Admin  from "./admin/Admin";
-import  LandingPage  from "./landingPage/LandingPage";
-import  Login  from "./login/Login";
-import  Signup  from "./signup/Signup";
-import  Therapists  from "./therapists/Therapist";
-import TherapistPage from "./therapistProfile/TherapistProfile";
-import LoginAdmin from "./loginAdmin/LoginAdmin";
-import NotFound from "./notFound/NotFound";
+import Admin from "./admin";
+import LandingPage from "./landingPage"
+import Login from "./login";
+import Signup from "./signup";
+import Therapists from "./therapists";
+import TherapistPage from "./therapistProfile";
+import LoginAdmin from "./loginAdmin";
+import NotFound from "./notFound";
 
 
 export {
