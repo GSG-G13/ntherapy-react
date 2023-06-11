@@ -1,8 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import { Admin, LandingPage, Login, Signup, Therapists, TherapistPage, LoginAdmin, NotFound } from "../pages/index";
 import Layout from "../layout/Layout";
+
 const router = createBrowserRouter([
-    { path: '*', element: <NotFound /> },
     {
         path: "/",
         element: <Layout />,
@@ -33,12 +33,13 @@ const router = createBrowserRouter([
     },
     {
         path: "/admin",
-        element: <Admin />
+        element: <Admin />,
     },
     {
-        path: "/LoginAdmin",
+        path: "/admin/login",
         element: <LoginAdmin />
-    }
+    },
+    { path: '*', element: <NotFound /> },
 
 ]);
 
