@@ -14,10 +14,11 @@ const button: Card = {
   borderRadius: '0',
   marginTop: '5px' 
 };
-const Named: Card = {
+const Namedectour: Card = {
   textAlign:'center',
   paddingTop:'1px',
   margin:'0'
 };
 
-export   {card,button,Named};
+const classes =  {card,button,Namedectour}; 
+export  default classes;

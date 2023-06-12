@@ -4,12 +4,12 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
-import { card,button,Named } from './classes';
+import classes from './classes';
 import Button from '@mui/material/Button';
 export default function GridCard() {
   return (
     <Grid item xs={3}  sx={{marginTop:5}}>
-    <Card sx={card}>
+    <Card sx={classes.card}>
         <CardActionArea>
           <CardMedia
             component="img"
@@ -18,8 +18,9 @@ export default function GridCard() {
             alt="green iguana"
             sx={{ marginBottom: "5px" }}
           />
+          
           <CardContent sx={{ padding: 0 }}>
-            <Typography gutterBottom component="div" sx={Named}  color="primary.dark" margin={'0'}>
+            <Typography gutterBottom component="div" sx={classes.Namedectour}  color="primary.dark" margin={'0'}>
               Dr.Yasser Abu Amro
             </Typography>
             <Typography variant="body1" color="primary.dark" textAlign={'center'}   >
@@ -28,7 +29,7 @@ export default function GridCard() {
             <Typography variant="body1" color="primary.dark" textAlign={'center'} sx={{ fontWeight: '900' }}   >
               90$ /hr
             </Typography>
-            <Button variant="contained" sx={button}>View Profile</Button>
+            <Button variant="contained" sx={classes.button}>View Profile</Button>
           </CardContent>
         </CardActionArea>
       </Card>   
