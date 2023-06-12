@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import SearchIcon from '@mui/icons-material/Search';
 import { InputBase, IconButton } from '@mui/material';
 import Grid from '@mui/material/Grid';
-import GridCard from '../../components/GridCard';
+import GridCard from '../../components/TherapistCard/GridCard';
 
 
 const Therapist = () => {
