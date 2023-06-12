@@ -12,13 +12,13 @@ const button: Card = {
   width: '100%',
   margin: '0',
   borderRadius: '0',
-  marginTop: '5px' 
+  marginTop: '5px',
 };
 const Namedectour: Card = {
-  textAlign:'center',
-  paddingTop:'1px',
-  margin:'0'
+  textAlign: 'center',
+  paddingTop: '1px',
+  margin: '0',
 };
 
-const classes =  {card,button,Namedectour}; 
-export  default classes;
+const classes = { card, button, Namedectour };
+export default classes;
