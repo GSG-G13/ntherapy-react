@@ -4,8 +4,8 @@ import {
 import { Link } from 'react-router-dom';
 import { useFormik } from 'formik';
 import validationSchema from './schema';
-import imageSrc from "../../assets/loginImg.jpg";
-import "./login.css";
+import imageSrc from '../../assets/loginImg.jpg';
+import './style.css';
 
 const Login = () => {
   const formik = useFormik({
@@ -28,7 +28,7 @@ const Login = () => {
         sm={4}
         md={6}
       >
-        <img src={imageSrc} alt='login' className='imageLogin' />
+        <img src={imageSrc} alt="login" className="imageLogin" />
       </Grid>
       <Grid item xs={12} sm={8} md={6} component={Paper} elevation={6} square>
         <Box
