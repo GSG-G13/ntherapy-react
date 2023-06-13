@@ -1,9 +1,7 @@
-import { Container } from '@mui/material'
+import { Container } from '@mui/material';
 
-const  TherapistProfile=()=> {
-  return (
-    <Container>TherapistProfile Page</Container>
-  )
-}
+const TherapistProfile = () => (
+  <Container>TherapistProfile Page</Container>
+);
 
-export default TherapistProfile
+export default TherapistProfile;
