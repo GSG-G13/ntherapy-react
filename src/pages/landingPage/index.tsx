@@ -1,12 +1,9 @@
-import { Container } from '@mui/material'
-import React from 'react'
+import { Container } from '@mui/material';
 
-const LandingPage = ()=> {
-  return (
-    <Container>
-      LandingPage
-    </Container>
-  )
-}
+const LandingPage = () => (
+  <Container>
+    LandingPage
+  </Container>
+);
 
-export default LandingPage
+export default LandingPage;
