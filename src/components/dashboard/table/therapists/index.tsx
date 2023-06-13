@@ -1,13 +1,11 @@
-import BodyTable from './BodyTable'
-import TableHeader from './TableHeader'
+import TableBody from './BodyTable';
+import TableHeader from './TableHeader';
 
-const TherapistTable = () => {
-  return (
-    <>
-      <TableHeader />
-      <BodyTable />
-    </>
-  )
-}
+const TherapistTable = () => (
+  <>
+    <TableHeader />
+    <TableBody />
+  </>
+);
 
-export default TherapistTable
+export default TherapistTable;
