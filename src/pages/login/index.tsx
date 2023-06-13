@@ -3,7 +3,9 @@ import {
 } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useFormik } from 'formik';
-import validationSchema from './validationSchema';
+import validationSchema from './schema';
+import imageSrc from "../../assets/loginImg.jpg";
+import "./login.css";
 
 const Login = () => {
   const formik = useFormik({
@@ -18,22 +20,16 @@ const Login = () => {
   });
 
   return (
-    <Grid container component="main" sx={{ height: '100vh' }}>
+    <Grid container component="main" sx={{ height: '100vh', overflow: 'hidden' }}>
       <CssBaseline />
       <Grid
         item
         xs={false}
         sm={4}
         md={6}
-        sx={{
-          backgroundImage: 'url(https://cdn.discordapp.com/attachments/1113720748025073674/1117724543499370516/pexels-shvets-production-7176036.jpg)',
-          backgroundRepeat: 'no-repeat',
-          backgroundColor: (t) => (t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900]),
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-
-        }}
-      />
+      >
+        <img src={imageSrc} alt='login' className='imageLogin' />
+      </Grid>
       <Grid item xs={12} sm={8} md={6} component={Paper} elevation={6} square>
         <Box
           sx={{
