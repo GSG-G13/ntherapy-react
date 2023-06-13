@@ -20,8 +20,8 @@ const BodyTable = () => (
           <Grid item style={{ marginLeft: '10px' }}>
             <div>
               <Typography sx={{ fontWeight: 600 }} color="primary.dark">Raghda N. Abu Rizq</Typography>
-              <Typography color="primary.main" sx={{fontSize:"12px"}}>123365789</Typography>
-              <Typography color="primary.main" sx={{fontSize:"12px"}}>lorem lorem</Typography>
+              <Typography color="primary.main" sx={{ fontSize: '12px' }}>123365789</Typography>
+              <Typography color="primary.main" sx={{ fontSize: '12px' }}>lorem lorem</Typography>
             </div>
           </Grid>
         </Grid>
