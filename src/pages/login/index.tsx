@@ -5,6 +5,9 @@ import { Link } from 'react-router-dom';
 import { useFormik } from 'formik';
 import validationSchema from './schema';
 import imageSrc from '../../assets/loginImg.jpg';
+import {
+  boxStyle, textFieldStyle, buttonStyle, gridStyle,
+} from './classes';
 import './style.css';
 
 const Login = () => {
@@ -20,7 +23,7 @@ const Login = () => {
   });
 
   return (
-    <Grid container component="main" sx={{ height: '100vh', overflow: 'hidden' }}>
+    <Grid container component="main" sx={gridStyle}>
       <CssBaseline />
       <Grid
         item
@@ -31,18 +34,7 @@ const Login = () => {
         <img src={imageSrc} alt="login" className="imageLogin" />
       </Grid>
       <Grid item xs={12} sm={8} md={6} component={Paper} elevation={6} square>
-        <Box
-          sx={{
-            my: 8,
-            mx: 4,
-            mr: 20,
-            mt: 20,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
+        <Box sx={boxStyle}>
 
           <Typography component="h1" variant="h5" sx={{ ml: 5, fontSize: '30px' }}>
             Hello, Again
@@ -51,7 +43,7 @@ const Login = () => {
             <TextField
               margin="normal"
               required
-              sx={{ width: '120%', display: 'flex' }}
+              sx={textFieldStyle}
               id="email"
               name="email"
               label="Email"
@@ -78,7 +70,7 @@ const Login = () => {
               type="submit"
               variant="contained"
               fullWidth
-              sx={{ width: '120%', mt: 2, mb: 2 }}
+              sx={buttonStyle}
             >
               Sign In
             </Button>
