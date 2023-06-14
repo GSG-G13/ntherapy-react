@@ -68,13 +68,11 @@ const LandingPage = () => {
         <Grid item xs={4}>
           <div className="therapy-card">
             <Typography sx={cardHeader} variant="h6">
-              Why Therapy is important ?
+              When Should Therapy Be Used?
             </Typography>
             <Typography>
-              Therapy is an essential part of any successful recovery process,
-              helping to reduce stress, improve mental health, and increase
-              overall wellbeing. Learn why therapy is so important and how it
-              can help you reach your goals.
+              Therapy can be a powerful tool for improving mental health, but
+              it's important to understand when it should be used.{" "}
             </Typography>
           </div>
           <div className="therapy-card">
@@ -88,13 +86,12 @@ const LandingPage = () => {
               mental health and lead a healthier, more fulfilling life.
             </Typography>
           </div>
-          <div className="therapy-card">
-            <Typography sx={cardHeader} variant="h6">
-              When Should Therapy Be Used?
-            </Typography>
+          <div className="therapist-link">
+            <Typography sx={cardHeader} variant="h6"></Typography>
             <Typography>
-              Therapy can be a powerful tool for improving mental health, but
-              it's important to understand when it should be used.{" "}
+              <Link className="search" to="/therapists">
+                LOOKIN FOR A THERAPIST ?
+              </Link>
             </Typography>
           </div>
         </Grid>
@@ -173,9 +170,9 @@ const LandingPage = () => {
         <div>
           <Typography sx={signJoinHeader}>Be one of the team</Typography>
           <Typography sx={signJoinP}>
-            Join us to get provided with the tools and support you need to
-            manage your mental health and lead a healthier, more fulfilling
-            life.
+            Join us and increase efficiency, improve communication, enhanced
+            collaboration, and it can also help to reduce costs, and improve
+            client service.
           </Typography>
           <Link className="join" to="/">
             Join us
