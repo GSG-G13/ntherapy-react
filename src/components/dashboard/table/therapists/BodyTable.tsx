@@ -1,11 +1,7 @@
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
-import Typography from '@mui/material/Typography';
-import { Grid } from '@mui/material';
-import TableRow from '@mui/material/TableRow';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
+import {
+  TableRow, TableBody, TableCell, Grid, Typography, Button, Avatar,
+} from '@mui/material';
 
 const BodyTable = () => (
   <TableBody>

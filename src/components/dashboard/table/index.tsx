@@ -1,5 +1,5 @@
-import TableMiu from '@mui/material/Table';
-import TableContainer from '@mui/material/TableContainer';
+import { Table as TableMiu, TableContainer } from '@mui/material';
+
 import Paper from '@mui/material/Paper';
 import { ReactNode } from 'react';
 
