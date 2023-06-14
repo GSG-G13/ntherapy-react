@@ -1,4 +1,4 @@
-import { Container } from '@mui/material'
+import { Container, InputBase, IconButton } from '@mui/material';
 import Box from '@mui/material/Box';
 import { InputBase, IconButton } from '@mui/material';
 import Grid from '@mui/material/Grid';
@@ -29,9 +29,16 @@ const Therapist = () => {
           <GridCard/>
         </Grid>
       </Container>
-    </>
-  )
-}
+    </Box>
+    <Container>
+      <Grid container>
+        <GridCard />
+        <GridCard />
+        <GridCard />
+        <GridCard />
+      </Grid>
+    </Container>
+  </>
+  )};
 
-
-export default Therapist 
+export default Therapist;

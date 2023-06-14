@@ -1,7 +1,2 @@
-
- const LoginAdmin = () => {
-  return (
-    <div>LoginAdmin</div>
-  )
-}
+const LoginAdmin = () => <div>LoginAdmin</div>;
 export default LoginAdmin;
