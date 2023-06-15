@@ -1,4 +1,3 @@
-import { log } from 'console';
 import {
   Button, CssBaseline, TextField, Paper, Box, Grid, Typography,
 } from '@mui/material';
@@ -19,7 +18,8 @@ const Login = () => {
     },
     validationSchema,
     onSubmit: (values) => {
-      log(JSON.stringify(values, null, 2));
+      // eslint-disable-next-line no-console
+      console.log(JSON.stringify(values, null, 2));
     },
   });
 
