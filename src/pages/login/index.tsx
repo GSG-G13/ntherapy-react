@@ -1,3 +1,4 @@
+import { log } from 'console';
 import {
   Button, CssBaseline, TextField, Paper, Box, Grid, Typography,
 } from '@mui/material';
@@ -18,7 +19,7 @@ const Login = () => {
     },
     validationSchema,
     onSubmit: (values) => {
-      console.log(JSON.stringify(values, null, 2));
+      log(JSON.stringify(values, null, 2));
     },
   });
 
