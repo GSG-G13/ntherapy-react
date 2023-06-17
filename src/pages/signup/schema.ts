@@ -3,7 +3,7 @@ import * as yup from 'yup';
 const validationSchema = yup.object({
   username: yup
     .string().matches(/^[a-zA-Z0-9_]*$/, 'Username should contain only alphabets, numbers and underscore')
-    .min(3, 'Username should be of minimum 3 characters length')
+    .min(3, 'User name should be of minimum 3 characters length')
     .required('Username is required'),
   email: yup
     .string().email('Enter a valid email')

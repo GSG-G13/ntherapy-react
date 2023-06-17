@@ -19,22 +19,22 @@ const handleFileUpload = (_event: React.ChangeEvent<HTMLInputElement>) => {
 };
 
 const Signup = () => {
-  const [userType, setUserType] = useState('');
-  const [showAdditionalFields, setShowAdditionalFields] = useState(false);
+  const [userType, setUserType] = useState('user');
 
   const handleUserTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUserType(event.target.value);
-    setShowAdditionalFields(event.target.value === 'therapist');
   };
 
   const formik = useFormik({
     initialValues: {
-      username: 'yasser',
-      email: 'yasser@example.com',
-      password: '123456789',
-      confirmPassword: '123456789',
-      major: 'Psychology',
-      hourlyRate: '100',
+      username: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+      major: '',
+      hourlyRate: '',
+      cv: '',
+      image: '',
     },
     validationSchema,
     onSubmit: (values) => {
@@ -44,18 +44,16 @@ const Signup = () => {
   });
 
   const renderAdditionalFields = () => {
-    if (showAdditionalFields) {
+    if (userType === 'therapist') {
       return (
         <>
           <TextField
             margin="normal"
             required
-            autoFocus
             sx={textFieldStyle}
             id="major"
             name="major"
             label="major"
-            type="major"
             onChange={formik.handleChange}
             error={formik.touched.major && Boolean(formik.errors.major)}
             helperText={formik.touched.major && formik.errors.major}
@@ -67,8 +65,7 @@ const Signup = () => {
             sx={textFieldStyle}
             id="hourlyRate"
             name="hourlyRate"
-            label="hourlyRate"
-            type="hourlyRate"
+            label="hourly Rate"
             onChange={formik.handleChange}
             error={formik.touched.hourlyRate && Boolean(formik.errors.hourlyRate)}
             helperText={formik.touched.hourlyRate && formik.errors.hourlyRate}
@@ -148,9 +145,9 @@ const Signup = () => {
               />
               <FormControlLabel
                 style={{ margin: '10px' }}
-                value="patient"
+                value="user"
                 control={<Radio />}
-                label="patient"
+                label="user"
                 labelPlacement="end"
               />
             </RadioGroup>
@@ -160,7 +157,7 @@ const Signup = () => {
               sx={textFieldStyle}
               id="username"
               name="username"
-              label="username"
+              label="Full Name"
               autoFocus
               onChange={formik.handleChange}
               error={formik.touched.username && Boolean(formik.errors.username)}
@@ -173,7 +170,6 @@ const Signup = () => {
               id="email"
               name="email"
               label="Email"
-              autoFocus
               onChange={formik.handleChange}
               error={formik.touched.email && Boolean(formik.errors.email)}
               helperText={formik.touched.email && formik.errors.email}
@@ -181,7 +177,6 @@ const Signup = () => {
             <TextField
               margin="normal"
               required
-              autoFocus
               sx={textFieldStyle}
               id="password"
               name="password"
@@ -194,11 +189,10 @@ const Signup = () => {
             <TextField
               margin="normal"
               required
-              autoFocus
               sx={textFieldStyle}
               id="confirmPassword"
               name="confirmPassword"
-              label="confirmPassword"
+              label="Confirm Password"
               type="password"
               onChange={formik.handleChange}
               error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
