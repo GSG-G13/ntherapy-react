@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from 'react';
 import {
   Button, CssBaseline, TextField, Paper, Box, Grid, Typography, RadioGroup, FormControlLabel, Radio,
@@ -12,11 +10,6 @@ import {
   boxStyle, textFieldStyle, buttonStyle, gridStyle, imageStyle, fileUploadStyle,
 } from './classes';
 import './style.css';
-
-const handleFileUpload = (_event: React.ChangeEvent<HTMLInputElement>) => {
-  // eslint-disable-next-line no-console
-  console.log('File uploaded successfully.');
-};
 
 const Signup = () => {
   const [userType, setUserType] = useState('user');
@@ -43,6 +36,15 @@ const Signup = () => {
     },
   });
 
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      console.log('File uploaded successfully.');
+      formik.setFieldValue(event.target.name, file);
+    } else {
+      console.log('Failed to upload file.');
+    }
+  };
   const renderAdditionalFields = () => {
     if (userType === 'therapist') {
       return (
