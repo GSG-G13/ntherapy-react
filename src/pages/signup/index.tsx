@@ -1,12 +1,20 @@
 import React, { useState } from 'react';
-
+import { SnackbarProvider, useSnackbar, VariantType } from 'notistack';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
 import {
-  Button, CssBaseline, TextField, Paper, Box, Grid, Typography, RadioGroup, FormControlLabel, Radio,
-  Snackbar, Alert, AlertColor,
+  Button,
+  CssBaseline,
+  TextField,
+  Paper,
+  Box,
+  Grid,
+  Typography,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
 } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useFormik } from 'formik';
@@ -18,12 +26,15 @@ import {
 import './style.css';
 
 const Signup = () => {
+  const { enqueueSnackbar } = useSnackbar();
+
+  const showSnackbar = (message:string, severity:VariantType) => {
+    enqueueSnackbar(message, { variant: severity });
+  };
+
   const [userType, setUserType] = useState('user');
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
-  const [openSnackbar, setOpenSnackbar] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState('');
-  const [snackbarSeverity, setSnackbarSeverity] = useState<AlertColor>('success');
 
   const handleUserTypeChange = (event:React.ChangeEvent<HTMLInputElement>) => {
     setUserType(event.target.value);
@@ -43,9 +54,7 @@ const Signup = () => {
     validationSchema,
     onSubmit: (values) => {
       console.log(JSON.stringify(values, null, 2));
-      setSnackbarMessage('Signup successful!');
-      setSnackbarSeverity('success');
-      setOpenSnackbar(true);
+      showSnackbar('Signup successful!', 'success');
     },
   });
 
@@ -56,20 +65,14 @@ const Signup = () => {
       if (allowedTypes.includes(file.type)) {
         console.log('File uploaded successfully.', file);
         formik.setFieldValue(event.target.name, file);
-        setSnackbarMessage('File uploaded successfully!');
-        setSnackbarSeverity('success');
-        setOpenSnackbar(true);
+        showSnackbar('File uploaded successfully!', 'success');
       } else {
         console.log('Invalid file type. Please upload a PDF, JPEG, or PNG file.');
-        setSnackbarMessage('Invalid file type. Please upload a PDF, JPEG, or PNG file.');
-        setSnackbarSeverity('error');
-        setOpenSnackbar(true);
+        showSnackbar('Invalid file type. Please upload a PDF, JPEG, or PNG file.', 'error');
       }
     } else {
       console.log('Failed to upload file.');
-      setSnackbarMessage('Failed to upload file.');
-      setSnackbarSeverity('error');
-      setOpenSnackbar(true);
+      showSnackbar('Failed to upload file.', 'error');
     }
   };
 
@@ -101,9 +104,7 @@ const Signup = () => {
             helperText={formik.touched.hourlyRate && formik.errors.hourlyRate}
             InputProps={{
               startAdornment: (
-                <InputAdornment position="start">
-                  $
-                </InputAdornment>
+                <InputAdornment position="start">$</InputAdornment>
               ),
             }}
           />
@@ -153,10 +154,6 @@ const Signup = () => {
     setConfirmPasswordVisible(!confirmPasswordVisible);
   };
 
-  const handleCloseSnackbar = () => {
-    setOpenSnackbar(false);
-  };
-
   return (
     <Grid container component="main" sx={gridStyle}>
       <CssBaseline />
@@ -191,7 +188,6 @@ const Signup = () => {
               onChange={handleUserTypeChange}
               row
             >
-
               <FormControlLabel
                 style={{ margin: '10px' }}
                 value="user"
@@ -278,7 +274,6 @@ const Signup = () => {
                 ),
               }}
             />
-
             {renderAdditionalFields()}
             <Button type="submit" variant="contained" fullWidth sx={buttonStyle}>
               Join us
@@ -293,17 +288,14 @@ const Signup = () => {
           </Box>
         </Box>
       </Grid>
-      <Snackbar
-        open={openSnackbar}
-        autoHideDuration={6000}
-        onClose={handleCloseSnackbar}
-      >
-        <Alert onClose={handleCloseSnackbar} severity={snackbarSeverity}>
-          {snackbarMessage}
-        </Alert>
-      </Snackbar>
     </Grid>
   );
 };
 
-export default Signup;
+const SignupWithSnackbar = () => (
+  <SnackbarProvider maxSnack={3}>
+    <Signup />
+  </SnackbarProvider>
+);
+
+export default SignupWithSnackbar;
