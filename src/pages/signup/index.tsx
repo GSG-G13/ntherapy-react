@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import InputAdornment from '@mui/material/InputAdornment';
+import IconButton from '@mui/material/IconButton';
 import 'react-toastify/dist/ReactToastify.css';
 import {
   Button, CssBaseline, TextField, Paper, Box, Grid, Typography, RadioGroup, FormControlLabel, Radio,
@@ -28,13 +32,14 @@ const Signup = () => {
       confirmPassword: '',
       major: '',
       hourlyRate: '',
-      cv: '',
-      image: '',
+      cv: null,
+      image: null,
+      showPassword: false,
     },
     validationSchema,
     onSubmit: (values) => {
-      // eslint-disable-next-line no-console
       console.log(JSON.stringify(values, null, 2));
+      toast.success('Signup successful!');
     },
   });
 
@@ -87,12 +92,17 @@ const Signup = () => {
           <label htmlFor="file-upload">
             <input
               accept=".pdf"
+              name="cv"
               id="file-upload"
               type="file"
               style={{ display: 'none' }}
               onChange={handleFileUpload}
             />
-            <Button variant="contained" component="span" style={fileUploadStyle}>
+            <Button
+              variant="contained"
+              component="span"
+              style={fileUploadStyle}
+            >
               Upload CV
             </Button>
           </label>
@@ -101,6 +111,7 @@ const Signup = () => {
             <input
               accept="image/*"
               id="img-upload"
+              name="image"
               type="file"
               style={{ display: 'none' }}
               onChange={handleFileUpload}
@@ -118,7 +129,7 @@ const Signup = () => {
   return (
     <Grid container component="main" sx={gridStyle}>
       <CssBaseline />
-      <Grid style={{ height: 'fit-content', width: 'fit-content', overflow: 'hidden' }} item xs={false} sm={4} md={6}>
+      <Grid style={{ height: '100vh', width: '100%', overflow: 'hidden' }} item xs={false} sm={4} md={6}>
         <img src={imageSrc} alt="login" className="imageLogin" style={imageStyle} />
       </Grid>
       <Grid
@@ -173,7 +184,6 @@ const Signup = () => {
               id="username"
               name="username"
               label="Full Name"
-              autoFocus
               onChange={formik.handleChange}
               error={formik.touched.username && Boolean(formik.errors.username)}
               helperText={formik.touched.username && formik.errors.username}
@@ -196,10 +206,22 @@ const Signup = () => {
               id="password"
               name="password"
               label="Password"
-              type="password"
+              type={formik.values.showPassword ? 'text' : 'password'}
               onChange={formik.handleChange}
               error={formik.touched.password && Boolean(formik.errors.password)}
               helperText={formik.touched.password && formik.errors.password}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={() => formik.setFieldValue('showPassword', !formik.values.showPassword)}
+                    >
+                      {formik.values.showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
             />
             <TextField
               margin="normal"
@@ -208,11 +230,24 @@ const Signup = () => {
               id="confirmPassword"
               name="confirmPassword"
               label="Confirm Password"
-              type="password"
+              type={formik.values.showPassword ? 'text' : 'password'}
               onChange={formik.handleChange}
               error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
               helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={() => formik.setFieldValue('showPassword', !formik.values.showPassword)}
+                    >
+                      {formik.values.showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
             />
+
             {renderAdditionalFields()}
             <Button type="submit" variant="contained" fullWidth sx={buttonStyle}>
               Join us

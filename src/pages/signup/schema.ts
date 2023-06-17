@@ -28,6 +28,41 @@ const validationSchema = yup.object({
   hourlyRate: yup
     .number()
     .required('Hourly Rate is required'),
+  cv: yup
+    .mixed()
+    .required('CV is required')
+    .test('fileSize', 'File Size is too large', (value) => {
+      if (!value) return false;
+      if (value instanceof File) {
+        return value.size <= 2000000;
+      }
+      return true;
+    })
+    .test('fileType', 'Unsupported File Format', (value) => {
+      if (!value) return false;
+      if (value instanceof File) {
+        return ['application/pdf'].includes(value.type);
+      }
+      return true;
+    }),
+  image: yup
+    .mixed()
+    .required('Image is required')
+    .test('fileSize', 'File Size is too large', (value) => {
+      if (!value) return false;
+      if (value instanceof File) {
+        return value.size <= 2000000;
+      }
+      return true;
+    })
+    .test('fileType', 'Unsupported File Format', (value) => {
+      if (!value) return false;
+      if (value instanceof File) {
+        return ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'].includes(value.type);
+      }
+      return true;
+    })
+    .required('CV is required'),
 
 });
 
