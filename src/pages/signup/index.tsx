@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
-import 'react-toastify/dist/ReactToastify.css';
 import {
   Button, CssBaseline, TextField, Paper, Box, Grid, Typography, RadioGroup, FormControlLabel, Radio,
+  Snackbar, Alert, AlertColor,
 } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useFormik } from 'formik';
@@ -19,8 +19,13 @@ import './style.css';
 
 const Signup = () => {
   const [userType, setUserType] = useState('user');
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [snackbarSeverity, setSnackbarSeverity] = useState<AlertColor>('success');
 
-  const handleUserTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleUserTypeChange = (event:React.ChangeEvent<HTMLInputElement>) => {
     setUserType(event.target.value);
   };
 
@@ -34,30 +39,37 @@ const Signup = () => {
       hourlyRate: '',
       cv: null,
       image: null,
-      showPassword: false,
     },
     validationSchema,
     onSubmit: (values) => {
       console.log(JSON.stringify(values, null, 2));
-      toast.success('Signup successful!');
+      setSnackbarMessage('Signup successful!');
+      setSnackbarSeverity('success');
+      setOpenSnackbar(true);
     },
   });
 
-  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = (event:React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       const allowedTypes = ['application/pdf', 'image/jpeg', 'image/png'];
       if (allowedTypes.includes(file.type)) {
         console.log('File uploaded successfully.', file);
         formik.setFieldValue(event.target.name, file);
-        toast.success('File uploaded successfully!');
+        setSnackbarMessage('File uploaded successfully!');
+        setSnackbarSeverity('success');
+        setOpenSnackbar(true);
       } else {
         console.log('Invalid file type. Please upload a PDF, JPEG, or PNG file.');
-        toast.error('Invalid file type. Please upload a PDF, JPEG, or PNG file.');
+        setSnackbarMessage('Invalid file type. Please upload a PDF, JPEG, or PNG file.');
+        setSnackbarSeverity('error');
+        setOpenSnackbar(true);
       }
     } else {
       console.log('Failed to upload file.');
-      toast.error('Failed to upload file.');
+      setSnackbarMessage('Failed to upload file.');
+      setSnackbarSeverity('error');
+      setOpenSnackbar(true);
     }
   };
 
@@ -131,6 +143,18 @@ const Signup = () => {
       );
     }
     return null;
+  };
+
+  const handlePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
+
+  const handleConfirmPasswordVisibility = () => {
+    setConfirmPasswordVisible(!confirmPasswordVisible);
+  };
+
+  const handleCloseSnackbar = () => {
+    setOpenSnackbar(false);
   };
 
   return (
@@ -213,7 +237,7 @@ const Signup = () => {
               id="password"
               name="password"
               label="Password"
-              type={formik.values.showPassword ? 'text' : 'password'}
+              type={passwordVisible ? 'text' : 'password'}
               onChange={formik.handleChange}
               error={formik.touched.password && Boolean(formik.errors.password)}
               helperText={formik.touched.password && formik.errors.password}
@@ -222,9 +246,9 @@ const Signup = () => {
                   <InputAdornment position="end">
                     <IconButton
                       aria-label="toggle password visibility"
-                      onClick={() => formik.setFieldValue('showPassword', !formik.values.showPassword)}
+                      onClick={handlePasswordVisibility}
                     >
-                      {formik.values.showPassword ? <Visibility /> : <VisibilityOff />}
+                      {passwordVisible ? <Visibility /> : <VisibilityOff />}
                     </IconButton>
                   </InputAdornment>
                 ),
@@ -237,7 +261,7 @@ const Signup = () => {
               id="confirmPassword"
               name="confirmPassword"
               label="Confirm Password"
-              type={formik.values.showPassword ? 'text' : 'password'}
+              type={confirmPasswordVisible ? 'text' : 'password'}
               onChange={formik.handleChange}
               error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
               helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
@@ -245,10 +269,10 @@ const Signup = () => {
                 endAdornment: (
                   <InputAdornment position="end">
                     <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={() => formik.setFieldValue('showPassword', !formik.values.showPassword)}
+                      aria-label="toggle confirm password visibility"
+                      onClick={handleConfirmPasswordVisibility}
                     >
-                      {formik.values.showPassword ? <Visibility /> : <VisibilityOff />}
+                      {confirmPasswordVisible ? <Visibility /> : <VisibilityOff />}
                     </IconButton>
                   </InputAdornment>
                 ),
@@ -269,7 +293,15 @@ const Signup = () => {
           </Box>
         </Box>
       </Grid>
-      <ToastContainer />
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+      >
+        <Alert onClose={handleCloseSnackbar} severity={snackbarSeverity}>
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </Grid>
   );
 };
