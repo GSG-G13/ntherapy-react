@@ -45,6 +45,7 @@ const Signup = () => {
     <Grid container component="main" sx={gridStyle}>
       <CssBaseline />
       <Grid
+        style={{ height: 'fit-content', width: 'fit-content', overflow: 'hidden' }}
         item
         xs={false}
         sm={4}
@@ -60,6 +61,7 @@ const Signup = () => {
         component={Paper}
         elevation={6}
         square
+        style={{ height: '100vh', overflow: 'auto', overflowX: 'hidden' }}
       >
         <Box sx={boxStyle}>
 
@@ -137,7 +139,7 @@ const Signup = () => {
               id="confirmPassword"
               name="confirmPassword"
               label="confirmPassword"
-              type="confirmPassword"
+              type="password"
               onChange={formik.handleChange}
               error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
               helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
