@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {
   Button, CssBaseline, TextField, Paper, Box, Grid, Typography, RadioGroup, FormControlLabel, Radio,
 } from '@mui/material';
@@ -39,12 +41,21 @@ const Signup = () => {
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      console.log('File uploaded successfully.', file);
-      formik.setFieldValue(event.target.name, file);
+      const allowedTypes = ['application/pdf', 'image/jpeg', 'image/png'];
+      if (allowedTypes.includes(file.type)) {
+        console.log('File uploaded successfully.', file);
+        formik.setFieldValue(event.target.name, file);
+        toast.success('File uploaded successfully!');
+      } else {
+        console.log('Invalid file type. Please upload a PDF, JPEG, or PNG file.');
+        toast.error('Invalid file type. Please upload a PDF, JPEG, or PNG file.');
+      }
     } else {
       console.log('Failed to upload file.');
+      toast.error('Failed to upload file.');
     }
   };
+
   const renderAdditionalFields = () => {
     if (userType === 'therapist') {
       return (
@@ -216,6 +227,7 @@ const Signup = () => {
           </Box>
         </Box>
       </Grid>
+      <ToastContainer />
     </Grid>
   );
 };
