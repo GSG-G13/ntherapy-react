@@ -83,10 +83,17 @@ const Signup = () => {
             sx={textFieldStyle}
             id="hourlyRate"
             name="hourlyRate"
-            label="hourly Rate"
+            label="Hourly Rate"
             onChange={formik.handleChange}
             error={formik.touched.hourlyRate && Boolean(formik.errors.hourlyRate)}
             helperText={formik.touched.hourlyRate && formik.errors.hourlyRate}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  $
+                </InputAdornment>
+              ),
+            }}
           />
 
           <label htmlFor="file-upload">
