@@ -39,7 +39,7 @@ const Signup = () => {
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      console.log('File uploaded successfully.');
+      console.log('File uploaded successfully.', file);
       formik.setFieldValue(event.target.name, file);
     } else {
       console.log('Failed to upload file.');
