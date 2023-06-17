@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from 'react';
 import {
   Button, CssBaseline, TextField, Paper, Box, Grid, Typography, RadioGroup, FormControlLabel, Radio,
@@ -11,11 +13,11 @@ import {
 } from './classes';
 import './style.css';
 
-// eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
-const handleFileUpload = (_event:React.ChangeEvent<HTMLInputElement>) => {
+const handleFileUpload = (_event: React.ChangeEvent<HTMLInputElement>) => {
   // eslint-disable-next-line no-console
   console.log('File uploaded successfully.');
 };
+
 const Signup = () => {
   const [userType, setUserType] = useState('');
   const [showAdditionalFields, setShowAdditionalFields] = useState(false);
@@ -41,16 +43,72 @@ const Signup = () => {
     },
   });
 
+  const renderAdditionalFields = () => {
+    if (showAdditionalFields) {
+      return (
+        <>
+          <TextField
+            margin="normal"
+            required
+            autoFocus
+            sx={textFieldStyle}
+            id="major"
+            name="major"
+            label="major"
+            type="major"
+            onChange={formik.handleChange}
+            error={formik.touched.major && Boolean(formik.errors.major)}
+            helperText={formik.touched.major && formik.errors.major}
+          />
+          <TextField
+            margin="normal"
+            required
+            autoFocus
+            sx={textFieldStyle}
+            id="hourlyRate"
+            name="hourlyRate"
+            label="hourlyRate"
+            type="hourlyRate"
+            onChange={formik.handleChange}
+            error={formik.touched.hourlyRate && Boolean(formik.errors.hourlyRate)}
+            helperText={formik.touched.hourlyRate && formik.errors.hourlyRate}
+          />
+
+          <label htmlFor="file-upload">
+            <input
+              accept=".pdf"
+              id="file-upload"
+              type="file"
+              style={{ display: 'none' }}
+              onChange={handleFileUpload}
+            />
+            <Button variant="contained" component="span" style={fileUploadStyle}>
+              Upload CV
+            </Button>
+          </label>
+
+          <label htmlFor="img-upload">
+            <input
+              accept="image/*"
+              id="img-upload"
+              type="file"
+              style={{ display: 'none' }}
+              onChange={handleFileUpload}
+            />
+            <Button variant="contained" component="span" style={fileUploadStyle}>
+              Upload Image
+            </Button>
+          </label>
+        </>
+      );
+    }
+    return null;
+  };
+
   return (
     <Grid container component="main" sx={gridStyle}>
       <CssBaseline />
-      <Grid
-        style={{ height: 'fit-content', width: 'fit-content', overflow: 'hidden' }}
-        item
-        xs={false}
-        sm={4}
-        md={6}
-      >
+      <Grid style={{ height: 'fit-content', width: 'fit-content', overflow: 'hidden' }} item xs={false} sm={4} md={6}>
         <img src={imageSrc} alt="login" className="imageLogin" style={imageStyle} />
       </Grid>
       <Grid
@@ -64,14 +122,16 @@ const Signup = () => {
         style={{ height: '100vh', overflow: 'auto', overflowX: 'hidden' }}
       >
         <Box sx={boxStyle}>
-
           <Typography component="h1" variant="h5" sx={{ ml: 5, fontSize: '30px' }}>
             Join us
           </Typography>
           <Box component="form" noValidate sx={{ mt: 5 }} onSubmit={formik.handleSubmit}>
             <RadioGroup
               style={{
-                display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center',
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'center',
+                alignItems: 'center',
               }}
               aria-label="userType"
               name="userType"
@@ -144,75 +204,11 @@ const Signup = () => {
               error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
               helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
             />
-            {showAdditionalFields && (
-              <>
-                <TextField
-                  margin="normal"
-                  required
-                  autoFocus
-                  sx={textFieldStyle}
-                  id="major"
-                  name="major"
-                  label="major"
-                  type="major"
-                  onChange={formik.handleChange}
-                  error={formik.touched.major && Boolean(formik.errors.major)}
-                  helperText={formik.touched.major && formik.errors.major}
-                />
-                <TextField
-                  margin="normal"
-                  required
-                  autoFocus
-                  sx={textFieldStyle}
-                  id="hourlyRate"
-                  name="hourlyRate"
-                  label="hourlyRate"
-                  type="hourlyRate"
-                  onChange={formik.handleChange}
-                  error={formik.touched.hourlyRate && Boolean(formik.errors.hourlyRate)}
-                  helperText={formik.touched.hourlyRate && formik.errors.hourlyRate}
-                />
-
-                <label htmlFor="file-upload">
-
-                  <input
-                    accept=".pdf"
-                    id="file-upload"
-                    type="file"
-                    style={{ display: 'none' }}
-                    onChange={handleFileUpload}
-                  />
-                  <Button variant="contained" component="span" style={fileUploadStyle}>
-                    Upload CV
-                  </Button>
-                </label>
-
-                <label htmlFor="img-upload">
-                  <input
-                    accept="image/*"
-                    id="img-upload"
-                    type="file"
-                    style={{ display: 'none' }}
-                    onChange={handleFileUpload}
-                  />
-                  <Button variant="contained" component="span" style={fileUploadStyle}>
-                    Upload Image
-                  </Button>
-                </label>
-
-              </>
-            )}
-
-            <Button
-              type="submit"
-              variant="contained"
-              fullWidth
-              sx={buttonStyle}
-            >
+            {renderAdditionalFields()}
+            <Button type="submit" variant="contained" fullWidth sx={buttonStyle}>
               Join us
             </Button>
             <Grid container>
-
               <Grid item>
                 <Link to="/login" style={{ margin: '80px' }}>
                   Already have an account? Sign in
