@@ -136,18 +136,20 @@ const Signup = () => {
               onChange={handleUserTypeChange}
               row
             >
-              <FormControlLabel
-                style={{ margin: '10px' }}
-                value="therapist"
-                control={<Radio />}
-                label="therapist"
-                labelPlacement="end"
-              />
+
               <FormControlLabel
                 style={{ margin: '10px' }}
                 value="user"
                 control={<Radio />}
                 label="user"
+                labelPlacement="end"
+              />
+
+              <FormControlLabel
+                style={{ margin: '10px' }}
+                value="therapist"
+                control={<Radio />}
+                label="therapist"
                 labelPlacement="end"
               />
             </RadioGroup>
