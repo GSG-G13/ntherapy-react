@@ -156,7 +156,7 @@ const Signup = () => {
   return (
     <Grid container component="main" sx={gridStyle}>
       <CssBaseline />
-      <Grid style={{ height: '100vh', width: '100%', overflow: 'hidden' }} item xs={false} sm={4} md={6}>
+      <Grid style={{ height: 'fit-content', width: 'fit-content', overflow: 'hidden' }} item xs={false} sm={4} md={6}>
         <img src={imageSrc} alt="login" className="imageLogin" style={imageStyle} />
       </Grid>
       <Grid

@@ -31,6 +31,7 @@ const Login = () => {
         xs={false}
         sm={4}
         md={6}
+        sx={{ height: 'fit-content', width: 'fit-content', overflow: 'hidden' }}
       >
         <img src={imageSrc} alt="login" className="imageLogin" />
       </Grid>
