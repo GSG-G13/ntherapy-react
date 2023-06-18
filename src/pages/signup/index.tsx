@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SnackbarProvider, useSnackbar, VariantType } from 'notistack';
+import { useSnackbar, VariantType } from 'notistack';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -94,7 +94,6 @@ const Signup = () => {
           <TextField
             margin="normal"
             required
-            autoFocus
             sx={textFieldStyle}
             id="hourlyRate"
             name="hourlyRate"
@@ -292,10 +291,4 @@ const Signup = () => {
   );
 };
 
-const SignupWithSnackbar = () => (
-  <SnackbarProvider maxSnack={3}>
-    <Signup />
-  </SnackbarProvider>
-);
-
-export default SignupWithSnackbar;
+export default Signup;

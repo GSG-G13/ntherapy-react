@@ -12,12 +12,12 @@ const boxStyle: Type = {
 };
 
 const textFieldStyle: Type = {
-  width: '120%',
+  maxWidth: '120%',
   display: 'flex',
 };
 
 const buttonStyle: Type = {
-  width: '120%',
+  maxWidth: '120%',
   marginTop: '12px',
   marginBottom: '10px',
 };

@@ -34,7 +34,16 @@ const Login = () => {
       >
         <img src={imageSrc} alt="login" className="imageLogin" />
       </Grid>
-      <Grid item xs={12} sm={8} md={6} component={Paper} elevation={6} square>
+      <Grid
+        item
+        xs={12}
+        sm={8}
+        md={6}
+        component={Paper}
+        elevation={6}
+        square
+        style={{ height: '100vh', overflow: 'auto', overflowX: 'hidden' }}
+      >
         <Box sx={boxStyle}>
 
           <Typography component="h1" variant="h5" sx={{ ml: 5, fontSize: '30px' }}>
@@ -57,7 +66,7 @@ const Login = () => {
               margin="normal"
               required
               autoFocus
-              sx={{ width: '120%' }}
+              sx={textFieldStyle}
               id="password"
               name="password"
               label="Password"
@@ -78,7 +87,7 @@ const Login = () => {
             <Grid container>
 
               <Grid item>
-                <Link to="/signup" style={{ marginLeft: '80px' }}>
+                <Link to="/signup" style={{ margin: '80px' }}>
                   Do not have an account? Sign Up
                 </Link>
               </Grid>
