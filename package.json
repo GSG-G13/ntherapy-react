@@ -17,6 +17,7 @@
     "@material/card": "^14.0.0",
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.13.4",
+    "@mui/x-date-pickers": "^6.8.0",
     "@types/react-router-dom": "^5.3.3",
     "axios": "^1.4.0",
     "formik": "^2.4.1",
