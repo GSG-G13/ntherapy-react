@@ -9,6 +9,7 @@ const boxStyle: Type = {
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
+  width: '100%',
 };
 
 const textFieldStyle: Type = {
@@ -27,6 +28,25 @@ const gridStyle: Type = {
   overflow: 'hidden',
 };
 
+const imageStyle: Type = {
+  width: '100%',
+  height: '100%',
+  objectFit: 'cover',
+
+};
+
+const fileUploadStyle:Type = {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  maxWidth: '120%',
+  color: '#000',
+  backgroundColor: '#DDD',
+  margin: '20px 0',
+  padding: '10px 0',
+};
+
 export {
-  boxStyle, textFieldStyle, buttonStyle, gridStyle,
+  boxStyle, textFieldStyle, buttonStyle, gridStyle, imageStyle, fileUploadStyle,
 };

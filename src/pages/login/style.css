@@ -4,7 +4,7 @@
     object-fit: cover;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 900px) {
     .imageLogin{
         display: none;
     }
