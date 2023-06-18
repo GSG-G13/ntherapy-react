@@ -70,7 +70,7 @@ const Login = () => {
               id="password"
               name="password"
               label="Password"
-              type={showPassword ? 'text' : 'password'} // Update the type dynamically
+              type={showPassword ? 'text' : 'password'}
               onChange={formik.handleChange}
               error={formik.touched.password && Boolean(formik.errors.password)}
               helperText={formik.touched.password && formik.errors.password}
