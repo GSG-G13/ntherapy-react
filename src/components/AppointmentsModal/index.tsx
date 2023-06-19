@@ -5,7 +5,9 @@ import {
 import { DatePicker, LocalizationProvider, TimePicker } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { useFormik } from 'formik';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import validationSchema from '../../pages/therapistProfile/schema';
+import classes from './classes';
 
 interface Props {
   handleClose: () => void;
@@ -21,7 +23,6 @@ const style = {
   boxShadow: 24,
   p: 4,
   height: '70%',
-  // overflow: 'auto',
   borderRadius: '25px',
 
 };
@@ -64,7 +65,7 @@ const AppointmentsModal = ({ handleClose, open }: Props) => {
     >
       <Fade in={open}>
         <Box sx={style} component="form" onSubmit={formik.handleSubmit}>
-          <Typography component="b">Choose Your Availability Times</Typography>
+          <Typography component="b">Choose Your Availability Times </Typography>
           <Typography id="transition-modal-title" variant="body1" component="p" sx={{ margin: '5px', fontSize: '12px' }}>Flexibly select and schedule preferred time slots for availability.</Typography>
           <Typography id="transition-modal-title" variant="body1" component="p" color="error" sx={{ margin: '5px', fontSize: '10px' }}>*selected times will be added as records of one-hour available sessions</Typography>
           <Container>
@@ -111,7 +112,7 @@ const AppointmentsModal = ({ handleClose, open }: Props) => {
                 <Grid item xs={12}>
                   {timeInput.map((_item) => (
                     <div key={_item}>
-                      <button
+                      <HighlightOffIcon
                         type="button"
                         onClick={() => {
                           if (timeInput.length === 1) {
@@ -120,10 +121,8 @@ const AppointmentsModal = ({ handleClose, open }: Props) => {
                           const filteredInputs = timeInput.filter((ele) => ele !== _item);
                           setTimeInput(filteredInputs);
                         }}
-                      >
-                        close
-
-                      </button>
+                        sx={classes.Icon}
+                      />
                       <Grid container spacing={2} sx={{ marginTop: '1rem' }}>
                         <Grid item xs={6}>
                           <LocalizationProvider dateAdapter={AdapterDayjs}>
