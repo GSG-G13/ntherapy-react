@@ -1,12 +1,25 @@
+import { useState } from 'react';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import {
-  Button, CssBaseline, TextField, Paper, Box, Grid, Typography,
+  Button,
+  CssBaseline,
+  TextField,
+  Paper,
+  Box,
+  Grid,
+  Typography,
+  InputAdornment,
+  IconButton,
 } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useFormik } from 'formik';
 import validationSchema from './schema';
 import imageSrc from '../../assets/loginImg.jpg';
 import {
-  boxStyle, textFieldStyle, buttonStyle, gridStyle,
+  boxStyle,
+  textFieldStyle,
+  buttonStyle,
+  gridStyle,
 } from './classes';
 import './style.css';
 
@@ -22,6 +35,8 @@ const Login = () => {
       console.log(JSON.stringify(values, null, 2));
     },
   });
+
+  const [showPassword, setShowPassword] = useState(false);
 
   return (
     <Grid container component="main" sx={gridStyle}>
@@ -46,7 +61,6 @@ const Login = () => {
         style={{ height: '100vh', overflow: 'auto', overflowX: 'hidden' }}
       >
         <Box sx={boxStyle}>
-
           <Typography component="h1" variant="h5" sx={{ ml: 5, fontSize: '30px' }}>
             Hello, Again
           </Typography>
@@ -71,22 +85,27 @@ const Login = () => {
               id="password"
               name="password"
               label="Password"
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               onChange={formik.handleChange}
               error={formik.touched.password && Boolean(formik.errors.password)}
               helperText={formik.touched.password && formik.errors.password}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={() => setShowPassword(!showPassword)}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
             />
-
-            <Button
-              type="submit"
-              variant="contained"
-              fullWidth
-              sx={buttonStyle}
-            >
+            <Button type="submit" variant="contained" fullWidth sx={buttonStyle}>
               Sign In
             </Button>
             <Grid container>
-
               <Grid item>
                 <Link to="/signup" style={{ margin: '80px' }}>
                   Do not have an account? Sign Up
