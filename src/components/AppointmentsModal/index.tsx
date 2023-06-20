@@ -112,18 +112,22 @@ const AppointmentsModal = ({ handleClose, open }: Props) => {
                 <Grid item xs={12}>
                   {timeInput.map((_item) => (
                     <div key={_item}>
-                      <HighlightOffIcon
-                        type="button"
-                        onClick={() => {
-                          if (timeInput.length === 1) {
-                            return;
-                          }
-                          const filteredInputs = timeInput.filter((ele) => ele !== _item);
-                          setTimeInput(filteredInputs);
-                        }}
-                        sx={classes.Icon}
-                      />
+
                       <Grid container spacing={2} sx={{ marginTop: '1rem' }}>
+                        <Grid xs={12}>
+                          <HighlightOffIcon
+                            type="button"
+                            onClick={() => {
+                              if (timeInput.length === 1) {
+                                return;
+                              }
+                              const filteredInputs = timeInput.filter((ele) => ele !== _item);
+                              setTimeInput(filteredInputs);
+                            }}
+                            sx={classes.Icon}
+                          />
+
+                        </Grid>
                         <Grid item xs={6}>
                           <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <TimePicker

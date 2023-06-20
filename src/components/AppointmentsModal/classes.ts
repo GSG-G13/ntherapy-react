@@ -6,10 +6,9 @@ const Icon: Type = {
   fontSize: '20px',
   cursor: 'pointer',
   color: '#888888',
-  marginBottom: '10px',
-  position: 'absolute',
-  top: ' 10.5rem',
-  left: ' 37px',
+  marginLeft: ' 18px',
+  marginBottom: ' -9px',
+
 };
 
 const classes = { Icon };
