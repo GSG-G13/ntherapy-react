@@ -6,7 +6,7 @@ import { DatePicker, LocalizationProvider, TimePicker } from '@mui/x-date-picker
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { FormikErrors, useFormik } from 'formik';
 import DeleteIcon from '@mui/icons-material/Delete';
-import validationSchema from '../../pages/therapistProfile/schema';
+import validationSchema from './schema';
 import classes from './classes';
 
 interface Props {
@@ -139,7 +139,7 @@ const AppointmentsModal = ({ handleClose, open }: Props) => {
                             />
                           </LocalizationProvider>
                         </Grid>
-                        <Grid item xs={5}>
+                        <Grid item xs={timeInput.length === 1 ? 6 : 5}>
                           <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                               <TimePicker
@@ -164,19 +164,22 @@ const AppointmentsModal = ({ handleClose, open }: Props) => {
                             </LocalizationProvider>
                           </LocalizationProvider>
                         </Grid>
-                        <Grid item xs={1}>
-                          <DeleteIcon
-                            type="button"
-                            onClick={() => {
-                              if (timeInput.length === 1) {
-                                return;
-                              }
-                              const filteredInputs = timeInput.filter((ele) => ele !== item);
-                              setTimeInput(filteredInputs);
-                            }}
-                            sx={classes.Icon}
-                          />
-                        </Grid>
+                        {timeInput.length > 1 && (
+
+                          <Grid item xs={1}>
+                            <DeleteIcon
+                              type="button"
+                              onClick={() => {
+                                if (timeInput.length === 1) {
+                                  return;
+                                }
+                                const filteredInputs = timeInput.filter((ele) => ele !== item);
+                                setTimeInput(filteredInputs);
+                              }}
+                              sx={classes.Icon}
+                            />
+                          </Grid>
+                        )}
                       </Grid>
                     </div>
                   ))}
