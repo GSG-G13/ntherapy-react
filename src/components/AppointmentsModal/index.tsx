@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import {
-  Box, Grid, Modal, Fade, Button, Typography, Container, Backdrop,
+  Box, Grid, Modal, Fade, Button, Typography, Container,
 } from '@mui/material';
 import { DatePicker, LocalizationProvider, TimePicker } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { useFormik } from 'formik';
-import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import { FormikErrors, useFormik } from 'formik';
+import DeleteIcon from '@mui/icons-material/Delete';
 import validationSchema from '../../pages/therapistProfile/schema';
 import classes from './classes';
 
@@ -58,10 +58,7 @@ const AppointmentsModal = ({ handleClose, open }: Props) => {
       open={open}
       onClose={handleClose}
       closeAfterTransition
-      BackdropComponent={Backdrop}
-      BackdropProps={{
-        timeout: 500,
-      }}
+
     >
       <Fade in={open}>
         <Box sx={style} component="form" onSubmit={formik.handleSubmit}>
@@ -81,9 +78,11 @@ const AppointmentsModal = ({ handleClose, open }: Props) => {
                         slotProps={{
                           textField: {
                             helperText: formik.touched?.date?.from && formik.errors?.date?.from,
-                            error: formik.touched?.date?.from
-                          && Boolean(formik.errors?.date?.from),
+                            error: Boolean(formik.touched?.date?.from)
+                              && Boolean(formik.errors?.date?.from),
                             size: 'small',
+                            onBlur: formik.handleBlur,
+                            name: 'date.from',
                           },
                         }}
                       />
@@ -95,12 +94,14 @@ const AppointmentsModal = ({ handleClose, open }: Props) => {
                         label="To"
                         value={formik.values.date.to}
                         onChange={(value) => formik.setFieldValue('date.to', value)}
-                        sx={{ height: '0.5rem' }}
                         slotProps={{
                           textField: {
                             helperText: formik.touched?.date?.to && formik.errors?.date?.to,
-                            error: formik.touched?.date?.to && Boolean(formik.errors?.date?.to),
+                            error: Boolean(formik.touched?.date?.to)
+                            && Boolean(formik.errors?.date?.to),
                             size: 'small',
+                            onBlur: formik.handleBlur,
+                            name: 'date.to',
 
                           },
                         }}
@@ -110,63 +111,71 @@ const AppointmentsModal = ({ handleClose, open }: Props) => {
                 </Grid>
 
                 <Grid item xs={12}>
-                  {timeInput.map((_item) => (
-                    <div key={_item}>
+                  {timeInput.map((item) => (
+                    <div key={item}>
 
                       <Grid container spacing={2} sx={{ marginTop: '1rem' }}>
-                        <Grid xs={12}>
-                          <HighlightOffIcon
-                            type="button"
-                            onClick={() => {
-                              if (timeInput.length === 1) {
-                                return;
-                              }
-                              const filteredInputs = timeInput.filter((ele) => ele !== _item);
-                              setTimeInput(filteredInputs);
-                            }}
-                            sx={classes.Icon}
-                          />
 
-                        </Grid>
                         <Grid item xs={6}>
                           <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <TimePicker
                               label="From"
-                              value={formik.values.time?.[_item - 1]?.from || ''}
-                              onChange={(value) => formik.setFieldValue(`time.${[_item - 1]}.from`, value)}
+                              value={formik.values.time?.[item - 1]?.from || ''}
+                              onChange={(value) => formik.setFieldValue(`time.${[item - 1]}.from`, value)}
                               slotProps={{
                                 textField: {
                                   size: 'small',
+                                  name: `time.${[item - 1]}.from`,
+                                  helperText: (formik.touched?.time?.[item - 1]?.from
+                                  && (formik.errors.time?.[item - 1] as
+                                    FormikErrors<{ from: string, to: string}>)?.from),
+                                  error: Boolean(formik.touched?.time?.[item - 1]?.from)
+                                    && Boolean((formik.errors?.time?.[item - 1] as
+                                      FormikErrors<{ from: string; to: string; }>)?.from),
+                                  onBlur: formik.handleBlur,
 
-                                //   helperText: (formik.touched?.time?.[_item]?.from
-                                // && formik.errors.time?.[_item]?.from) as any,
-                                //   error: formik.touched?.time?.[_item]?.from,
                                 },
                               }}
                             />
                           </LocalizationProvider>
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item xs={5}>
                           <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                               <TimePicker
                                 label="to"
-                                value={formik.values.time?.[_item - 1]?.to || ''}
-                                onChange={(value) => formik.setFieldValue(`time.${[_item - 1]}.to`, value)}
-                            // sx={{ height: '1rem' }}
+                                value={formik.values.time?.[item - 1]?.to || ''}
+                                onChange={(value) => formik.setFieldValue(`time.${[item - 1]}.to`, value)}
                                 slotProps={{
                                   textField: {
                                     size: 'small',
+                                    name: `time.${[item - 1]}.to`,
 
-                                    //   helperText: formik.touched?.time?.[index]?.to
-                                    // && formik.errors.time?.[index]?.to,
-                                    //   error: formik.touched?.time?.[index]?.to
-                                    // && Boolean(formik.errors.time?.[index]?.to),
+                                    helperText: (formik.touched?.time?.[item - 1]?.to
+                                      && (formik.errors.time?.[item - 1] as
+                                        FormikErrors<{ from: string, to: string}>)?.to),
+                                    error: Boolean(formik.touched?.time?.[item - 1]?.to)
+                                        && Boolean((formik.errors?.time?.[item - 1] as
+                                          FormikErrors<{ from: string; to: string; }>)?.to),
+                                    onBlur: formik.handleBlur,
                                   },
                                 }}
                               />
                             </LocalizationProvider>
                           </LocalizationProvider>
+                        </Grid>
+                        <Grid item xs={1}>
+                          <DeleteIcon
+                            type="button"
+                            onClick={() => {
+                              if (timeInput.length === 1) {
+                                return;
+                              }
+                              const filteredInputs = timeInput.filter((ele) => ele !== item);
+                              setTimeInput(filteredInputs);
+                            }}
+                            sx={classes.Icon}
+                          />
                         </Grid>
                       </Grid>
                     </div>

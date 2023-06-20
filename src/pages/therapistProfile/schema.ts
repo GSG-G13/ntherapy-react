@@ -4,7 +4,8 @@ const validationSchema = yup.object({
   date: yup.object({
     from: yup.date().required('From date is required'),
     to: yup.date()
-      .min(yup.ref('date.to'), 'To date should be after from date').required('To date is required'),
+      .min(yup.ref('date.to'), 'To date should be after from date')
+      .required('To date is required'),
   }),
   time: yup
     .array()
