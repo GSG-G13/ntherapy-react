@@ -112,7 +112,7 @@ const AppointmentsModal = ({ handleClose, open }: Props) => {
 
                 <Grid item xs={12}>
                   {timeInput.map((item) => (
-                    <div key={item}>
+                    <div key={item + 1}>
 
                       <Grid container spacing={2} sx={{ marginTop: '1rem' }}>
 
