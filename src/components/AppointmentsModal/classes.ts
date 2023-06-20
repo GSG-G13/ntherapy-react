@@ -7,6 +7,9 @@ const Icon: Type = {
   cursor: 'pointer',
   color: '#888888',
   marginBottom: '10px',
+  position: 'absolute',
+  top: ' 10.5rem',
+  left: ' 37px',
 };
 
 const classes = { Icon };
