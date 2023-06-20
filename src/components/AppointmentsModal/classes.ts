@@ -10,7 +10,20 @@ const Icon: Type = {
   marginBottom: ' -9px',
 
 };
+const Model = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 600,
+  bgcolor: 'background.paper',
+  boxShadow: 24,
+  p: 4,
+  height: '70%',
+  borderRadius: '25px',
 
-const classes = { Icon };
+};
+
+const classes = { Icon, Model };
 
 export default classes;
