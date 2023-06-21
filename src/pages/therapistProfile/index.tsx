@@ -10,7 +10,7 @@ const TherapistProfile = () => {
 
   return (
     <Container>
-      <Button onClick={handleOpen}>Open modal</Button>
+      <Button onClick={handleOpen}>Reserve a Session</Button>
       <ModalComponents open={open} setOpen={setOpen} />
     </Container>
   );

@@ -5,7 +5,6 @@ import {
   useElements,
 } from '@stripe/react-stripe-js';
 import Button from '@mui/material/Button';
-
 import { useParams } from 'react-router-dom';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';

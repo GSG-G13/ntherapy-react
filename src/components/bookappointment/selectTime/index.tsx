@@ -11,36 +11,28 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import moment from 'moment';
 import axiosInstance from '../../../utils/apis/axios';
 import getTimeRange from '../../../utils/TimeRange';
+import ElementTimeType from './type';
 
-interface ElementTimeType {
-    id: number,
-    datetime: string,
-    therapistId: number,
-    isAvailable: boolean,
-    isBooked: boolean,
-}
-
-const BookAppointment = ({ setIsDisabled }: boolean) => {
+const BookAppointment = ({ formik }: any) => {
   const params = useParams();
   const [value, setValue] = React.useState<Dayjs | null>(dayjs('2023-06-18'));
   const [time, setTime] = React.useState([]);
-  const [message, setMessage] = React.useState<string | null >('');
+
   useEffect(() => {
     const fetchData = async () => {
       try {
+        formik.setFieldValue('appointmentId', '');
         const data = await axiosInstance.get(`api/v1/appointments/${params.id}?date=${moment(value?.$d).format('YYYY-MM-DD')}`);
-        if (data.message === 'sorry but no appointments found') {
-          setIsDisabled(true);
-          setMessage(data.message);
-        }
         setTime(data.data);
       } catch (error) {
         console.error('Errorappointments intent:', error);
       }
     };
     fetchData();
-  }, [params.id, setIsDisabled, value?.$d]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value]);
 
+  const message = time.length === 0 ? 'Sorry No appointments Found' : '';
   return (
     <>
       <Typography variant="h6" gutterBottom>
@@ -50,9 +42,9 @@ const BookAppointment = ({ setIsDisabled }: boolean) => {
         <Grid item xs={12}>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
-              label="Controlled picker"
-              value={value}
+              label="select Date"
               onChange={(newValue) => setValue(newValue)}
+              value={value}
               sx={{ width: '100%' }}
             />
           </LocalizationProvider>
@@ -60,10 +52,22 @@ const BookAppointment = ({ setIsDisabled }: boolean) => {
         </Grid>
         <Grid item xs={12}>
           <TextField
-            label="Select Time"
+            label={time.length ? 'select Time' : message}
+            sx={{
+              borderColor: message ? 'red' : 'black',
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': {
+                  borderColor: message ? 'red' : 'black',
+                },
+              },
+            }}
             select
             fullWidth
             variant="outlined"
+            value={formik.values.appointmentId}
+            name="appointmentId"
+            error={formik.touched.appointmentId && Boolean(formik.errors.appointmentId)}
+            helperText={formik.touched.appointmentId && formik.errors.appointmentId}
           >
             {time.map((ele: ElementTimeType) => {
               if (!ele.isAvailable || ele.isBooked) {
@@ -71,7 +75,13 @@ const BookAppointment = ({ setIsDisabled }: boolean) => {
               }
               const timeRange = getTimeRange(ele.datetime);
               return (
-                <MenuItem value={ele.id} key={ele.id}>
+                <MenuItem
+                  value={ele.id}
+                  key={ele.id}
+                  onClick={() => {
+                    formik.setFieldValue('appointmentId', ele.id);
+                  }}
+                >
                   {timeRange.from}
                   -
                   {timeRange.to}
@@ -79,7 +89,6 @@ const BookAppointment = ({ setIsDisabled }: boolean) => {
               );
             })}
           </TextField>
-          {message}
         </Grid>
       </Grid>
     </>
