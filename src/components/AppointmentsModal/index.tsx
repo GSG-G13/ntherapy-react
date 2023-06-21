@@ -6,6 +6,7 @@ import { DatePicker, LocalizationProvider, TimePicker } from '@mui/x-date-picker
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { FormikErrors, useFormik } from 'formik';
 import DeleteIcon from '@mui/icons-material/Delete';
+import moment from 'moment';
 import validationSchema from './schema';
 import classes from './classes';
 
@@ -32,10 +33,20 @@ const AppointmentsModal = ({ handleClose, open }: Props) => {
         to: '',
       }],
     },
+    validateOnMount: true,
     validationSchema,
-    onSubmit: (values) => {
-      // eslint-disable-next-line no-console
-      console.log(JSON.stringify(values, null, 2));
+    onSubmit: (values :any) => {
+      const date = {
+        from: moment(values.date.from?.$d).format('YYYY-MM-DD'),
+        to: moment(values.date.to.$d).format('YYYY-MM-DD'),
+      };
+      const time = values.time.map(({ from, to }: any) => ({
+        from: moment(from?.$d).utc().format('HH:mm'),
+        to: moment(to?.$d).utc().format('HH:mm'),
+      }));
+
+      const updatedValues = { date, time };
+      console.log(JSON.stringify(updatedValues, null, 2));
     },
   });
 
@@ -61,6 +72,9 @@ const AppointmentsModal = ({ handleClose, open }: Props) => {
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <DatePicker
                         label="From"
+                        format="DD-MM-YYYY"
+                        disablePast
+                        maxDate={formik.values.date.to}
                         value={formik.values.date.from}
                         onChange={(value) => formik.setFieldValue('date.from', value)}
                         slotProps={{
@@ -80,7 +94,10 @@ const AppointmentsModal = ({ handleClose, open }: Props) => {
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <DatePicker
                         label="To"
+                        format="DD-MM-YYYY"
+                        disablePast
                         value={formik.values.date.to}
+                        minDate={formik.values.date.from}
                         onChange={(value) => formik.setFieldValue('date.to', value)}
                         slotProps={{
                           textField: {
@@ -129,27 +146,26 @@ const AppointmentsModal = ({ handleClose, open }: Props) => {
                         </Grid>
                         <Grid item xs={timeInput.length === 1 ? 6 : 5}>
                           <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                              <TimePicker
-                                label="to"
-                                value={formik.values.time?.[item - 1]?.to || ''}
-                                onChange={(value) => formik.setFieldValue(`time.${[item - 1]}.to`, value)}
-                                slotProps={{
-                                  textField: {
-                                    size: 'small',
-                                    name: `time.${[item - 1]}.to`,
+                            <TimePicker
+                              label="to"
+                              minTime={formik.values.time?.[item - 1]?.from || moment()}
+                              value={formik.values.time?.[item - 1]?.to || ''}
+                              onChange={(value) => formik.setFieldValue(`time.${[item - 1]}.to`, value)}
+                              slotProps={{
+                                textField: {
+                                  size: 'small',
+                                  name: `time.${[item - 1]}.to`,
 
-                                    helperText: (formik.touched?.time?.[item - 1]?.to
+                                  helperText: (formik.touched?.time?.[item - 1]?.to
                                       && (formik.errors.time?.[item - 1] as
                                         FormikErrors<{ from: string, to: string}>)?.to),
-                                    error: Boolean(formik.touched?.time?.[item - 1]?.to)
+                                  error: Boolean(formik.touched?.time?.[item - 1]?.to)
                                         && Boolean((formik.errors?.time?.[item - 1] as
                                           FormikErrors<{ from: string; to: string; }>)?.to),
-                                    onBlur: formik.handleBlur,
-                                  },
-                                }}
-                              />
-                            </LocalizationProvider>
+                                  onBlur: formik.handleBlur,
+                                },
+                              }}
+                            />
                           </LocalizationProvider>
                         </Grid>
                         {timeInput.length > 1 && (
@@ -182,19 +198,20 @@ const AppointmentsModal = ({ handleClose, open }: Props) => {
 
                 </Grid>
               </Box>
+              <Grid item xs={6} sx={{ textAlign: 'end' }}>
+                <Button variant="outlined" size="large" sx={{ width: '100%' }} onClick={handleClose}>
+                  Cancel
+                </Button>
+              </Grid>
               <Grid item xs={6}>
                 <Button
                   type="submit"
                   variant="contained"
                   size="large"
                   sx={{ width: '100%' }}
+                  disabled={!formik.isValid}
                 >
                   Confirm
-                </Button>
-              </Grid>
-              <Grid item xs={6} sx={{ textAlign: 'end' }}>
-                <Button variant="outlined" size="large" sx={{ width: '100%' }} onClick={handleClose}>
-                  Cancel
                 </Button>
               </Grid>
             </Grid>

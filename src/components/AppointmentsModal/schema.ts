@@ -2,9 +2,13 @@ import * as yup from 'yup';
 
 const validationSchema = yup.object({
   date: yup.object({
-    from: yup.date().required('From date is required'),
+
+    from: yup.date()
+      .typeError('Date is not a valid value')
+      .required('From date is required'),
     to: yup.date()
-      // .min(yup.ref('date.to'), 'To date should be after from date')
+      .typeError('Date is not a valid value')
+
       .required('To date is required'),
   }),
   time: yup
@@ -12,11 +16,14 @@ const validationSchema = yup.object({
     .of(
       yup.object({
         from: yup.date()
+          .typeError('Date is not a valid value')
           .required('From time is required'),
         to: yup.date()
+          .typeError('Date is not a valid value')
           .required('To time is required'),
       }),
     )
+    .min(1, 'ar lets one time filed required')
     .required('Time array is required'),
 });
 

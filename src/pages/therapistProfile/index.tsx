@@ -12,9 +12,8 @@ const TherapistProfile = () => {
   return (
     <>
       <Container>TherapistProfile Page</Container>
-      <Button onClick={handleOpen}>Open modal</Button>
-      <AppointmentsModal handleClose={handleClose} open={open} />
-
+      <Button onClick={handleOpen}> Add Appointment</Button>
+      {open && <AppointmentsModal handleClose={handleClose} open={open} />}
     </>
   );
 };
