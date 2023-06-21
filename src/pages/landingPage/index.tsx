@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Container, Grid, Typography } from '@mui/material';
+
 import {
   hero,
   therapyP,
@@ -187,5 +188,4 @@ const LandingPage = () => (
     </Container>
   </>
 );
-
 export default LandingPage;
