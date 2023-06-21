@@ -36,9 +36,11 @@ const AppointmentsModal = ({ handleClose, open }: Props) => {
     validateOnMount: true,
     validationSchema,
     onSubmit: (values :any) => {
+      const { from: dateFrom, to: dateTo }: any = values.date;
+
       const date = {
-        from: moment(values.date.from?.$d).format('YYYY-MM-DD'),
-        to: moment(values.date.to.$d).format('YYYY-MM-DD'),
+        from: moment(dateFrom?.$d).format('YYYY-MM-DD'),
+        to: moment(dateTo.$d).format('YYYY-MM-DD'),
       };
       const time = values.time.map(({ from, to }: any) => ({
         from: moment(from?.$d).utc().format('HH:mm'),
