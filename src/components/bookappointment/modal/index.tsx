@@ -26,7 +26,7 @@ const Comp = ({ step, formik }: any) => {
   }
 };
 
-const SessionReservationModal = ({ open, setOpen }) => {
+const SessionReservationModal = ({ open, setOpen }:any) => {
   const handleClose = () => setOpen(false);
   const [activeStep, setActiveStep] = React.useState(0);
 
