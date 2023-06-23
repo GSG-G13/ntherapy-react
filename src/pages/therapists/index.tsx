@@ -52,6 +52,8 @@ const Therapist = () => {
     <Grid container spacing={2}>
       {[...Array(8)].map(() => (
         <Grid item xs={12} sm={6} md={4}>
+          <br />
+          <br />
           <Box
             sx={{
               backgroundColor: '#f5f5f5',
