@@ -6,7 +6,7 @@ import Edit from '@mui/icons-material/Edit';
 import { Button } from '@mui/material';
 import getStyle from './style';
 
-const isEditable = false;
+const isEditable = true;
 
 const TextFieldEdite = ({ value, dataType, onChange }: any) => {
   const [editMode, setEditMode] = useState(false);
