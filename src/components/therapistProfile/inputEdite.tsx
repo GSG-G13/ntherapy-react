@@ -3,15 +3,14 @@ import { useState } from 'react';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import Edit from '@mui/icons-material/Edit';
+import { Button } from '@mui/material';
+import getStyle from './style';
 
-const TextFieldEdite = ({ value, classes }: any) => {
-  const [email, setEmail] = useState('johndoe@domain.com');
+const isEditable = true;
+
+const TextFieldEdite = ({ value, dataType, onChange }: any) => {
   const [editMode, setEditMode] = useState(false);
   const [mouseOver, setMouseOver] = useState(false);
-
-  const handleChange = (event: any) => {
-    setEmail(event.target.value);
-  };
 
   const handleMouseOver = () => {
     if (!mouseOver) {
@@ -30,29 +29,36 @@ const TextFieldEdite = ({ value, classes }: any) => {
     setMouseOver(false);
   };
 
+  const style = getStyle(dataType);
   return (
-    <TextField
-      name="email"
-      defaultValue={value}
-      margin="normal"
-      error={email === ''}
-      onChange={handleChange}
-      disabled={!editMode}
-      onMouseEnter={handleMouseOver}
-      onMouseLeave={handleMouseOut}
-      InputProps={{
-        classes: {
-          disabled: classes.disabled,
-        },
-        endAdornment: mouseOver ? (
-          <InputAdornment position="end">
-            <IconButton onClick={handleClick}>
-              <Edit />
-            </IconButton>
-          </InputAdornment>
-        ) : null,
-      }}
-    />
+    <>
+      <TextField
+        name="text"
+        defaultValue={value}
+        margin="normal"
+        error={value === ''}
+        onChange={onChange}
+        disabled={!editMode}
+        onMouseEnter={handleMouseOver}
+        onMouseLeave={handleMouseOut}
+        variant="standard"
+        sx={style}
+        InputProps={{
+          disableUnderline: true,
+          endAdornment:
+  <InputAdornment position="end">
+    {isEditable ? (
+      <IconButton onClick={handleClick}>
+        <Edit />
+      </IconButton>
+    ) : null}
+  </InputAdornment>,
+
+        }}
+        multiline={dataType === 'textArea'}
+      />
+      {editMode && <Button variant="contained" onClick={() => setEditMode(false)}>Save</Button>}
+    </>
   );
 };
 
