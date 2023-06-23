@@ -2,13 +2,9 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-import dayjs, { Dayjs } from 'dayjs';
-import { useState } from 'react';
+import dayjs from 'dayjs';
 
-interface DateP {
-  date: string | Dayjs,
-  changeDate: typeof useState<string | Dayjs>,
-}
+import { DateP } from './types';
 
 const DatePick = ({
   changeDate, date,

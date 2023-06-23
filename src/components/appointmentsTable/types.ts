@@ -12,6 +12,10 @@ export interface TAppointments {
   loadingChange: typeof useState<boolean>,
   changeDate: typeof useState<string |Dayjs>,
   }
+export interface DateP {
+    date: string | Dayjs,
+    changeDate: typeof useState<string | Dayjs>,
+  }
 
 export interface Appointment{
     id: number;
