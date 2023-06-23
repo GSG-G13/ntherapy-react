@@ -1,7 +1,7 @@
 import Button from '@mui/material/Button';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
-const isEditable = true;
+const isEditable = false;
 
 const ChangePhoto = ({ onChange }: any) => (
   <div>

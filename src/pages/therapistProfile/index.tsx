@@ -13,7 +13,7 @@ const daataTas = `
               He holds a general medicine degree from Al-Quds University Ahmed" 
 `;
 const TherapistProfile = () => {
-  const [name, setName] = useState('Dr.Yasser Amro');
+  const [name, setName] = useState('Dr.Yasser Abu Amro');
   const [major, setMajor] = useState('Mental Health Counselor');
   const [hourlyRate, setHourlyRate] = useState('$85');
   const [textBio, setTextBio] = useState(daataTas);
