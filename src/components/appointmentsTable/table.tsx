@@ -61,7 +61,13 @@ const AppointmentsTable = ({
               />
             </TableRow>
           ) : (appointments.length
-            ? appointments.map((appo: Appointment) => <RowTable key={appo.id} appo={appo} />) : (
+            ? appointments.map((appointment: Appointment) => (
+              <RowTable
+                key={appointment.id}
+                appointment={appointment}
+              />
+            ))
+            : (
               <TableRow sx={{
                 position: 'absolute', left: '47%', top: '50%', transform: 'translate(-50px, -50px)',
               }}

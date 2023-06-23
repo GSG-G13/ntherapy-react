@@ -26,5 +26,5 @@ export interface Appointment{
   }
 
 export interface TRow {
-    appo: Appointment
+    appointment: Appointment
   }
