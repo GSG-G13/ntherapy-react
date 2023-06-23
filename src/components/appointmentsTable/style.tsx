@@ -15,7 +15,7 @@ const spinner : Cell = {
   transform: 'translate(-50px, -50px)',
 };
 const container = {
-  margin: 'auto', border: '#516EFF solid 1px', borderRadius: '5px', boxShadow: '0 0 10px 0 rgba(0, 0, 0, 0.077)',
+  margin: '50px auto', border: '#516EFF solid 1px', borderRadius: '5px', boxShadow: '0 0 10px 0 rgba(0, 0, 0, 0.077)',
 };
 export {
   headerCell, bodyCell, spinner, container,

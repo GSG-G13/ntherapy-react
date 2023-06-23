@@ -11,7 +11,8 @@ module.exports = {
   parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
   plugins: ['react-refresh'],
   rules: {
-    'react-refresh/only-export-components': 'warn',
+    'no-nested-ternary': 'warn',
+    'react-refresh/only-export-components': 'off',
     'react/jsx-filename-extension': [1, { extensions: ['.tsx'] }],
     'import/extensions': 'off',
     'react/function-component-definition': [2, { namedComponents: 'arrow-function' }],

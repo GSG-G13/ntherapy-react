@@ -24,6 +24,7 @@ body {
 .spinner {
   transform: translate(50%, 50%);
 }
+
 .therapy-card {
   display: flex;
   flex-direction: column;
