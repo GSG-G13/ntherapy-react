@@ -7,27 +7,40 @@ import { CardActionArea } from '@mui/material';
 import Button from '@mui/material/Button';
 import classes from './classes';
 
-const GridCard = () => (
+const GridCard = ({ therapist }:{
+  therapist: {
+    name: string;
+    major: string;
+    hourlyRate: number;
+    profileImg: string;
+    userId: number;
+    user: {
+      fullName: string;
+    };
+  };
+}) => (
   <Grid item xs={3} sx={{ marginTop: 5 }}>
-    <Card sx={classes.card}>
+    <Card>
       <CardActionArea>
         <CardMedia
           component="img"
           height="210"
-          image="https://hips.hearstapps.com/hmg-prod/images/portrait-of-a-happy-young-doctor-in-his-clinic-royalty-free-image-1661432441.jpg?crop=0.66698xw:1xh;center,top&resize=1200:*"
-          alt="green iguana"
+          image={therapist.profileImg}
+          alt={therapist.name}
           sx={{ marginBottom: '5px' }}
         />
 
         <CardContent sx={{ padding: 0 }}>
           <Typography gutterBottom component="div" sx={classes.Namedectour} color="primary.dark" margin="0">
-            Dr.Yasser Abu Amro
+            {therapist.user.fullName}
           </Typography>
           <Typography variant="body1" color="primary.dark" textAlign="center">
-            Neurology
+            {therapist.major}
           </Typography>
           <Typography variant="body1" color="primary.dark" textAlign="center" sx={{ fontWeight: '900' }}>
-            90$ /hr
+            {therapist.hourlyRate}
+            {' '}
+            /hr
           </Typography>
           <Button variant="contained" sx={classes.button}>View Profile</Button>
         </CardContent>
