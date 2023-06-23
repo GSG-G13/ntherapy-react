@@ -37,6 +37,7 @@ const TherapistProfile = () => {
       try {
         const response = await axiosInstance.get<TherapistData>(`api/v1/therapists/${id}`);
         const { data } = response;
+        console.log(data);
         setData(data);
         setName(data.user?.fullName || '');
         setMajor(data.major || '');
