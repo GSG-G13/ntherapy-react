@@ -16,12 +16,12 @@ const GridCard = ({ therapist }:TherapistCardProps) => (
           component="img"
           height="210"
           image={therapist.profileImg}
-          alt={therapist.name}
+          alt={therapist.user.fullName}
           sx={{ marginBottom: '5px' }}
         />
 
         <CardContent sx={{ padding: 0 }}>
-          <Typography gutterBottom component="div" sx={classes.Namedectour} color="primary.dark" margin="0">
+          <Typography gutterBottom component="div" sx={classes.DoctorName} color="primary.dark" margin="0">
             {therapist.user.fullName}
           </Typography>
           <Typography variant="body1" color="primary.dark" textAlign="center">
