@@ -1,16 +1,15 @@
 import { useEffect, useState } from 'react';
 import ReactLoading from 'react-loading';
 import {
-  Alert,
   Table, TableRow, TableHead, TableBody,
   TableCell, TableContainer, Paper,
 } from '@mui/material';
 import axiosInstance from '../../utils/apis/axios';
+import renderAppointments from './renderAppointments';
 import {
-  headerCell, spinner, container, message,
+  headerCell, spinner, container,
 } from './style';
-import { Appointment, TAppointments } from './types';
-import RowTable from './tableRow';
+import { TAppointments } from './types';
 
 const AppointmentsTable = ({
   date, id, loading, loadingChange,
@@ -60,21 +59,9 @@ const AppointmentsTable = ({
                 width="45px"
               />
             </TableRow>
-          ) : (appointments.length
-            ? appointments.map((appointment: Appointment) => (
-              <RowTable
-                key={appointment.id}
-                appointment={appointment}
-              />
-            ))
-            : (
-              <TableRow sx={message}>
-                <Alert severity="info">NO APPOINTMENTS</Alert>
-              </TableRow>
-            )) }
+          ) : (renderAppointments(appointments)) }
         </TableBody>
       </Table>
-
     </TableContainer>
   );
 };
