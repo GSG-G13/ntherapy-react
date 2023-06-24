@@ -94,10 +94,15 @@ const TherapistProfile = () => {
             </Box>
 
             <Box sx={{ width: '500px', ml: '50px' }}>
-              <TextFieldEdited value={name} dataType="h1" onChange={handleChangeName} />
-              <TextFieldEdited value={major} dataType="p" onChange={handleChangeMajor} />
-              <Box>
-                <TextFieldEdited value={`$${hourlyRate} /for session`} dataType="p" onChange={handleChangeHourlyRate} />
+              <TextFieldEdited value={name} dataType="fullName" onChange={handleChangeName} />
+              <TextFieldEdited value={major} dataType="major" onChange={handleChangeMajor} />
+
+              <Box sx={{
+                display: 'flex', alignItems: 'center', fontFamily: 'inherit', with: '600px',
+              }}
+              >
+                <Typography sx={{ fontWeight: 'bold' }}>for session:$</Typography>
+                <TextFieldEdited value={hourlyRate} dataType="hourlyRate" onChange={handleChangeHourlyRate} />
               </Box>
               <Button variant="contained">Reserve a Session</Button>
             </Box>
@@ -112,7 +117,7 @@ const TherapistProfile = () => {
                 </Typography>
                 <TextFieldEdited
                   value={textBio}
-                  dataType="textArea"
+                  dataType="bio"
                   onChange={handleChangeTextBio}
                 />
               </Box>

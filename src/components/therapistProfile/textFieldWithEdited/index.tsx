@@ -5,12 +5,13 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Edit from '@mui/icons-material/Edit';
 import { Button } from '@mui/material';
 import getStyle from './style';
+import axiosInstance from '../../../utils/apis/axios';
 
 const isEditable = true;
 
 interface Props {
   value: string | number;
-  dataType: 'h1' | 'p' | 'textArea';
+  dataType: 'fullName' | 'bio' | 'hourlyRate' |'major';
   onChange: () => void;
 }
 
@@ -35,6 +36,21 @@ const TextFieldEdite: React.FC<Props> = ({
   const handleClick = () => {
     setEditMode(true);
     setMouseOver(false);
+  };
+
+  const handleUpdate = async () => {
+    setEditMode(false);
+    try {
+      await axiosInstance.patch('therapists/', {
+        [dataType]: value,
+      }, {
+        headers: { Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoidGhlcmFwaXN0IiwidXNlcklkIjoiNSIsInRoZXJhcGlzdElkIjoiMiJ9.gGlnqHx0QN93rw87HdavQH-QN1kA3mQ6yALwl9M2L_w' },
+      });
+    } catch (error) {
+      // Handle error if needed
+      console.log(error);
+    }
+    console.log(value, dataType);
   };
 
   const style = getStyle(dataType);
@@ -63,9 +79,9 @@ const TextFieldEdite: React.FC<Props> = ({
   </InputAdornment>,
 
         }}
-        multiline={dataType === 'textArea'}
+        multiline={dataType === 'bio'}
       />
-      {editMode && <Button variant="contained" onClick={() => setEditMode(false)}>Save</Button>}
+      {editMode && <Button variant="contained" onClick={handleUpdate}>Save</Button>}
     </>
   );
 };
