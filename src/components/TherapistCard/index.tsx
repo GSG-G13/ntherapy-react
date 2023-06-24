@@ -22,7 +22,7 @@ const GridCard = ({ therapist }:TherapistCardProps) => (
             {therapist.user.fullName}
           </Typography>
           <Typography variant="body1" color="primary.dark" textAlign="center">
-            {therapist.major.trim().length > 35 ? `${therapist.major.slice(0, 20)}...` : therapist.major }
+            {therapist.major.trim().length > 30 ? `${therapist.major.slice(0, 20)}...` : therapist.major }
           </Typography>
           <Typography variant="body1" color="primary.dark" textAlign="center" sx={{ fontWeight: '900' }}>
             {therapist.hourlyRate}
