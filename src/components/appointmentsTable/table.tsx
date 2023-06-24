@@ -7,7 +7,7 @@ import {
 } from '@mui/material';
 import axiosInstance from '../../utils/apis/axios';
 import {
-  headerCell, spinner, container,
+  headerCell, spinner, container, message,
 } from './style';
 import { Appointment, TAppointments } from './types';
 import RowTable from './tableRow';
@@ -68,10 +68,7 @@ const AppointmentsTable = ({
               />
             ))
             : (
-              <TableRow sx={{
-                position: 'absolute', left: '47%', top: '50%', transform: 'translate(-50px, -50px)',
-              }}
-              >
+              <TableRow sx={message}>
                 <Alert severity="info">NO APPOINTMENTS</Alert>
               </TableRow>
             )) }

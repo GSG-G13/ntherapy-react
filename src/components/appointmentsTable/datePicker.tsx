@@ -12,7 +12,6 @@ const DatePick = ({
   <LocalizationProvider dateAdapter={AdapterDayjs}>
     <DemoContainer components={['DatePicker']}>
       <DatePicker
-        disablePast
         defaultValue={date}
         sx={{ position: 'absolute', top: 0, right: '25px' }}
         onChange={(newValue) => {
