@@ -22,6 +22,7 @@ import {
   gridStyle,
 } from './classes';
 import './style.css';
+import axiosInstance from '../../utils/apis/axios';
 
 const Login = () => {
   const formik = useFormik({
@@ -30,9 +31,18 @@ const Login = () => {
       password: '123456789',
     },
     validationSchema,
-    onSubmit: (values) => {
-      // eslint-disable-next-line no-console
-      console.log(JSON.stringify(values, null, 2));
+    onSubmit: async (values) => {
+      try {
+        const response = await axiosInstance.post('/userLogin', {
+          email: values.email,
+          password: values.password,
+        });
+        console.log(response);
+
+        // localStorage.setItem('access_token', response.token);
+      } catch (error) {
+        console.error(`error${error}`);
+      }
     },
   });
 
