@@ -1,9 +1,12 @@
 import Button from '@mui/material/Button';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import React from 'react';
 
 const isEditable = true;
-
-const ChangePhoto = ({ onChange }: any) => (
+interface Props {
+  onChange: () => void;
+}
+const ChangePhoto: React.FC<Props> = ({ onChange }) => (
   <div>
     {isEditable && (
     <label htmlFor="upload-photo">

@@ -1,5 +1,5 @@
 import TextField from '@mui/material/TextField';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import Edit from '@mui/icons-material/Edit';
@@ -8,7 +8,15 @@ import getStyle from './style';
 
 const isEditable = true;
 
-const TextFieldEdite = ({ value, dataType, onChange }: any) => {
+interface Props {
+  value: string | number;
+  dataType: 'h1' | 'p' | 'textArea';
+  onChange: () => void;
+}
+
+const TextFieldEdite: React.FC<Props> = ({
+  value, dataType, onChange,
+}) => {
   const [editMode, setEditMode] = useState(false);
   const [mouseOver, setMouseOver] = useState(false);
 
