@@ -37,9 +37,7 @@ const Login = () => {
           email: values.email,
           password: values.password,
         });
-        console.log(response);
-
-        // localStorage.setItem('access_token', response.token);
+        localStorage.setItem('access_token', response.token);
       } catch (error) {
         console.error(`error${error}`);
       }
