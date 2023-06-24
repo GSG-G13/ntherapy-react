@@ -48,6 +48,7 @@ const BookAppointment = ({ formik }: FormikProps<string>) => {
         <Grid item xs={12}>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
+              disablePast
               label="select Date"
               onChange={(newValue) => setValue(newValue)}
               value={value}

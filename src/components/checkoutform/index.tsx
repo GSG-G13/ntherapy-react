@@ -1,49 +1,40 @@
-import { useState } from 'react';
 import {
   PaymentElement,
   useStripe,
   useElements,
 } from '@stripe/react-stripe-js';
 import Button from '@mui/material/Button';
-import { useParams } from 'react-router-dom';
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
+import { useSnackbar } from 'notistack';
 
 const CheckoutForm = () => {
+  const { enqueueSnackbar } = useSnackbar();
   const stripe = useStripe();
   const elements = useElements();
-  const [open, setOpen] = useState(false);
-  const [message, setMessage] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const params = useParams();
 
-  const handleSnackbarClose = () => {
-    setOpen(false);
-  };
-  const handleSubmit = async (e:any) => {
+  const handleSubmit = async (e:Event) => {
     e.preventDefault();
 
     if (!stripe || !elements) {
       return;
     }
 
-    setIsLoading(true);
+    try {
+      const { error, paymentIntent } = await stripe.confirmPayment({
+        elements,
+        confirmParams: {
+          return_url: 'http://localhost:5173/',
+        },
+        redirect: 'if_required',
+      });
 
-    const { error, paymentIntent } = await stripe.confirmPayment({
-      elements,
-      confirmParams: {
-        return_url: `http://localhost:5173/therapist/${params.id}`,
-      },
-      redirect: 'if_required',
-    });
-    if (error) {
-      setMessage(error.message);
-    } if (paymentIntent?.status === 'succeeded') {
-      setMessage('succeeded 🔥');
-      setOpen(true);
+      if (error) {
+        enqueueSnackbar(error.message, { variant: 'error' });
+      } else if (paymentIntent?.status === 'succeeded') {
+        enqueueSnackbar('Payment succeeded 🔥', { variant: 'success' });
+      }
+    } catch (error) {
+      enqueueSnackbar('An error occurred while confirming the payment.', { variant: 'error' });
     }
-
-    setIsLoading(false);
   };
 
   return (
@@ -53,20 +44,12 @@ const CheckoutForm = () => {
       <Button
         sx={{ mt: 3 }}
         variant="contained"
-        disabled={isLoading || !stripe || !elements}
+        disabled={!stripe || !elements}
         id="submit"
         type="submit"
       >
-        {isLoading ? <div className="spinner" id="spinner" /> : 'Booki'}
+        Booki
       </Button>
-      {message && <div id="payment-message">{message}</div>}
-
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleSnackbarClose}>
-        <MuiAlert onClose={handleSnackbarClose}>
-          {message}
-        </MuiAlert>
-      </Snackbar>
-
     </form>
   );
 };
