@@ -1,35 +1,47 @@
 import { useState, useEffect } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
+import { Snackbar, SnackbarContent } from '@mui/material';
 import CheckoutForm from '../../checkoutform';
 import axiosInstance from '../../../utils/apis/axios';
 
-const stripePromise = loadStripe('pk_test_51NGyZkEFeMbkGJMBieYj5kVZnmRPzkZ5JVEe6rd4IvSOu1XAAxmN2arJ0LJMGKxFr6LNdyemP9q5tixH3RPUu3Vl00U8U0DSmt');
+const { VITE_PUBLIC_API_KEY } = import.meta.env;
+const stripePromise = loadStripe(VITE_PUBLIC_API_KEY);
 
 const Payment = () => {
   const [clientSecret, setClientSecret] = useState('');
+  const [error, setError] = useState('');
 
   useEffect(() => {
-    const fetchData = async () => {
+    const getClientSecret = async () => {
       try {
-        const data : any = await axiosInstance.post('create-payment-intent', {
-          appointment: [{ id: '1' }],
-        });
+        const data : any = await axiosInstance.post('create-payment-intent');
         setClientSecret(data.clientSecret);
-      } catch (error) {
-        console.error('Error creating payment intent:', error);
+      } catch (err) {
+        setError('Failed to create payment intent.');
       }
     };
-    fetchData();
+    getClientSecret();
   }, []);
+  const handleSnackbarClose = () => {
+    setError('');
+  };
 
   return (
     <div>
-      {clientSecret && (
+      {clientSecret ? (
         <Elements options={{ clientSecret }} stripe={stripePromise}>
           <CheckoutForm />
         </Elements>
+      ) : (
+        <div>Loading...</div>
       )}
+      <Snackbar open={!!error} onClose={handleSnackbarClose}>
+        <SnackbarContent
+          sx={{ backgroundColor: 'red' }}
+          message={error}
+        />
+      </Snackbar>
     </div>
   );
 };
