@@ -1,5 +1,5 @@
 import {
-  Alert, Skeleton, Box, Grid,
+  Alert, Skeleton, Box, Grid, Container,
 } from '@mui/material';
 import { TherapistCardType, GridCard } from '..';
 import { SkeletonBoxStyle } from './classes';
@@ -35,9 +35,11 @@ const TherapistList = ({
 
   if (therapists.length === 0) {
     return (
-      <Alert severity="info" sx={{ mt: 4 }}>
-        No therapists found.
-      </Alert>
+      <Container style={{ height: '800px' }}>
+        <Alert severity="info" sx={{ mt: 4 }}>
+          No therapists found.
+        </Alert>
+      </Container>
     );
   }
 

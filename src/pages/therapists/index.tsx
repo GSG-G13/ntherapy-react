@@ -3,6 +3,8 @@ import {
   Container, InputBase, IconButton, Box, Grid, Pagination,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import { enqueueSnackbar } from 'notistack';
+import { AxiosError } from 'axios';
 import { SearchBoxStyle } from './classes';
 import { TherapistList } from '../../components';
 import { axiosInstance } from '../../utils/apis';
@@ -29,12 +31,30 @@ const TherapistPage = () => {
           setTotalPages(response.pagination.totalPages);
           setLoading(false);
         } catch (error) {
-          setLoading(false);
+          if (error instanceof AxiosError) {
+            enqueueSnackbar(error.message, { variant: 'error' });
+            setLoading(false);
+          } else {
+            enqueueSnackbar('Something went wrong', { variant: 'error' });
+            setLoading(false);
+          }
         }
       };
       fetchData();
+      const handleOffline = () => {
+        enqueueSnackbar('You are offline', { variant: 'warning' });
+      };
+
+      const handleOnline = () => {
+        enqueueSnackbar('You are online', { variant: 'success' });
+      };
+
+      window.addEventListener('offline', handleOffline);
+      window.addEventListener('online', handleOnline);
       return () => {
         setTherapists([]);
+        window.removeEventListener('offline', handleOffline);
+        window.removeEventListener('online', handleOnline);
       };
     },
     [currentPage, searchQuery],
