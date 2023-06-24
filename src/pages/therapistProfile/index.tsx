@@ -6,9 +6,9 @@ import { AppointmentsModal } from '../../components';
 
 const TherapistProfile = () => {
   const [open, setOpen] = useState(false);
+  const therapistID: string | undefined = useParams().id;
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const therapistID: string | undefined = useParams().id;
   return (
     <>
       <Container>TherapistProfile Page</Container>
