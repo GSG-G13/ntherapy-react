@@ -1,14 +1,10 @@
 import { useState, useEffect, ChangeEvent } from 'react';
 import {
-  Container, InputBase, IconButton, Alert, Skeleton,
+  Container, InputBase, IconButton, Alert, Skeleton, Box, Grid, Pagination,
 } from '@mui/material';
-import Box from '@mui/material/Box';
 import SearchIcon from '@mui/icons-material/Search';
-import Grid from '@mui/material/Grid';
-import Pagination from '@mui/material/Pagination';
 import axios from 'axios';
-import GridCard from '../../components/TherapistCard';
-import { TherapistCardType } from '../../components';
+import { TherapistCardType, GridCard } from '../../components';
 import { SearchBoxStyle, SkeletonBoxStyle } from './classes';
 
 const Therapist = () => {
