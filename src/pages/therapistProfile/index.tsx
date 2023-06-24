@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import {
-  Container, Snackbar, Typography, Box,
+  Container, Snackbar, Typography, Box, Button,
 } from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
 import Skeleton from '@mui/material/Skeleton';
@@ -99,7 +99,7 @@ const TherapistProfile = () => {
               <Box>
                 <TextFieldEdited value={`$${hourlyRate} /for session`} dataType="p" onChange={handleChangeHourlyRate} />
               </Box>
-
+              <Button variant="contained">Reserve a Session</Button>
             </Box>
             <Box gridColumn="span 12" sx={{ mt: 4 }}>
               <Box component="div" sx={BoxStyle}>

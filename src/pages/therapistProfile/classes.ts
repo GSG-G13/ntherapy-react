@@ -31,7 +31,7 @@ const TypographyStyle: Type = {
 };
 
 const BoxStyle: Type = {
-  width: '85%',
+  width: '83%',
   backgroundColor: '#eee',
 };
 
