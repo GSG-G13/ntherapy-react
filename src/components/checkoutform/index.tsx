@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import { CircularProgress } from '@mui/material';
 import {
   PaymentElement,
   useStripe,
@@ -10,6 +12,7 @@ const CheckoutForm = () => {
   const { enqueueSnackbar } = useSnackbar();
   const stripe = useStripe();
   const elements = useElements();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e:Event) => {
     e.preventDefault();
@@ -17,6 +20,7 @@ const CheckoutForm = () => {
     if (!stripe || !elements) {
       return;
     }
+    setIsLoading(true);
 
     try {
       const { error, paymentIntent } = await stripe.confirmPayment({
@@ -26,7 +30,7 @@ const CheckoutForm = () => {
         },
         redirect: 'if_required',
       });
-
+      setIsLoading(false);
       if (error) {
         enqueueSnackbar(error.message, { variant: 'error' });
       } else if (paymentIntent?.status === 'succeeded') {
@@ -44,11 +48,19 @@ const CheckoutForm = () => {
       <Button
         sx={{ mt: 3 }}
         variant="contained"
-        disabled={!stripe || !elements}
+        disabled={isLoading || !stripe || !elements}
         id="submit"
         type="submit"
       >
-        Booki
+
+        {isLoading
+          ? (
+            <div className="spinner" id="spinner">
+              <CircularProgress size={20} />
+            </div>
+          )
+
+          : 'Booki'}
       </Button>
     </form>
   );
