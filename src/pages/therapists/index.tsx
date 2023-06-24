@@ -40,7 +40,7 @@ const TherapistPage = () => {
           }
         }
       };
-      fetchData();
+      getTherapistData();
       const handleOffline = () => {
         enqueueSnackbar('You are offline', { variant: 'warning' });
       };
