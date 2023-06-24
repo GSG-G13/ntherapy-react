@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
@@ -9,30 +9,35 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import moment from 'moment';
+import { FormikProps } from 'formik';
+import { Snackbar } from '@mui/material';
 import axiosInstance from '../../../utils/apis/axios';
 import getTimeRange from '../../../utils/TimeRange';
 import ElementTimeType from './type';
 
-const BookAppointment = ({ formik }: any) => {
+const BookAppointment = ({ formik }: FormikProps<string>) => {
   const params = useParams();
   const [value, setValue] = React.useState<Dayjs | null>(dayjs('2023-06-18'));
   const [time, setTime] = React.useState([]);
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
-    const fetchData = async () => {
+    const getAppointments = async () => {
       try {
         formik.setFieldValue('appointmentId', '');
         const data = await axiosInstance.get(`appointments/${params.id}?date=${moment(value?.$d).format('YYYY-MM-DD')}`);
         setTime(data.data);
       } catch (error) {
-        console.error('Errorappointments intent:', error);
+        setErrorMessage('Failed to fetch appointments.');
       }
     };
-    fetchData();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value]);
+    getAppointments();
+  }, [value, formik, params.id]);
+  const handleSnackbarClose = () => {
+    setErrorMessage('');
+  };
 
-  const message = time.length === 0 ? 'Sorry No appointments Found' : '';
+  const timeErrorMessage = useMemo(() => (time.length === 0 ? 'Sorry, no appointments found.' : ''), [time]);
   return (
     <>
       <Typography variant="h6" gutterBottom>
@@ -52,12 +57,12 @@ const BookAppointment = ({ formik }: any) => {
         </Grid>
         <Grid item xs={12}>
           <TextField
-            label={time.length ? 'select Time' : message}
+            label={time.length ? 'Select Time' : timeErrorMessage}
             sx={{
-              borderColor: message ? 'red' : 'black',
+              borderColor: timeErrorMessage ? 'red' : 'black',
               '& .MuiOutlinedInput-root': {
                 '& fieldset': {
-                  borderColor: message ? 'red' : 'black',
+                  borderColor: timeErrorMessage ? 'red' : 'black',
                 },
               },
             }}
@@ -91,6 +96,7 @@ const BookAppointment = ({ formik }: any) => {
           </TextField>
         </Grid>
       </Grid>
+      <Snackbar open={!!errorMessage} onClose={handleSnackbarClose} message={errorMessage} />
     </>
   );
 };
