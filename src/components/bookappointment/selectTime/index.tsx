@@ -22,7 +22,7 @@ const BookAppointment = ({ formik }: any) => {
     const fetchData = async () => {
       try {
         formik.setFieldValue('appointmentId', '');
-        const data = await axiosInstance.get(`api/v1/appointments/${params.id}?date=${moment(value?.$d).format('YYYY-MM-DD')}`);
+        const data = await axiosInstance.get(`appointments/${params.id}?date=${moment(value?.$d).format('YYYY-MM-DD')}`);
         setTime(data.data);
       } catch (error) {
         console.error('Errorappointments intent:', error);

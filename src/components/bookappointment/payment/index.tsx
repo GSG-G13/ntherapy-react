@@ -12,7 +12,7 @@ const Payment = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data : any = await axiosInstance.post('api/v1/create-payment-intent', {
+        const data : any = await axiosInstance.post('create-payment-intent', {
           appointment: [{ id: '1' }],
         });
         setClientSecret(data.clientSecret);
