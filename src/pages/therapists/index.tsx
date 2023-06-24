@@ -18,7 +18,7 @@ const TherapistPage = () => {
 
   useEffect(
     () => {
-      const fetchData = async () => {
+      const getTherapistData = async () => {
         try {
           setLoading(true);
           const response = await axiosInstance.get('/therapists', {
