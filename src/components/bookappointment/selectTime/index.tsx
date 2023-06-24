@@ -32,7 +32,8 @@ const BookAppointment = ({ formik }: FormikProps<string>) => {
       }
     };
     getAppointments();
-  }, [value, formik, params.id]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value]);
   const handleSnackbarClose = () => {
     setErrorMessage('');
   };
