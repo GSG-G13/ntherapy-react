@@ -8,6 +8,8 @@ import Grid from '@mui/material/Grid';
 import Pagination from '@mui/material/Pagination';
 import axios from 'axios';
 import GridCard from '../../components/TherapistCard';
+import { TherapistCardType } from '../../components';
+import { SearchBoxStyle, SkeletonBoxStyle } from './classes';
 
 const Therapist = () => {
   const [therapists, setTherapists] = useState([]);
@@ -55,12 +57,7 @@ const Therapist = () => {
           <br />
           <br />
           <Box
-            sx={{
-              backgroundColor: '#f5f5f5',
-              borderRadius: '8px',
-              overflow: 'hidden',
-              boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-            }}
+            sx={SkeletonBoxStyle}
           >
             <Skeleton variant="rectangular" width="100%" height={180} animation="wave" />
             <Box p={2}>
@@ -75,17 +72,8 @@ const Therapist = () => {
 
   const renderTherapists = () => (
     <Grid container spacing={2}>
-      {therapists.map((therapist:{
-          userId: number;
-          name: string;
-          major: string;
-          hourlyRate: number;
-          profileImg: string;
-          user: {
-            fullName: string;
-          };
-        }) => (
-          <GridCard therapist={therapist} key={therapist.userId} />
+      {therapists.map((therapist:TherapistCardType) => (
+        <GridCard therapist={therapist} key={therapist.userId} />
       ))}
     </Grid>
   );
@@ -117,13 +105,8 @@ const Therapist = () => {
               inputProps={{ 'aria-label': 'search' }}
               value={searchQuery}
               onChange={handleSearch}
+              style={SearchBoxStyle}
               sx={{
-                width: '100%',
-                maxWidth: 400,
-                borderRadius: '999px',
-                backgroundColor: '#f5f5f5',
-                paddingLeft: 2,
-                paddingRight: 2,
                 '& .MuiInputBase-input': {
                   fontSize: '1rem',
                   color: 'inherit',

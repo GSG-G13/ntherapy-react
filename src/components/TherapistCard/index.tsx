@@ -6,19 +6,9 @@ import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 import Button from '@mui/material/Button';
 import classes from './classes';
+import { TherapistCardProps } from './types';
 
-const GridCard = ({ therapist }:{
-  therapist: {
-    name: string;
-    major: string;
-    hourlyRate: number;
-    profileImg: string;
-    userId: number;
-    user: {
-      fullName: string;
-    };
-  };
-}) => (
+const GridCard = ({ therapist }:TherapistCardProps) => (
   <Grid item xs={3} sx={{ marginTop: 5 }}>
     <Card>
       <CardActionArea>
@@ -35,7 +25,7 @@ const GridCard = ({ therapist }:{
             {therapist.user.fullName}
           </Typography>
           <Typography variant="body1" color="primary.dark" textAlign="center">
-            {therapist.major}
+            {therapist.major.trim().length > 35 ? `${therapist.major.slice(0, 20)}...` : therapist.major }
           </Typography>
           <Typography variant="body1" color="primary.dark" textAlign="center" sx={{ fontWeight: '900' }}>
             {therapist.hourlyRate}
