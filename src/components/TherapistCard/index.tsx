@@ -2,7 +2,9 @@ import {
   Grid, Card, CardContent, CardMedia, Typography, CardActionArea,
   Button,
 } from '@mui/material';
+import { Link } from 'react-router-dom';
 import classes from './classes';
+
 import { TherapistCardProps } from './types';
 
 const GridCard = ({ therapist }:TherapistCardProps) => (
@@ -28,7 +30,9 @@ const GridCard = ({ therapist }:TherapistCardProps) => (
             {therapist.hourlyRate}
             /hr
           </Typography>
-          <Button variant="contained" sx={classes.button}>View Profile</Button>
+          <Link to={`/therapist/${therapist.userId}`}>
+            <Button variant="contained" sx={classes.button}>View Profile</Button>
+          </Link>
         </CardContent>
       </CardActionArea>
     </Card>
