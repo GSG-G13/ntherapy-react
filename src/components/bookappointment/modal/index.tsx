@@ -5,8 +5,8 @@ import {
 } from '@mui/material';
 import * as React from 'react';
 import { FormikProps, useFormik } from 'formik';
-import ModelStyle from '../../../pages/therapistProfile/classes';
-import BookAppointment from '../selectTime/index';
+import { ModelStyle } from '../../../pages';
+import BookAppointment from '../selectTime';
 import StripePaymentForm from '../payment';
 import ValidationSchema from './validation';
 
