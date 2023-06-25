@@ -25,9 +25,6 @@ const CheckoutForm = () => {
     try {
       const { error, paymentIntent } = await stripe.confirmPayment({
         elements,
-        confirmParams: {
-          return_url: 'http://localhost:5173/',
-        },
         redirect: 'if_required',
       });
       setIsLoading(false);
@@ -68,7 +65,7 @@ const CheckoutForm = () => {
                 <CircularProgress size={20} />
               </div>
             )
-            : 'Booki'}
+            : 'Book'}
         </Button>
       </Container>
     </form>
