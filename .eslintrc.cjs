@@ -11,7 +11,7 @@ module.exports = {
   parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
   plugins: ['react-refresh'],
   rules: {
-    'no-nested-ternary': 'warn',
+    'no-nested-ternary': 'off',
     'react-refresh/only-export-components': 2,
     'react/jsx-filename-extension': [1, { extensions: ['.tsx'] }],
     'import/extensions': 'off',

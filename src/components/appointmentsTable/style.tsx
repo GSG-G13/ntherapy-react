@@ -3,8 +3,6 @@ const headerCell = {
 };
 const bodyCell = { margin: '10px', textAlign: 'center' };
 const spinner = {
-  height: '100px',
-  width: '100px',
   position: 'absolute',
   top: '50%',
   left: '50%',

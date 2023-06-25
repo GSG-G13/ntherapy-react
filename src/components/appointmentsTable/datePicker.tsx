@@ -7,17 +7,15 @@ import dayjs from 'dayjs';
 import { DateP } from './types';
 
 const DatePick = ({
-  changeDate, date,
+  setDate,
 }: DateP) => (
   <LocalizationProvider dateAdapter={AdapterDayjs}>
     <DemoContainer components={['DatePicker']}>
       <DatePicker
-        defaultValue={date}
         sx={{ position: 'absolute', top: 0, right: '25px' }}
-        onChange={(newValue) => {
-          changeDate(dayjs(newValue).format('YYYY-MM-DD'));
+        onChange={(newValue: string | null) => {
+          setDate(dayjs(newValue).format('YYYY-MM-DD'));
         }}
-        value={date}
         label="Appointments Calender"
       />
     </DemoContainer>

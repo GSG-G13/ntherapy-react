@@ -1,32 +1,42 @@
 import { useEffect, useState } from 'react';
-import ReactLoading from 'react-loading';
+
 import {
   Table, TableRow, TableHead, TableBody,
-  TableCell, TableContainer, Paper,
+  TableCell, TableContainer, Paper, CircularProgress, Alert,
 } from '@mui/material';
+import { useParams } from 'react-router-dom';
 import axiosInstance from '../../utils/apis/axios';
-import renderAppointments from './renderAppointments';
 import {
   headerCell, spinner, container,
 } from './style';
-import { TAppointments } from './types';
+import { Appointment, TAppointments } from './types';
+import RowTable from './tableRow';
 
 const AppointmentsTable = ({
-  date, id, loading, loadingChange,
+  date,
 }: TAppointments) => {
-  const [appointments, setAppointments] = useState([]);
+  const [appointments, setAppointments] = useState< null | []>();
+
+  const [loading, setLoading] = useState<boolean>(true);
+  const [errormessage, setErrorMessage] = useState(false);
+  const { id } = useParams();
   useEffect(() => {
     (async () => {
       try {
-        loadingChange(true);
-        const { data } = await axiosInstance(`/appointments/${id}?date=${date}`);
+        setLoading(true);
+        setErrorMessage(false);
+        const { data } = await axiosInstance(`/appointment/${id}?date=${date}`);
         setAppointments(data);
-        loadingChange(false);
+
+        setLoading(false);
       } catch (e) {
-        loadingChange(false);
+        setLoading(false);
+        setErrorMessage(true);
+        setAppointments(null);
       }
     })();
-  }, [date, id, loadingChange]);
+  }, [date, id]);
+
   return (
     <TableContainer
       component={Paper}
@@ -49,17 +59,46 @@ const AppointmentsTable = ({
             </TableCell>
           </TableRow>
         </TableHead>
-        <TableBody sx={{ margin: '3px', position: 'relative' }}>
-          { loading ? (
+        <TableBody sx={{
+          margin: '3px', position: 'relative',
+        }}
+        >
+          { loading
+            && (
             <TableRow sx={spinner}>
-              <ReactLoading
-                className="spinner"
-                type="spin"
-                color="#ffe766"
-                width="45px"
-              />
+              <CircularProgress />
             </TableRow>
-          ) : (renderAppointments(appointments)) }
+            ) }
+          {appointments
+            && appointments?.map(
+              (appointment: Appointment) => (
+                <RowTable
+                  key={appointment.id}
+                  appointment={appointment}
+                />
+              ),
+            )}
+          {appointments?.length === 0
+          && (
+          <TableRow sx={{
+            position: 'absolute', top: '50%', left: '42%', transform: 'translate(-50px, -50px)',
+          }}
+          >
+            <Alert severity="info"> No appointments found</Alert>
+          </TableRow>
+          )}
+          {errormessage && (
+          <TableRow sx={{
+            position: 'absolute', top: '50%', left: '42%', transform: 'translate(-50px, -50px)',
+          }}
+          >
+
+            <Alert severity="error">
+              something went wrong
+            </Alert>
+
+          </TableRow>
+          )}
         </TableBody>
       </Table>
     </TableContainer>
