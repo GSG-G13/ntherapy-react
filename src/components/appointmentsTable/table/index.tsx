@@ -97,7 +97,7 @@ const AppointmentsTable = ({
           >
 
             <Alert severity="error">
-              Please Check your Connection
+              Please Check Your Connection
             </Alert>
 
           </TableRow>
