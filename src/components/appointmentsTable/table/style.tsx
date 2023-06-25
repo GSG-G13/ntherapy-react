@@ -9,7 +9,7 @@ const spinner = {
   transform: 'translate(-50px, -50px)',
 };
 const container = {
-  margin: '50px auto', border: '#516eff7a solid 1px', borderRadius: '5px', boxShadow: '0 0 10px 0 rgba(0, 0, 0, 0.077)',
+  margin: '70px auto', border: '#516eff7a solid 1px', borderRadius: '5px', boxShadow: '0 0 10px 0 rgba(0, 0, 0, 0.077)',
 };
 const message = {
   position: 'absolute', left: '47%', top: '50%', transform: 'translate(-50px, -50px)',
