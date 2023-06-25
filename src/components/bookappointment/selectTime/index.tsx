@@ -14,9 +14,9 @@ import getTimeRange from '../../../utils/TimeRange';
 import ElementTimeType from './type';
 
 const BookAppointment = ({ formik }: FormikProps<string>) => {
-  const cuurentDate = dayjs().format('YYYY-MM-DD').toString();
+  // const cuurentDate = dayjs().format('YYYY-MM-DD').toString();
   const params = useParams();
-  const [value, setValue] = useState<Dayjs | null>(dayjs(cuurentDate));
+  const [value, setValue] = useState<Dayjs | null>(dayjs('2023-06-18'));
   const [time, setTime] = useState([]);
   const { enqueueSnackbar } = useSnackbar();
 

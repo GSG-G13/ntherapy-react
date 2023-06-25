@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { CircularProgress } from '@mui/material';
+import { CircularProgress, Container } from '@mui/material';
 import {
   PaymentElement,
   useStripe,
@@ -45,23 +45,32 @@ const CheckoutForm = () => {
     <form id="payment-form" onSubmit={handleSubmit}>
 
       <PaymentElement id="payment-element" />
-      <Button
-        sx={{ mt: 3 }}
-        variant="contained"
-        disabled={isLoading || !stripe || !elements}
-        id="submit"
-        type="submit"
+      <Container sx={{
+        position: 'relative', display: 'flex', justifyContent: 'flex-end', alignContent: 'flex-end',
+      }}
       >
+        <Button
+          sx={{
+            mt: 3,
+            position: 'absolute',
+            bottom: '-60px',
+            right: '10px',
+          }}
+          variant="contained"
+          disabled={isLoading || !stripe || !elements}
+          id="submit"
+          type="submit"
+        >
 
-        {isLoading
-          ? (
-            <div className="spinner" id="spinner">
-              <CircularProgress size={20} />
-            </div>
-          )
-
-          : 'Booki'}
-      </Button>
+          {isLoading
+            ? (
+              <div className="spinner" id="spinner">
+                <CircularProgress size={20} />
+              </div>
+            )
+            : 'Booki'}
+        </Button>
+      </Container>
     </form>
   );
 };

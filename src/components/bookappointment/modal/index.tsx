@@ -9,6 +9,7 @@ import { ModelStyle } from '../../../pages';
 import BookAppointment from '../selectTime';
 import StripePaymentForm from '../payment';
 import ValidationSchema from './validation';
+import buttonStyle from './classes';
 
 const steps = ['select appointment', 'Payment details'];
 interface StepComponentProps {
@@ -91,9 +92,12 @@ const SessionReservationModal: React.FC<SessionReservationModalProps> = ({ open,
               <StepComponent step={activeStep} formik={formik} />
               <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                 {activeStep !== 0 && (
-                <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
-                  Back
-                </Button>
+                  <Button
+                    onClick={handleBack}
+                    sx={buttonStyle}
+                  >
+                    Back
+                  </Button>
                 )}
                 {activeStep === 0 && (
                 <Button

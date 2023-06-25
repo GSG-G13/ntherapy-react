@@ -15,14 +15,18 @@ const Payment = () => {
   useEffect(() => {
     const getClientSecret = async () => {
       try {
-        const data = await axiosInstance.post('create-payment-intent');
+        const data = await axiosInstance.post('payment-intent', {
+          // we will get price from Doctor profile
+          SessionPrice: 100,
+        });
+
         setClientSecret(data.clientSecret);
       } catch (err) {
         enqueueSnackbar('Failed to create payment intent.', { variant: 'error' });
       }
     };
     getClientSecret();
-  });
+  }, [enqueueSnackbar]);
 
   return (
     <div>
