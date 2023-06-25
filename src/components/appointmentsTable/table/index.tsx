@@ -8,7 +8,7 @@ import { useParams } from 'react-router-dom';
 import dayjs from 'dayjs';
 import axiosInstance from '../../../utils/apis/axios';
 import {
-  headerCell, spinner, container,
+  headerCell, spinner, container, centerMessage,
 } from './style';
 import { Appointment, TAppointments } from './types';
 import RowTable from './tableRow';
@@ -72,7 +72,7 @@ const AppointmentsTable = ({
               <CircularProgress />
             </TableRow>
             ) }
-          {appointments
+          {!loading && appointments
             && appointments?.map(
               (appointment: Appointment) => (
                 <RowTable
@@ -81,20 +81,14 @@ const AppointmentsTable = ({
                 />
               ),
             )}
-          {appointments?.length === 0
+          {!loading && appointments?.length === 0
           && (
-          <TableRow sx={{
-            position: 'absolute', top: '50%', left: '42%', transform: 'translate(-50px, -50px)',
-          }}
-          >
+          <TableRow sx={centerMessage}>
             <Alert severity="info"> No appointments found</Alert>
           </TableRow>
           )}
           {errormessage && (
-          <TableRow sx={{
-            position: 'absolute', top: '50%', left: '42%', transform: 'translate(-50px, -50px)',
-          }}
-          >
+          <TableRow sx={centerMessage}>
 
             <Alert severity="error">
               Please Check Your Connection

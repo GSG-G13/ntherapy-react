@@ -21,10 +21,6 @@ body {
   width: 150px;
   text-align: center;
 }
-.spinner {
-  color: #516eff7a;
-  transform: translate(50%, 50%);
-}
 
 .therapy-card {
   display: flex;

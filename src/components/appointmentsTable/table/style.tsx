@@ -14,6 +14,9 @@ const container = {
 const message = {
   position: 'absolute', left: '47%', top: '50%', transform: 'translate(-50px, -50px)',
 };
+const centerMessage = {
+  position: 'absolute', top: '50%', left: '42%', transform: 'translate(-50px, -50px)',
+};
 export {
-  headerCell, bodyCell, spinner, container, message,
+  headerCell, bodyCell, spinner, container, message, centerMessage,
 };
