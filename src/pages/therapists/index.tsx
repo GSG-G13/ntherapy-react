@@ -41,21 +41,6 @@ const TherapistPage = () => {
         }
       };
       getTherapistData();
-      const handleOffline = () => {
-        enqueueSnackbar('You are offline', { variant: 'warning' });
-      };
-
-      const handleOnline = () => {
-        enqueueSnackbar('You are online', { variant: 'success' });
-      };
-
-      window.addEventListener('offline', handleOffline);
-      window.addEventListener('online', handleOnline);
-      return () => {
-        setTherapists([]);
-        window.removeEventListener('offline', handleOffline);
-        window.removeEventListener('online', handleOnline);
-      };
     },
     [currentPage, searchQuery],
   );
