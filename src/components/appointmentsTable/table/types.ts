@@ -3,6 +3,8 @@ import { useState } from 'react';
 
 export interface TAppointments {
   date: Dayjs | string,
+  loadingChange: typeof useState<boolean>
+  loading: boolean
 
   }
 export interface DateP {

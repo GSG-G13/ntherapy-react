@@ -2,12 +2,14 @@ import { Container } from '@mui/material';
 import dayjs, { Dayjs } from 'dayjs';
 import { useState } from 'react';
 import utc from 'dayjs/plugin/utc';
-import DatePick from './datePicker';
+import DatePick from './date/datePicker';
 import AppointmentsTable from './table';
 
 dayjs.extend(utc);
 const AppointmentTableContainer = () => {
-  const [date, setDate] = useState<Dayjs | string >(dayjs().utc(true).local().format('YYYY-MM-DD'));
+  const [date, setDate] = useState<Dayjs | string >(dayjs());
+  const [loading, setLoading] = useState<boolean>(true);
+
   return (
     <Container sx={{ position: 'relative' }}>
       <DatePick
@@ -15,6 +17,8 @@ const AppointmentTableContainer = () => {
         setDate={setDate as typeof useState<Dayjs | string>}
       />
       <AppointmentsTable
+        loadingChange={setLoading as typeof useState<boolean>}
+        loading={loading}
         date={date}
       />
     </Container>

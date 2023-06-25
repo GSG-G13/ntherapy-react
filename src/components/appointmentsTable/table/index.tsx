@@ -5,7 +5,8 @@ import {
   TableCell, TableContainer, Paper, CircularProgress, Alert,
 } from '@mui/material';
 import { useParams } from 'react-router-dom';
-import axiosInstance from '../../utils/apis/axios';
+import dayjs from 'dayjs';
+import axiosInstance from '../../../utils/apis/axios';
 import {
   headerCell, spinner, container,
 } from './style';
@@ -15,24 +16,26 @@ import RowTable from './tableRow';
 const AppointmentsTable = ({
   date,
 }: TAppointments) => {
-  const [appointments, setAppointments] = useState< null | []>();
+  const [appointments, setAppointments] = useState< null | []>([]);
 
   const [loading, setLoading] = useState<boolean>(true);
   const [errormessage, setErrorMessage] = useState(false);
   const { id } = useParams();
+
   useEffect(() => {
     (async () => {
       try {
+        const utcDate = dayjs(date).utc().format('YYYY-MM-DD').toString();
         setLoading(true);
         setErrorMessage(false);
-        const { data } = await axiosInstance(`/appointments/${id}?date=${date}`);
+        const { data } = await axiosInstance(`/appointments/${id}?date=${utcDate}`);
         setAppointments(data);
 
         setLoading(false);
       } catch (e) {
         setLoading(false);
         setErrorMessage(true);
-        setAppointments(null);
+        setAppointments([]);
       }
     })();
   }, [date, id]);
@@ -94,7 +97,7 @@ const AppointmentsTable = ({
           >
 
             <Alert severity="error">
-              something went wrong
+              Please Check your Connection
             </Alert>
 
           </TableRow>

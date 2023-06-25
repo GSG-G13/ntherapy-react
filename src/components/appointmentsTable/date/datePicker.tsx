@@ -4,18 +4,20 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import dayjs from 'dayjs';
 
-import { DateP } from './types';
+import { DateP } from '../table/types';
 
 const DatePick = ({
-  setDate,
+  setDate, date,
 }: DateP) => (
   <LocalizationProvider dateAdapter={AdapterDayjs}>
     <DemoContainer components={['DatePicker']}>
       <DatePicker
+        format="DD-MM-YYYY"
         sx={{ position: 'absolute', top: 0, right: '25px' }}
-        onChange={(newValue: string | null) => {
-          setDate(dayjs(newValue).format('YYYY-MM-DD'));
+        onChange={(newValue) => {
+          setDate(dayjs(newValue));
         }}
+        value={date}
         label="Appointments Calender"
       />
     </DemoContainer>

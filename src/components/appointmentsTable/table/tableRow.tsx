@@ -1,12 +1,10 @@
 import { useState } from 'react';
 import { TableRow, TableCell, Checkbox } from '@mui/material';
 import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
-import { bodyCell } from './style';
-import axiosInstance from '../../utils/apis/axios';
-import { TRow } from './types';
 
-dayjs.extend(utc);
+import { bodyCell } from './style';
+import axiosInstance from '../../../utils/apis/axios';
+import { TRow } from './types';
 
 const RowTable = ({ appointment }:TRow) => {
   const {
@@ -16,11 +14,9 @@ const RowTable = ({ appointment }:TRow) => {
   return (
     <TableRow sx={{ backgroundColor: availability ? 'white' : '#ffe766' }}>
       <TableCell sx={bodyCell}>
-        {`${dayjs(datetime).utc(true).local()
-          .format()
-          .slice(5, 10)} | ${dayjs(datetime).utc(true).local()
-          .format()
-          .slice(12, -9)}`}
+        {
+        `${dayjs(datetime).format('lll')}`
+}
       </TableCell>
       <TableCell sx={bodyCell}>{isBooked ? 'BOOKED' : 'PENDING'}</TableCell>
       <TableCell sx={bodyCell}>{availability ? 'AVAILABLE' : 'CANCELED'}</TableCell>
