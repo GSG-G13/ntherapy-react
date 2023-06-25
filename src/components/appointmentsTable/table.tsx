@@ -25,7 +25,7 @@ const AppointmentsTable = ({
       try {
         setLoading(true);
         setErrorMessage(false);
-        const { data } = await axiosInstance(`/appointment/${id}?date=${date}`);
+        const { data } = await axiosInstance(`/appointments/${id}?date=${date}`);
         setAppointments(data);
 
         setLoading(false);
