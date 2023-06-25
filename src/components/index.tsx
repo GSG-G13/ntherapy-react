@@ -1,4 +1,8 @@
 import AppointmentsModal from './AppointmentsModal';
+import { TherapistCardProps, TherapistCardType } from './TherapistCard/types';
+import GridCard from './TherapistCard';
+import TherapistList from './TherapistsList';
 
-// eslint-disable-next-line import/prefer-default-export
-export { AppointmentsModal };
+export { AppointmentsModal, GridCard, TherapistList };
+
+export type { TherapistCardProps, TherapistCardType };
