@@ -28,7 +28,7 @@ const TherapistPage = () => {
             },
           });
           setTherapists(response.data.rows);
-          setTotalPages(response.pagination.totalPages);
+          setTotalPages(response.data.pagination.totalPages);
           setLoading(false);
         } catch (error) {
           if (error instanceof AxiosError) {
