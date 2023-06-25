@@ -25,7 +25,7 @@ const AppointmentsTable = ({
   useEffect(() => {
     (async () => {
       try {
-        const utcDate = dayjs(date).utc().format('YYYY-MM-DD').toString();
+        const utcDate = dayjs(date).format('YYYY-MM-DD').toString();
         setLoading(true);
         setErrorMessage(false);
         const { data } = await axiosInstance(`/appointments/${id}?date=${utcDate}`);
