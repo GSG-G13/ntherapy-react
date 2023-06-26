@@ -32,6 +32,7 @@ const Login = () => {
   const showSnackbar = (message:string, severity:VariantType) => {
     enqueueSnackbar(message, { variant: severity });
   };
+
   const formik = useFormik({
     initialValues: {
       email: '',
