@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { useSnackbar, VariantType } from 'notistack';
+
 import {
   Button,
   CssBaseline,
@@ -25,6 +27,10 @@ import './style.css';
 import axiosInstance from '../../utils/apis/axios';
 
 const Login = () => {
+  const { enqueueSnackbar } = useSnackbar();
+  const showSnackbar = (message:string, severity:VariantType) => {
+    enqueueSnackbar(message, { variant: severity });
+  };
   const formik = useFormik({
     initialValues: {
       email: 'yasser@example.com',
@@ -37,9 +43,9 @@ const Login = () => {
           email: values.email,
           password: values.password,
         });
-        localStorage.setItem('access_token', response.token);
+        localStorage.setItem('access_token', response.data.access_token);
       } catch (error) {
-        console.error(`error${error}`);
+        showSnackbar('error', 'error');
       }
     },
   });
