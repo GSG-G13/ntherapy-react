@@ -6,7 +6,8 @@ import Therapists from './therapists';
 import TherapistPage from './therapistProfile';
 import LoginAdmin from './loginAdmin';
 import NotFound from './notFound';
+import ModelStyle from './therapistProfile/classes';
 
 export {
-  Admin, LandingPage, Login, Signup, Therapists, TherapistPage, LoginAdmin, NotFound,
+  Admin, LandingPage, Login, Signup, Therapists, TherapistPage, LoginAdmin, NotFound, ModelStyle,
 };
