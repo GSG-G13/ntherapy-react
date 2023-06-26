@@ -33,7 +33,7 @@ const Login = () => {
     validationSchema,
     onSubmit: async (values) => {
       try {
-        const response = await axiosInstance.post('/userLogin', {
+        const response = await axiosInstance.post('/auth/login', {
           email: values.email,
           password: values.password,
         });
