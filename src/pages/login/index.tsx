@@ -53,7 +53,6 @@ const Login = () => {
     },
   });
 
-  console.log(formik.isSubmitting);
   return (
     <Grid container component="main" sx={gridStyle}>
       <CssBaseline />
