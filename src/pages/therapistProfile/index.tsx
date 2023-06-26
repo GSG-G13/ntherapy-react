@@ -8,7 +8,7 @@ import Skeleton from '@mui/material/Skeleton';
 import axiosInstance from '../../utils/apis/axios';
 import { TextFieldEdited, ChangePhoto } from '../../components';
 import {
-  imageStyle, TypographyStyle, BoxStyle, TherapistData,
+  imageStyle, TherapistData,
 } from './classes';
 
 const TherapistProfile = () => {
