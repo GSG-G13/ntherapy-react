@@ -27,15 +27,18 @@ import './style.css';
 import axiosInstance from '../../utils/apis/axios';
 
 const Login = () => {
+  const [showPassword, setShowPassword] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
   const showSnackbar = (message:string, severity:VariantType) => {
     enqueueSnackbar(message, { variant: severity });
   };
   const formik = useFormik({
     initialValues: {
-      email: 'yasser@example.com',
-      password: '123456789',
+      email: '',
+      password: '',
     },
+    validateOnMount: true,
+
     validationSchema,
     onSubmit: async (values) => {
       try {
@@ -45,13 +48,12 @@ const Login = () => {
         });
         localStorage.setItem('access_token', response.data.access_token);
       } catch (error) {
-        showSnackbar('error', 'error');
+        showSnackbar(error.message, 'error');
       }
     },
   });
 
-  const [showPassword, setShowPassword] = useState(false);
-
+  console.log(formik.isSubmitting);
   return (
     <Grid container component="main" sx={gridStyle}>
       <CssBaseline />
@@ -116,7 +118,13 @@ const Login = () => {
                 ),
               }}
             />
-            <Button type="submit" variant="contained" fullWidth sx={buttonStyle}>
+            <Button
+              type="submit"
+              variant="contained"
+              fullWidth
+              sx={buttonStyle}
+              disabled={!formik.isValid}
+            >
               Sign In
             </Button>
             <Grid container>
