@@ -3,7 +3,15 @@ import SessionReservationModal from './bookappointment/modal';
 import Payment from './bookappointment/payment';
 import BookAppointment from './bookappointment/selectTime';
 import CheckoutForm from './checkoutform';
+import { TherapistCardProps, TherapistCardType } from './TherapistCard/types';
+import GridCard from './TherapistCard';
+import TherapistList from './TherapistsList';
 
 export {
-  AppointmentsModal, SessionReservationModal, Payment, BookAppointment, CheckoutForm,
+  AppointmentsModal, SessionReservationModal,
+  Payment, BookAppointment, CheckoutForm, GridCard, TherapistList,
+};
+export type {
+  TherapistCardProps,
+  TherapistCardType,
 };
