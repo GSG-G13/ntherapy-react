@@ -122,7 +122,7 @@ const TherapistProfile = () => {
                 <Typography
                   component="h1"
                   variant="h5"
-                  sx={{ fontWeight: 'bold', marginBottom: '16px' }} // تنسيق العنوان
+                  sx={{ fontWeight: 'bold', marginBottom: '16px' }}
                 >
                   Abstract ...
                 </Typography>
