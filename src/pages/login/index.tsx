@@ -13,7 +13,7 @@ import {
   InputAdornment,
   IconButton,
 } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import validationSchema from './schema';
 import imageSrc from '../../assets/loginImg.jpg';
@@ -31,6 +31,7 @@ const Login = () => {
   const showSnackbar = (message:string, severity:VariantType) => {
     enqueueSnackbar(message, { variant: severity });
   };
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -47,6 +48,7 @@ const Login = () => {
           password: values.password,
         });
         localStorage.setItem('access_token', response.data.access_token);
+        navigate('/');
       } catch (error) {
         if (error instanceof Error) {
           showSnackbar(error.message, 'error');
