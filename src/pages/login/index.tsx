@@ -24,7 +24,7 @@ import {
   gridStyle,
 } from './classes';
 import './style.css';
-import axiosInstance from '../../utils/apis';
+import { axiosInstance } from '../../utils/apis';
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);

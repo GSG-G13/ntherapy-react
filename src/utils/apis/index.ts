@@ -1,3 +1,4 @@
 import axiosInstance from './axios';
 
-export default axiosInstance;
+// eslint-disable-next-line import/prefer-default-export
+export { axiosInstance };
