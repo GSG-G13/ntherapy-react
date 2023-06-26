@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useSnackbar, VariantType } from 'notistack';
+import { LoadingButton } from '@mui/lab';
 
 import {
-  Button,
   CssBaseline,
   TextField,
   Paper,
@@ -118,15 +118,16 @@ const Login = () => {
                 ),
               }}
             />
-            <Button
+            <LoadingButton
               type="submit"
               variant="contained"
               fullWidth
               sx={buttonStyle}
-              disabled={!formik.isValid}
+              loading={formik.isSubmitting}
+              disabled={!formik.isValid || formik.isSubmitting}
             >
               Sign In
-            </Button>
+            </LoadingButton>
             <Grid container>
               <Grid item>
                 <Link to="/signup" style={{ margin: '80px' }}>
