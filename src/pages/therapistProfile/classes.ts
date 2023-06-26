@@ -20,6 +20,7 @@ const imageStyle: Type = {
   width: '100%',
   height: '260px',
   objectFit: 'cover',
+  
 };
 
 const TypographyStyle: Type = {
@@ -34,6 +35,13 @@ const BoxStyle: Type = {
   width: '83%',
   backgroundColor: '#eee',
 };
+const ModelStyle : Type = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+};
 
-export { imageStyle, TypographyStyle, BoxStyle };
+export {
+  imageStyle, TypographyStyle, BoxStyle, ModelStyle,
+};
 export type { TherapistData };
