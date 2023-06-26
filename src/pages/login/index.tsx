@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { useSnackbar, VariantType } from 'notistack';
+import { enqueueSnackbar, VariantType } from 'notistack';
 import { LoadingButton } from '@mui/lab';
 
 import {
@@ -28,7 +28,6 @@ import axiosInstance from '../../utils/apis';
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const { enqueueSnackbar } = useSnackbar();
   const showSnackbar = (message:string, severity:VariantType) => {
     enqueueSnackbar(message, { variant: severity });
   };
@@ -49,7 +48,11 @@ const Login = () => {
         });
         localStorage.setItem('access_token', response.data.access_token);
       } catch (error) {
-        showSnackbar(error.message, 'error');
+        if (error instanceof Error) {
+          showSnackbar(error.message, 'error');
+        } else {
+          showSnackbar('something went wrong', 'error');
+        }
       }
     },
   });
