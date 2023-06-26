@@ -98,20 +98,31 @@ const TherapistProfile = () => {
               <TextFieldEdited value={major} dataType="major" onChange={handleChangeMajor} />
 
               <Box sx={{
-                display: 'flex', alignItems: 'center', fontFamily: 'inherit', with: '600px',
+                display: 'flex',
+                alignItems: 'center',
+                fontFamily: 'inherit',
+                width: '600px',
+                marginTop: '16px',
               }}
               >
-                <Typography sx={{ fontWeight: 'bold' }}>for session:$</Typography>
+                <Typography sx={{ fontWeight: 'bold', mt: 1, fontSize: '18px' }}>for session: $</Typography>
                 <TextFieldEdited value={hourlyRate} dataType="hourlyRate" onChange={handleChangeHourlyRate} />
               </Box>
-              <Button variant="contained">Reserve a Session</Button>
+              <Button variant="contained" style={{ marginTop: '16px' }}>Reserve a Session</Button>
             </Box>
             <Box gridColumn="span 12" sx={{ mt: 4 }}>
-              <Box component="div" sx={BoxStyle}>
+              <Box
+                component="div"
+                sx={{
+                  backgroundColor: '#F5F5F5',
+                  padding: '16px',
+                  borderRadius: '8px',
+                }}
+              >
                 <Typography
                   component="h1"
                   variant="h5"
-                  sx={TypographyStyle}
+                  sx={{ fontWeight: 'bold', marginBottom: '16px' }} // تنسيق العنوان
                 >
                   Abstract ...
                 </Typography>

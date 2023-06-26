@@ -5,7 +5,7 @@ const getStyle = (dataType:string) => ({
   },
   '& input': {
     color: 'red',
-    fontSize: dataType === 'fullName' ? '28px' : '17px',
+    fontSize: dataType === 'fullName' ? '28px' : '18px',
     fontWeight: dataType === 'fullName' ? 'bolder' : 'bold',
   },
   '& .css-66dh3a-MuiInputBase-input-MuiInput-input ': {

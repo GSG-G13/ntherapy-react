@@ -70,7 +70,7 @@ const TextFieldEdite: React.FC<Props> = ({
         InputProps={{
           disableUnderline: true,
           endAdornment:
-  <InputAdornment position="end">
+  <InputAdornment position="start">
     {isEditable ? (
       <IconButton onClick={handleClick}>
         <Edit />
