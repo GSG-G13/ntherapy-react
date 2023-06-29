@@ -1,16 +1,19 @@
-const getStyle = (dataType:string) => ({
-  width: dataType === 'bio' ? '900px' : '400px',
+const getStyle = (dataType: string) => ({
+  width: dataType === 'hourlyRate' ? '335px' : '450px',
+  margin: '0.5px ', // Center the input horizontally and add margin on top and bottom
+
   '& .MuiInputBase-input.Mui-disabled': {
     WebkitTextFillColor: dataType === 'fullName' ? '#2B127B' : 'black',
+    height: '17px',
+    marginTop: dataType === 'hourlyRate' ? '-5px' : '30px',
+
   },
   '& input': {
     color: 'red',
-    fontSize: dataType === 'fullName' ? '28px' : '18px',
+    fontSize: dataType === 'fullName' ? '24px' : '18px',
     fontWeight: dataType === 'fullName' ? 'bolder' : 'bold',
-  },
-  '& .css-66dh3a-MuiInputBase-input-MuiInput-input ': {
-    color: 'red',
-    fontSize: '17px',
+    marginTop: dataType === 'hourlyRate' ? '-5px' : '30px',
+    height: '17px',
   },
 });
 

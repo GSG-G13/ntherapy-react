@@ -12,7 +12,8 @@ const isEditable = true;
 interface Props {
   value: string | number;
   dataType: 'fullName' | 'bio' | 'hourlyRate' |'major';
-  onChange: () => void;
+  // eslint-disable-next-line no-unused-vars
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const TextFieldEdite: React.FC<Props> = ({
@@ -55,34 +56,35 @@ const TextFieldEdite: React.FC<Props> = ({
 
   const style = getStyle(dataType);
   return (
-    <>
-      <TextField
-        name="text"
-        defaultValue={value}
-        margin="normal"
-        error={value === ''}
-        onChange={onChange}
-        disabled={!editMode}
-        onMouseEnter={handleMouseOver}
-        onMouseLeave={handleMouseOut}
-        variant="standard"
-        sx={style}
-        InputProps={{
-          disableUnderline: true,
-          endAdornment:
-  <InputAdornment position="start">
+    <TextField
+      name="text"
+      defaultValue={value}
+      margin="normal"
+      error={value === ''}
+      onChange={onChange}
+      disabled={!editMode}
+      onMouseEnter={handleMouseOver}
+      onMouseLeave={handleMouseOut}
+      variant="standard"
+      sx={style}
+      InputProps={{
+        disableUnderline: true,
+        endAdornment:
+  <InputAdornment position="end">
     {isEditable ? (
-      <IconButton onClick={handleClick}>
+      <IconButton
+        onClick={handleClick}
+
+      >
         <Edit />
       </IconButton>
     ) : null}
+    {editMode && <Button variant="contained" onClick={handleUpdate}>Save</Button>}
   </InputAdornment>,
 
-        }}
-        multiline={dataType === 'bio'}
-      />
-      {editMode && <Button variant="contained" onClick={handleUpdate}>Save</Button>}
-    </>
+      }}
+      multiline={dataType === 'bio'}
+    />
   );
 };
 

@@ -1,10 +1,11 @@
-import Button from '@mui/material/Button';
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import React from 'react';
+import IconStyle from './classes';
 
 const isEditable = true;
 interface Props {
-  onChange: () => void;
+  // eslint-disable-next-line no-unused-vars
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 const ChangePhoto: React.FC<Props> = ({ onChange }) => (
   <div>
@@ -17,14 +18,7 @@ const ChangePhoto: React.FC<Props> = ({ onChange }) => (
         onChange={onChange}
         style={{ display: 'none' }}
       />
-      <Button
-        variant="contained"
-        color="primary"
-        component="span"
-        startIcon={<CloudUploadIcon />}
-      >
-        Choose Photo
-      </Button>
+      <ControlPointIcon sx={IconStyle} />
     </label>
     )}
   </div>

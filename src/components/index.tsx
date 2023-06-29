@@ -9,11 +9,12 @@ import AppointmentTableContainer from './appointmentsTable';
 import { TherapistCardProps, TherapistCardType } from './TherapistCard/types';
 import GridCard from './TherapistCard';
 import TherapistList from './TherapistsList';
+import BioEditor from './therapistProfile/changeBio';
 
 export {
   AppointmentsModal, SessionReservationModal,
   Payment, BookAppointment, CheckoutForm, GridCard, TherapistList, AppointmentTableContainer
-  , ChangePhoto, TextFieldEdited,
+  , ChangePhoto, TextFieldEdited, BioEditor,
 };
 export type {
   TherapistCardProps,

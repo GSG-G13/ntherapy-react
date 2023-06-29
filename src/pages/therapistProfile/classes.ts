@@ -16,13 +16,6 @@ interface TherapistData {
     };
 }
 
-const imageStyle: Type = {
-  width: '100%',
-  height: '260px',
-  objectFit: 'cover',
-  
-};
-
 const TypographyStyle: Type = {
   marginLeft: '30px',
   paddingTop: '20px',
@@ -32,8 +25,11 @@ const TypographyStyle: Type = {
 };
 
 const BoxStyle: Type = {
-  width: '83%',
-  backgroundColor: '#eee',
+  display: 'flex',
+  alignItems: 'center',
+  fontFamily: 'inherit',
+  width: '900px',
+  marginTop: '8px',
 };
 const ModelStyle : Type = {
   display: 'flex',
@@ -41,7 +37,13 @@ const ModelStyle : Type = {
   justifyContent: 'center',
 };
 
+const ButtonStyle: Type = {
+  marginTop: '16px',
+  fontSize: '12px',
+  width: '160px',
+};
+
 export {
-  imageStyle, TypographyStyle, BoxStyle, ModelStyle,
+  TypographyStyle, BoxStyle, ModelStyle, ButtonStyle,
 };
 export type { TherapistData };

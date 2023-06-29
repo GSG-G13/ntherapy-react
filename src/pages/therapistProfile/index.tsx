@@ -8,13 +8,14 @@ import Skeleton from '@mui/material/Skeleton';
 import axiosInstance from '../../utils/apis/axios';
 import {
   TextFieldEdited, ChangePhoto,
-  AppointmentTableContainer, AppointmentsModal, SessionReservationModal,
+  AppointmentTableContainer, AppointmentsModal, SessionReservationModal, BioEditor,
 } from '../../components';
 import {
-  imageStyle, TherapistData,
+  TherapistData,
+  ButtonStyle,
+  BoxStyle,
 } from './classes';
-
-const editer = true;
+import 'react-quill/dist/quill.snow.css';
 
 const TherapistProfile = () => {
   const { id } = useParams();
@@ -31,6 +32,7 @@ const TherapistProfile = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [hover, setHover] = useState(false);
+  const [edited, setEdited] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -63,8 +65,8 @@ const TherapistProfile = () => {
     setHourlyRate(Number(event.target.value));
   };
 
-  const handleChangeTextBio = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTextBio(event.target.value);
+  const handleChangeTextBio = (value: string) => {
+    setTextBio(value);
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -114,7 +116,7 @@ const TherapistProfile = () => {
                     width: '100%',
                     height: '260px',
                     objectFit: 'cover',
-                    opacity: hover && editer ? '0.5' : '1',
+                    opacity: hover && edited ? '0.5' : '1',
                     borderRadius: '6px',
                   }}
                 />
@@ -125,19 +127,17 @@ const TherapistProfile = () => {
                 <TextFieldEdited value={name} dataType="fullName" onChange={handleChangeName} />
                 <TextFieldEdited value={major} dataType="major" onChange={handleChangeMajor} />
 
-                <Box sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  fontFamily: 'inherit',
-                  width: '600px',
-                  marginTop: '16px',
-                }}
-                >
-                  <Typography sx={{ fontWeight: 'bold', mb: 1, fontSize: '18px' }}>for session: $</Typography>
+                <Box sx={BoxStyle}>
+                  <Typography sx={{
+                    fontWeight: 'bold', mb: 1, fontSize: '18px',
+                  }}
+                  >
+                    for session: $
+                  </Typography>
                   <TextFieldEdited value={hourlyRate} dataType="hourlyRate" onChange={handleChangeHourlyRate} />
                 </Box>
-                {editer ? <Button variant="contained" style={{ marginTop: '16px' }} onClick={handleOpen}> Add Appointment</Button>
-                  : <Button variant="contained" style={{ marginTop: '16px' }} onClick={handleOpenModal}>Reserve a Session</Button>}
+                {edited ? <Button variant="contained" style={ButtonStyle} onClick={handleOpen}> Add Appointment</Button>
+                  : <Button variant="contained" style={ButtonStyle} onClick={handleOpenModal}>Reserve a Session</Button>}
                 <SessionReservationModal open={openModal} setOpen={setOpenModal} />
                 {open && <AppointmentsModal handleClose={handleClose} open={open} />}
               </Box>
@@ -145,23 +145,25 @@ const TherapistProfile = () => {
                 <Box
                   component="div"
                   sx={{
-                    backgroundColor: '#F5F5F5',
-                    padding: '16px',
-                    borderRadius: '8px',
+                    padding: '20px', borderRadius: '8px', backgroundColor: '#EEEE', width: '800px',
                   }}
                 >
                   <Typography
                     component="h1"
                     variant="h5"
-                    sx={{ fontWeight: 'bold', marginBottom: '16px' }}
+                    sx={{ fontWeight: 'bold', marginBottom: '-20px', color: '#2B127B' }}
                   >
                     Abstract ...
                   </Typography>
-                  <TextFieldEdited
-                    value={textBio}
-                    dataType="bio"
-                    onChange={handleChangeTextBio}
-                  />
+                  {
+                    edited ? (
+                      <BioEditor
+                        textBio={textBio}
+                        handleChangeTextBio={handleChangeTextBio}
+                      />
+                    ) : <div dangerouslySetInnerHTML={{ __html: textBio }} />
+                  }
+
                 </Box>
               </Box>
             </Box>
@@ -176,7 +178,11 @@ const TherapistProfile = () => {
           </>
         )}
       </Container>
-      <AppointmentTableContainer />
+      {
+        edited
+        && <AppointmentTableContainer />
+
+      }
     </Container>
   );
 };
