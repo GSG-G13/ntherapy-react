@@ -12,7 +12,7 @@ const TherapistProfile = () => {
   const [error, setError] = useState<boolean>(false);
 
   // eslint-disable-next-line no-unused-vars
-  const [edited, setEdited] = useState(true);
+  const [isEditable, setIsEditable] = useState(true);
 
   if (error) {
     return (
@@ -32,9 +32,9 @@ const TherapistProfile = () => {
 
   return (
     <Container>
-      <TherapistHeader edited={edited} setError={setError} />
+      <TherapistHeader isEditable={isEditable} setError={setError} />
       {
-        edited
+        isEditable
         && <AppointmentTableContainer />
 
       }

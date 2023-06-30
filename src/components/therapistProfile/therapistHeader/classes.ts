@@ -20,6 +20,7 @@ const TypographyStyle: Type = {
   fontWeight: 'bold',
   marginBottom: '-20px',
   color: '#2B127B',
+  marginLeft: '60px',
 };
 
 const BoxStyle: Type = {

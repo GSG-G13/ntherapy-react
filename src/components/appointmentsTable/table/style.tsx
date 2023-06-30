@@ -10,7 +10,7 @@ const spinner = {
 };
 const container = {
   marginTop: '70px ',
-  marginRight: '300px',
+  marginLeft: '60px',
   marginBottom: '40px',
   border: '#516eff7a solid 1px',
   borderRadius: '5px',

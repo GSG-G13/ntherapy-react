@@ -15,11 +15,11 @@ interface Props {
   dataType: 'fullName' | 'bio' | 'hourlyRate' |'major';
   // eslint-disable-next-line no-unused-vars
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  edited:boolean
+  isEditable:boolean
 }
 
 const TextFieldEdite: React.FC<Props> = ({
-  value, dataType, onChange, edited,
+  value, dataType, onChange, isEditable,
 }) => {
   const { enqueueSnackbar } = useSnackbar();
   const [editMode, setEditMode] = useState(false);
@@ -72,7 +72,7 @@ const TextFieldEdite: React.FC<Props> = ({
         disableUnderline: true,
         endAdornment:
   <InputAdornment position="end">
-    {edited ? (
+    {isEditable ? (
       <IconButton
         onClick={handleClick}
       >
