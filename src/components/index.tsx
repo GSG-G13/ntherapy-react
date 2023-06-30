@@ -10,11 +10,12 @@ import { TherapistCardProps, TherapistCardType } from './TherapistCard/types';
 import GridCard from './TherapistCard';
 import TherapistList from './TherapistsList';
 import BioEditor from './therapistProfile/changeBio';
+import TherapistHeader from './therapistProfile/therapistHeader';
 
 export {
   AppointmentsModal, SessionReservationModal,
   Payment, BookAppointment, CheckoutForm, GridCard, TherapistList, AppointmentTableContainer
-  , ChangePhoto, TextFieldEdited, BioEditor,
+  , ChangePhoto, TextFieldEdited, BioEditor, TherapistHeader,
 };
 export type {
   TherapistCardProps,

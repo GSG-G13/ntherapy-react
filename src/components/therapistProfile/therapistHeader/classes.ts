@@ -17,11 +17,9 @@ interface TherapistData {
 }
 
 const TypographyStyle: Type = {
-  marginLeft: '30px',
-  paddingTop: '20px',
-  fontSize: '28px',
+  fontWeight: 'bold',
+  marginBottom: '-20px',
   color: '#2B127B',
-  fontWeight: 'bolder',
 };
 
 const BoxStyle: Type = {

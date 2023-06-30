@@ -4,21 +4,24 @@ import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import Edit from '@mui/icons-material/Edit';
 import { Button } from '@mui/material';
+import { useSnackbar } from 'notistack';
 import getStyle from './style';
 import axiosInstance from '../../../utils/apis/axios';
 
-const isEditable = true;
+// const isEditable = true;
 
 interface Props {
   value: string | number;
   dataType: 'fullName' | 'bio' | 'hourlyRate' |'major';
   // eslint-disable-next-line no-unused-vars
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  edited:boolean
 }
 
 const TextFieldEdite: React.FC<Props> = ({
-  value, dataType, onChange,
+  value, dataType, onChange, edited,
 }) => {
+  const { enqueueSnackbar } = useSnackbar();
   const [editMode, setEditMode] = useState(false);
   const [mouseOver, setMouseOver] = useState(false);
 
@@ -48,10 +51,8 @@ const TextFieldEdite: React.FC<Props> = ({
         headers: { Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoidGhlcmFwaXN0IiwidXNlcklkIjoiNSIsInRoZXJhcGlzdElkIjoiMiJ9.gGlnqHx0QN93rw87HdavQH-QN1kA3mQ6yALwl9M2L_w' },
       });
     } catch (error) {
-      // Handle error if needed
-      console.log(error);
+      enqueueSnackbar(error.message, { variant: 'error' });
     }
-    console.log(value, dataType);
   };
 
   const style = getStyle(dataType);
@@ -71,10 +72,9 @@ const TextFieldEdite: React.FC<Props> = ({
         disableUnderline: true,
         endAdornment:
   <InputAdornment position="end">
-    {isEditable ? (
+    {edited ? (
       <IconButton
         onClick={handleClick}
-
       >
         <Edit />
       </IconButton>

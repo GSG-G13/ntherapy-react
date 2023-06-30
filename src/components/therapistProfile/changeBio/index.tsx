@@ -3,6 +3,7 @@ import { Button, IconButton } from '@mui/material';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { Edit } from '@mui/icons-material';
+import { useSnackbar } from 'notistack';
 import axiosInstance from '../../../utils/apis/axios';
 
 interface BioEditorProps {
@@ -13,6 +14,8 @@ interface BioEditorProps {
 const BioEditor: React.FC<BioEditorProps> = ({
   textBio, handleChangeTextBio,
 }) => {
+  const { enqueueSnackbar } = useSnackbar();
+
   const [show, setShow] = useState(false);
 
   const handleSaveChanges = async () => {
@@ -24,8 +27,7 @@ const BioEditor: React.FC<BioEditorProps> = ({
         headers: { Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoidGhlcmFwaXN0IiwidXNlcklkIjoiNSIsInRoZXJhcGlzdElkIjoiMiJ9.gGlnqHx0QN93rw87HdavQH-QN1kA3mQ6yALwl9M2L_w' },
       });
     } catch (error) {
-      // Handle error if needed
-      console.log(error);
+      enqueueSnackbar(error.message, { variant: 'error' });
     }
   };
 
@@ -56,11 +58,13 @@ const BioEditor: React.FC<BioEditorProps> = ({
         <>
           <IconButton
             onClick={handleEditBio}
-            sx={{ fontSize: '10px', ml: 90 }}
+            sx={{ fontSize: '10px', ml: 86 }}
           >
             <Edit />
           </IconButton>
-          <div dangerouslySetInnerHTML={{ __html: textBio }} />
+          <div
+            dangerouslySetInnerHTML={{ __html: textBio }}
+          />
         </>
       )}
     </div>
