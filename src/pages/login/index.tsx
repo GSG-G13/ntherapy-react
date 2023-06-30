@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { enqueueSnackbar, VariantType } from 'notistack';
+import { LoadingButton } from '@mui/lab';
+
 import {
-  Button,
   CssBaseline,
   TextField,
   Paper,
@@ -11,7 +13,7 @@ import {
   InputAdornment,
   IconButton,
 } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import validationSchema from './schema';
 import imageSrc from '../../assets/loginImg.jpg';
@@ -22,21 +24,40 @@ import {
   gridStyle,
 } from './classes';
 import './style.css';
+import { axiosInstance } from '../../utils/apis';
 
 const Login = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const showSnackbar = (message:string, severity:VariantType) => {
+    enqueueSnackbar(message, { variant: severity });
+  };
+  const navigate = useNavigate();
+
   const formik = useFormik({
     initialValues: {
-      email: 'yasser@example.com',
-      password: '123456789',
+      email: '',
+      password: '',
     },
+    validateOnMount: true,
+
     validationSchema,
-    onSubmit: (values) => {
-      // eslint-disable-next-line no-console
-      console.log(JSON.stringify(values, null, 2));
+    onSubmit: async (values) => {
+      try {
+        const response = await axiosInstance.post('/auth/login', {
+          email: values.email,
+          password: values.password,
+        });
+        localStorage.setItem('access_token', response.data.access_token);
+        navigate('/');
+      } catch (error) {
+        if (error instanceof Error) {
+          showSnackbar(error.message, 'error');
+        } else {
+          showSnackbar('something went wrong', 'error');
+        }
+      }
     },
   });
-
-  const [showPassword, setShowPassword] = useState(false);
 
   return (
     <Grid container component="main" sx={gridStyle}>
@@ -102,9 +123,16 @@ const Login = () => {
                 ),
               }}
             />
-            <Button type="submit" variant="contained" fullWidth sx={buttonStyle}>
+            <LoadingButton
+              type="submit"
+              variant="contained"
+              fullWidth
+              sx={buttonStyle}
+              loading={formik.isSubmitting}
+              disabled={!formik.isValid || formik.isSubmitting}
+            >
               Sign In
-            </Button>
+            </LoadingButton>
             <Grid container>
               <Grid item>
                 <Link to="/signup" style={{ margin: '80px' }}>
