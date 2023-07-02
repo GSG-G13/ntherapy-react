@@ -63,15 +63,12 @@ const Signup = () => {
     if (file) {
       const allowedTypes = ['application/pdf', 'image/jpeg', 'image/png'];
       if (allowedTypes.includes(file.type)) {
-        console.log('File uploaded successfully.', file);
         formik.setFieldValue(event.target.name, file);
         showSnackbar('File uploaded successfully!', 'success');
       } else {
-        console.log('Invalid file type. Please upload a PDF, JPEG, or PNG file.');
         showSnackbar('Invalid file type. Please upload a PDF, JPEG, or PNG file.', 'error');
       }
     } else {
-      console.log('Failed to upload file.');
       showSnackbar('Failed to upload file.', 'error');
     }
   };

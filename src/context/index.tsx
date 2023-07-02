@@ -1,37 +1,22 @@
 import React, {
-  useState, createContext, useEffect, useMemo,
+  useState, useEffect, useMemo,
 } from 'react';
+import { enqueueSnackbar } from 'notistack';
+import { AxiosError } from 'axios';
 import { axiosInstance } from '../utils/apis';
+import { AppContextProps, UserData } from './types';
+import userDataContext from './contextData';
 
-interface UserData {
-    fullName?: string,
-    role: string,
-    id: string,
-    profileImg?: string,
-    username?:string
-
-}
-interface AppContextProps {
-    children: React.ReactNode;
-}
-
-interface UserDataContextValue {
-    userData: UserData[];
-    setUserData: React.Dispatch<React.SetStateAction<UserData[]>>;
-}
-
-// eslint-disable-next-line react-refresh/only-export-components
-export const userDataContext = createContext < UserDataContextValue>(null!);
 const AppContext: React.FC<AppContextProps> = ({ children }) => {
   const [userData, setUserData] = useState<UserData[]>([]);
   useEffect(() => {
     const getUserData = async () => {
       try {
-        const response = await axiosInstance.get('/');
-        console.log(response.data);
+        const response = await axiosInstance.get('auth/');
         setUserData(response.data);
       } catch (error) {
-        console.error('Error fetching user data:', error);
+        const axiosError = error as AxiosError;
+        enqueueSnackbar(axiosError.message, { variant: 'error' });
       }
     };
     getUserData();

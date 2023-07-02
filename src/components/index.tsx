@@ -1,4 +1,5 @@
 import AppointmentsModal from './AppointmentsModal';
+import { TherapistHeader } from './therapistProfile';
 import SessionReservationModal from './bookappointment/modal';
 import Payment from './bookappointment/payment';
 import BookAppointment from './bookappointment/selectTime';
@@ -11,6 +12,7 @@ import TherapistList from './TherapistsList';
 export {
   AppointmentsModal, SessionReservationModal,
   Payment, BookAppointment, CheckoutForm, GridCard, TherapistList, AppointmentTableContainer,
+  TherapistHeader,
 };
 export type {
   TherapistCardProps,
