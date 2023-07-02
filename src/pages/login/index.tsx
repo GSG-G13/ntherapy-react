@@ -15,6 +15,7 @@ import {
 } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
+// import { AxiosError } from 'axios';
 import validationSchema from './schema';
 import imageSrc from '../../assets/loginImg.jpg';
 import {
@@ -25,7 +26,6 @@ import {
 } from './classes';
 import './style.css';
 import { axiosInstance } from '../../utils/apis';
-import { AxiosError } from 'axios';
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
