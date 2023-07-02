@@ -1,8 +1,7 @@
 import {
   Container, Typography, Grid, Button,
 } from '@mui/material';
-import backehero from '../../assets/img/backehero.png';
-import hero from '../../assets/img/hero.png';
+import { backehero, hero } from '../../assets';
 
 const HeroSection = () => (
   <div style={{ backgroundColor: '#F4F7FF', height: '29rem' }}>
