@@ -38,6 +38,7 @@ const Signup = () => {
   const [userType, setUserType] = useState('user');
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const navigate = useNavigate();
 
@@ -82,6 +83,7 @@ const Signup = () => {
             profileImg: imgUrl,
             phoneNumber: values.phoneNumber,
           });
+          setIsSubmitted(true);
           showSnackbar('Registration successful! Please Check Your Email', 'success');
         } else {
           await axiosInstance.post('/auth/register', {
@@ -335,7 +337,7 @@ const Signup = () => {
               fullWidth
               sx={buttonStyle}
               loading={formik.isSubmitting}
-              disabled={!formik.isValid || formik.isSubmitting}
+              disabled={!formik.isValid || formik.isSubmitting || isSubmitted}
             >
               Join us
             </LoadingButton>
