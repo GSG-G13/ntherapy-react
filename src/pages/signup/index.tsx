@@ -17,7 +17,8 @@ import {
   FormControlLabel,
   Radio,
 } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import { useFormik } from 'formik';
 import validationSchema from './schema';
 import imageSrc from '../../assets/loginImg.jpg';
@@ -38,6 +39,8 @@ const Signup = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
 
+  const navigate = useNavigate();
+
   const formik = useFormik({
     initialValues: {
       role: userType,
@@ -49,18 +52,52 @@ const Signup = () => {
       hourlyRate: '',
       cv: null,
       image: null,
+      phoneNumber: '',
     },
     validationSchema,
     onSubmit: async (values) => {
       try {
-        const uploadUrl = await axiosInstance.get('/upload-url');
-        console.log('Upload URL', uploadUrl);
+        if (userType === 'therapist') {
+          const s3ImgUploadUrl = await axiosInstance.get('/upload-url');
+          await axios.put(
+            s3ImgUploadUrl.data,
+            values.image,
+          );
+          const imgUrl = s3ImgUploadUrl.data.split('?')[0];
+          const s3CvUploadUrl = await axiosInstance.get('/upload-url');
+          await axios.put(s3CvUploadUrl.data, values.cv, {
+            headers: {
+              'Content-Type': 'application/pdf',
+            },
+          });
+          const cvUrl = s3CvUploadUrl.data.split('?')[0];
+          await axiosInstance.post('/auth/register', {
+            role: values.role,
+            fullName: values.username,
+            email: values.email,
+            password: values.password,
+            major: values.major,
+            hourlyRate: values.hourlyRate,
+            cvLink: cvUrl,
+            profileImg: imgUrl,
+            phoneNumber: values.phoneNumber,
+          });
+          showSnackbar('Registration successful! Please Check Your Email', 'success');
+        } else {
+          await axiosInstance.post('/auth/register', {
+            role: values.role,
+            fullName: values.username,
+            email: values.email,
+            password: values.password,
+          });
+          navigate('/login');
+        }
       } catch (err) {
-        console.log('Error getting upload URL', err);
+        if (err instanceof Error) {
+          showSnackbar(err.message, 'error');
+        }
+        enqueueSnackbar('Something went wrong. Please try again later.', { variant: 'error' });
       }
-      console.log('Form data', values);
-      console.log(JSON.stringify(values, null, 2));
-      showSnackbar('Signup successful!', 'success');
     },
   });
 
@@ -68,22 +105,17 @@ const Signup = () => {
     setUserType(event.target.value);
     formik.setFieldValue('role', event.target.value);
   };
-  // console.log('Formik values', formik.values);
-  console.log('Formik errors', formik.errors);
   const handleFileUpload = (event:React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       const allowedTypes = ['application/pdf', 'image/jpeg', 'image/png'];
       if (allowedTypes.includes(file.type)) {
-        console.log('File uploaded successfully.', file);
         formik.setFieldValue(event.target.name, file);
         showSnackbar('File uploaded successfully!', 'success');
       } else {
-        console.log('Invalid file type. Please upload a PDF, JPEG, or PNG file.');
         showSnackbar('Invalid file type. Please upload a PDF, JPEG, or PNG file.', 'error');
       }
     } else {
-      console.log('Failed to upload file.');
       showSnackbar('Failed to upload file.', 'error');
     }
   };
@@ -118,6 +150,17 @@ const Signup = () => {
                 <InputAdornment position="start">$</InputAdornment>
               ),
             }}
+          />
+          <TextField
+            margin="normal"
+            required
+            sx={textFieldStyle}
+            id="phoneNumber"
+            name="phoneNumber"
+            label="Phone Number"
+            onChange={formik.handleChange}
+            error={formik.touched.phoneNumber && Boolean(formik.errors.phoneNumber)}
+            helperText={formik.touched.phoneNumber && formik.errors.phoneNumber}
           />
 
           <label htmlFor="file-upload">
@@ -294,7 +337,7 @@ const Signup = () => {
               loading={formik.isSubmitting}
               disabled={!formik.isValid || formik.isSubmitting}
             >
-              Sign In
+              Join us
             </LoadingButton>
             <Grid container>
               <Grid item>

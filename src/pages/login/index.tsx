@@ -15,7 +15,6 @@ import {
 } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
-// import { AxiosError } from 'axios';
 import validationSchema from './schema';
 import imageSrc from '../../assets/loginImg.jpg';
 import {
@@ -53,10 +52,8 @@ const Login = () => {
       } catch (error) {
         if (error instanceof Error) {
           showSnackbar(error.message, 'error');
-        } else if (error) {
-          console.log(typeof error);
-          console.log(error);
-          showSnackbar(error.message, 'error');
+        } else {
+          showSnackbar('something went wrong', 'error');
         }
       }
     },

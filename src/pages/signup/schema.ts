@@ -3,12 +3,12 @@ import * as yup from 'yup';
 const validationSchema = yup.object({
   role: yup.string().required('Role is required'),
   username: yup
-    .string().matches(/^[a-zA-Z0-9_]*$/, 'Username should contain only alphabets, numbers and underscore')
-    .min(3, 'User name should be of minimum 3 characters length')
-    .required('Username is required'),
+    .string()
+    .min(3, 'Full name should be of minimum 3 characters length')
+    .required('Full Name is required'),
   email: yup
     .string().email('Enter a valid email')
-    .test('email-domain', 'Enter a valid email', (value) => {
+    .test('email-domain', 'Enter a valid email only Gmail Supported', (value) => {
       if (!value) return false;
       const emailParts = value.split('@');
       const domain = emailParts[emailParts.length - 1];
@@ -77,6 +77,13 @@ const validationSchema = yup.object({
           }
           return true;
         }),
+      otherwise: (schema) => schema.notRequired(),
+    }),
+  phoneNumber: yup
+    .string()
+    .when('role', {
+      is: 'therapist',
+      then: (schema) => schema.required('Phone Number is required'),
       otherwise: (schema) => schema.notRequired(),
     }),
 
