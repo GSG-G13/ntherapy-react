@@ -7,9 +7,7 @@ import TherapistPage from './therapistProfile';
 import LoginAdmin from './loginAdmin';
 import NotFound from './notFound';
 import ModelStyle from './therapistProfile/classes';
-import LandingPage2 from './Raghda';
 
 export {
   Admin, LandingPage, Login, Signup, Therapists, TherapistPage, LoginAdmin, NotFound, ModelStyle,
-  LandingPage2,
 };

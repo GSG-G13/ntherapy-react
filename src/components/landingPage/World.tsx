@@ -8,7 +8,18 @@ const World = () => (
   <Container>
     <Grid container spacing={2} mt={5}>
 
-      <Grid item xs={6} sx={{ mt: 5, ml: 5 }}>
+      <Grid
+        item
+        lg={6}
+        xs={12}
+        sx={{
+          mt: 5,
+          ml: 5,
+          '@media (max-width: 600px)': {
+            textAlign: 'center',
+          },
+        }}
+      >
         <Typography variant="h5" color="primary" sx={{ fontWeight: 'bold', mb: 2, mt: 3 }}>
           World-class providers.
           <br />
@@ -31,7 +42,7 @@ const World = () => (
           </Link>
         </Button>
       </Grid>
-      <Grid item xs={5} sx={{ mt: 5 }}>
+      <Grid item lg={5} xs={12} sx={{ mt: 5 }}>
         <img src={Worldimg} alt="Worldimg" />
       </Grid>
     </Grid>
