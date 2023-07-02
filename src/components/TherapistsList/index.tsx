@@ -12,10 +12,15 @@ const TherapistList = ({
   loading: boolean;
 }) => {
   if (loading) {
+    const dataArray:{
+      id: string;
+    }[] = [...Array(8)].map((_, index) => ({
+      id: `item-${index}`,
+    }));
     return (
       <Grid container spacing={2}>
-        {[...Array(8)].map(() => (
-          <Grid item xs={12} sm={6} md={4}>
+        {dataArray.map((_, index) => (
+          <Grid item xs={12} sm={6} md={4} key={dataArray[index].id}>
             <br />
             <br />
             <Box
