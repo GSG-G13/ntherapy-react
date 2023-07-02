@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import backehero from './img/backehero.png';
 import hero from './img/hero.png';
 import icon1 from './img/icon (1).png';
@@ -8,7 +9,9 @@ import online from './img/online.png';
 import online2 from './img/online2.png';
 import group from './img/group.png';
 import meet from './img/meet.png';
+import Worldimg from './img/World.png';
 
 export {
-  hero, backehero, icon1, icon2, icon3, icon4, online, online2, group, meet,
+  hero, backehero, icon1, icon2, icon3, icon4, online,
+  online2, group, meet, Worldimg,
 };

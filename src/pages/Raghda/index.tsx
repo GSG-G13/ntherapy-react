@@ -1,5 +1,5 @@
 import {
-  HeroSection, OnlineMedical, Personalized, Services, Questions,
+  HeroSection, OnlineMedical, Personalized, Services, Questions, World,
 } from '../../components/landingPage';
 
 const LandingPage2 = () => (
@@ -9,6 +9,7 @@ const LandingPage2 = () => (
     <Services />
     <OnlineMedical />
     <Questions />
+    <World />
   </>
 );
 export default LandingPage2;
