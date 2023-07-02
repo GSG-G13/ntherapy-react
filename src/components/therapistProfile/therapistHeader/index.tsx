@@ -75,7 +75,7 @@ const TherapistHeader: React.FC<Props> = ({ isEditable, setError }) => {
   const handleChangeTextBio = (value: string) => {
     setDataFromTherapist((prevData) => {
       if (prevData) {
-        return { ...prevData, Bio: value };
+        return { ...prevData, bio: value };
       }
       return prevData;
     });
