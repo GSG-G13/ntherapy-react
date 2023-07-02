@@ -8,7 +8,7 @@ import {
 const Services = () => (
   <Container>
     <Grid container spacing={2} mt={5}>
-      <Grid item xs={6} md={6} sx={{ mt: 5 }}>
+      <Grid item lg={6} md={6} xs={12} sx={{ mt: 5 }}>
         <Grid container alignItems="center" justifyContent="center" spacing={2}>
           <Grid item>
             <Avatar alt="icon" src={icon1} />
@@ -24,7 +24,7 @@ const Services = () => (
           </Grid>
         </Grid>
       </Grid>
-      <Grid item xs={6} md={6} sx={{ mt: 5 }}>
+      <Grid item lg={6} md={6} xs={12} sx={{ mt: 5 }}>
         <Grid container alignItems="center" justifyContent="center" spacing={2}>
           <Grid item>
             <Avatar alt="icon" src={icon2} />
@@ -42,7 +42,7 @@ const Services = () => (
           </Grid>
         </Grid>
       </Grid>
-      <Grid item xs={6} md={6} sx={{ mt: 5 }}>
+      <Grid item lg={6} md={6} xs={12} sx={{ mt: 5 }}>
         <Grid container alignItems="center" justifyContent="center" spacing={2}>
           <Grid item>
             <Avatar alt="icon" src={icon3} />
@@ -59,7 +59,7 @@ const Services = () => (
 
         </Grid>
       </Grid>
-      <Grid item xs={6} md={6} sx={{ mt: 5 }}>
+      <Grid item lg={6} md={6} xs={12} sx={{ mt: 5 }}>
         <Grid container alignItems="center" justifyContent="center" spacing={2}>
           <Grid item>
             <Avatar alt="icon" src={icon4} />

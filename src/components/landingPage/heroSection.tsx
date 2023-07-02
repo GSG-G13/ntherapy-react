@@ -40,9 +40,6 @@ const HeroSection = () => (
             justifyContent: 'center',
             alignItems: 'center',
             '@media (max-width: 600px)': {
-              // marginTop: '10rem',
-
-              // margin: '3rem',
               marginBottom: '5rem',
             },
           }}
