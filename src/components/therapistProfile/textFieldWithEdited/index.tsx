@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-indent */
 import TextField from '@mui/material/TextField';
 import React, { useState } from 'react';
 import IconButton from '@mui/material/IconButton';
@@ -57,25 +58,25 @@ const EditableTextField: React.FC<Props> = ({
       InputProps={{
         disableUnderline: true,
         endAdornment:
-  <InputAdornment position="end">
-    {isEditable ? (
-      <IconButton
-        onClick={handleClick}
-      >
-        <Edit />
-      </IconButton>
-    ) : null}
-    {editMode && (
-    <LoadingButton
-      variant="contained"
-      onClick={handleUpdate}
-      loading={isLoading}
-      loadingIndicator={<CircularProgress size={16} />}
-    >
-      Save
-    </LoadingButton>
-    )}
-  </InputAdornment>,
+          <InputAdornment position="end">
+            {isEditable ? (
+              <IconButton
+                onClick={handleClick}
+              >
+                <Edit />
+              </IconButton>
+            ) : null}
+            {editMode && (
+              <LoadingButton
+                variant="contained"
+                onClick={handleUpdate}
+                loading={isLoading}
+                loadingIndicator={<CircularProgress size={16} />}
+              >
+                Save
+              </LoadingButton>
+            )}
+          </InputAdornment>,
 
       }}
     />

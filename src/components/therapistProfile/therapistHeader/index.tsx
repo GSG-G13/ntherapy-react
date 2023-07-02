@@ -39,10 +39,10 @@ const TherapistHeader: React.FC<Props> = ({ isEditable, setError }) => {
   const handleChange = (key: string) => (value: string | number | object) => {
     setDataFromTherapist((prevData) => {
       if (prevData) {
-        if (key === 'user.fullName') {
+        if (key === 'user.fullName' && value) {
           return {
             ...prevData,
-            user: { ...prevData.user, fullName: value },
+            user: { ...prevData.user, fullName: value as string },
           };
         }
         return {
