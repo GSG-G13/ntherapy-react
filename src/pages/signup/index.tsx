@@ -4,6 +4,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
+import { LoadingButton } from '@mui/lab';
 import {
   Button,
   CssBaseline,
@@ -24,6 +25,7 @@ import {
   boxStyle, textFieldStyle, buttonStyle, gridStyle, imageStyle, fileUploadStyle,
 } from './classes';
 import './style.css';
+import { axiosInstance } from '../../utils/apis';
 
 const Signup = () => {
   const { enqueueSnackbar } = useSnackbar();
@@ -36,12 +38,9 @@ const Signup = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
 
-  const handleUserTypeChange = (event:React.ChangeEvent<HTMLInputElement>) => {
-    setUserType(event.target.value);
-  };
-
   const formik = useFormik({
     initialValues: {
+      role: userType,
       username: '',
       email: '',
       password: '',
@@ -52,11 +51,23 @@ const Signup = () => {
       image: null,
     },
     validationSchema,
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
+      try {
+        const uploadUrl = await axiosInstance.get('/upload-url');
+        console.log('Upload URL', uploadUrl);
+      } catch (err) {
+        console.log('Error getting upload URL', err);
+      }
+      console.log('Form data', values);
       console.log(JSON.stringify(values, null, 2));
       showSnackbar('Signup successful!', 'success');
     },
   });
+
+  const handleUserTypeChange = (event:React.ChangeEvent<HTMLInputElement>) => {
+    setUserType(event.target.value);
+    formik.setFieldValue('role', event.target.value);
+  };
 
   const handleFileUpload = (event:React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -274,9 +285,16 @@ const Signup = () => {
               }}
             />
             {renderAdditionalFields()}
-            <Button type="submit" variant="contained" fullWidth sx={buttonStyle}>
-              Join us
-            </Button>
+            <LoadingButton
+              type="submit"
+              variant="contained"
+              fullWidth
+              sx={buttonStyle}
+              loading={formik.isSubmitting}
+              disabled={!formik.isValid || formik.isSubmitting}
+            >
+              Sign In
+            </LoadingButton>
             <Grid container>
               <Grid item>
                 <Link to="/login" style={{ margin: '80px' }}>

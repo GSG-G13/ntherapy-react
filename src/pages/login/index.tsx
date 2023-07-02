@@ -25,6 +25,7 @@ import {
 } from './classes';
 import './style.css';
 import { axiosInstance } from '../../utils/apis';
+import { AxiosError } from 'axios';
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -52,8 +53,10 @@ const Login = () => {
       } catch (error) {
         if (error instanceof Error) {
           showSnackbar(error.message, 'error');
-        } else {
-          showSnackbar('something went wrong', 'error');
+        } else if (error) {
+          console.log(typeof error);
+          console.log(error);
+          showSnackbar(error.message, 'error');
         }
       }
     },

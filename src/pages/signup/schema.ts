@@ -1,6 +1,7 @@
 import * as yup from 'yup';
 
 const validationSchema = yup.object({
+  role: yup.string().required('Role is required'),
   username: yup
     .string().matches(/^[a-zA-Z0-9_]*$/, 'Username should contain only alphabets, numbers and underscore')
     .min(3, 'User name should be of minimum 3 characters length')
@@ -24,26 +25,35 @@ const validationSchema = yup.object({
     .oneOf([yup.ref('password')], 'Passwords must match'),
   major: yup
     .string()
-    .required('Major is required'),
+    .when('role', {
+      is: 'user',
+      then: (schema) => schema.required('Major is required'),
+    }),
   hourlyRate: yup
     .number()
-    .required('Hourly Rate is required'),
+    .when('role', {
+      is: 'user',
+      then: (schema) => schema.required('Hourly Rate is required'),
+    }),
   cv: yup
     .mixed()
-    .required('CV is required')
-    .test('fileSize', 'File Size is too large', (value) => {
-      if (!value) return false;
-      if (value instanceof File) {
-        return value.size <= 2000000;
-      }
-      return true;
-    })
-    .test('fileType', 'Unsupported File Format', (value) => {
-      if (!value) return false;
-      if (value instanceof File) {
-        return ['application/pdf'].includes(value.type);
-      }
-      return true;
+    .when('role', {
+      is: 'user',
+      then: (schema) => schema.required('CV is required')
+        .test('fileSize', 'File Size is too large', (value) => {
+          if (!value) return false;
+          if (value instanceof File) {
+            return value.size <= 2000000;
+          }
+          return true;
+        })
+        .test('fileType', 'Unsupported File Format', (value) => {
+          if (!value) return false;
+          if (value instanceof File) {
+            return ['application/pdf'].includes(value.type);
+          }
+          return true;
+        }),
     }),
   image: yup
     .mixed()
@@ -58,7 +68,7 @@ const validationSchema = yup.object({
     .test('fileType', 'Unsupported File Format', (value) => {
       if (!value) return false;
       if (value instanceof File) {
-        return ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'].includes(value.type);
+        return ['image/jpeg', 'image/png'].includes(value.type);
       }
       return true;
     })
