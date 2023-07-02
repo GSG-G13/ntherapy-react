@@ -39,6 +39,8 @@ const Signup = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [cvFileName, setCvFileName] = useState('');
+  const [imageFileName, setImageFileName] = useState('');
 
   const navigate = useNavigate();
 
@@ -104,11 +106,8 @@ const Signup = () => {
           });
           navigate('/login');
         }
-      } catch (err) {
-        if (err instanceof Error) {
-          showSnackbar(err.message, 'error');
-        }
-        enqueueSnackbar('Something went wrong. Please try again later.', { variant: 'error' });
+      } catch (err:any) {
+        showSnackbar(err.message, 'error');
       }
     },
   });
@@ -123,6 +122,11 @@ const Signup = () => {
       const allowedTypes = ['application/pdf', 'image/jpeg', 'image/png'];
       if (allowedTypes.includes(file.type)) {
         formik.setFieldValue(event.target.name, file);
+        if (event.target.name === 'cv') {
+          setCvFileName(file.name);
+        } else if (event.target.name === 'image') {
+          setImageFileName(file.name);
+        }
         showSnackbar('File uploaded successfully!', 'success');
       } else {
         showSnackbar('Invalid file type. Please upload a PDF, JPEG, or PNG file.', 'error');
@@ -189,7 +193,7 @@ const Signup = () => {
               component="span"
               style={fileUploadStyle}
             >
-              Upload CV
+              {cvFileName || 'Upload CV'}
             </Button>
           </label>
 
@@ -203,7 +207,7 @@ const Signup = () => {
               onChange={handleFileUpload}
             />
             <Button variant="contained" component="span" style={fileUploadStyle}>
-              Upload Image
+              {imageFileName || 'Upload Image'}
             </Button>
           </label>
         </>
