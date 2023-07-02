@@ -59,19 +59,29 @@ const Signup = () => {
     onSubmit: async (values) => {
       try {
         if (userType === 'therapist') {
-          const s3ImgUploadUrl = await axiosInstance.get('/upload-url');
-          await axios.put(
-            s3ImgUploadUrl.data,
-            values.image,
-          );
-          const imgUrl = s3ImgUploadUrl.data.split('?')[0];
-          const s3CvUploadUrl = await axiosInstance.get('/upload-url');
-          await axios.put(s3CvUploadUrl.data, values.cv, {
+          const s3ImgUploadUrlPromise = axiosInstance.get('/upload-url');
+          const s3CvUploadUrlPromise = axiosInstance.get('/upload-url');
+
+          const [s3ImgUploadUrlResponse, s3CvUploadUrlResponse] = await Promise.all([
+            s3ImgUploadUrlPromise,
+            s3CvUploadUrlPromise,
+          ]);
+
+          const s3ImgUploadUrl = s3ImgUploadUrlResponse.data;
+          const s3CvUploadUrl = s3CvUploadUrlResponse.data;
+
+          const imgUploadPromise = axios.put(s3ImgUploadUrl, values.image);
+          const cvUploadPromise = axios.put(s3CvUploadUrl, values.cv, {
             headers: {
               'Content-Type': 'application/pdf',
             },
           });
-          const cvUrl = s3CvUploadUrl.data.split('?')[0];
+
+          await Promise.all([imgUploadPromise, cvUploadPromise]);
+
+          const imgUrl = s3ImgUploadUrl.split('?')[0];
+          const cvUrl = s3CvUploadUrl.split('?')[0];
+
           await axiosInstance.post('/auth/register', {
             role: values.role,
             fullName: values.username,
