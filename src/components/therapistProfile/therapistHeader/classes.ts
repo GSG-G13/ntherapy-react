@@ -2,20 +2,6 @@ interface Type {
     [key: string]: string;
 }
 
-interface TherapistData {
-    id: number;
-    cvLink: string;
-    profileImg: string;
-    major: string;
-    hourlyRate: number;
-    bio: string;
-    user: {
-        fullName?: string;
-        email?: string;
-        isActive: boolean;
-    };
-}
-
 const TypographyStyle: Type = {
   fontWeight: 'bold',
   marginBottom: '-20px',
@@ -45,4 +31,3 @@ const ButtonStyle: Type = {
 export {
   TypographyStyle, BoxStyle, ModelStyle, ButtonStyle,
 };
-export type { TherapistData };

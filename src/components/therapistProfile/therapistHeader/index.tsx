@@ -2,35 +2,23 @@ import {
   Container, Box, Typography, Skeleton, Button,
 } from '@mui/material';
 import React, {
-  useState, useEffect, Dispatch, SetStateAction,
+  useState, useEffect,
 } from 'react';
 import { useParams } from 'react-router-dom';
-import { TextFieldEdited, SessionReservationModal, AppointmentsModal } from '../..';
-import {
-  TherapistData, BoxStyle, ButtonStyle, TypographyStyle,
-} from './classes';
+import { SessionReservationModal, AppointmentsModal } from '../..';
+import { BoxStyle, ButtonStyle, TypographyStyle } from './classes';
 import { axiosInstance } from '../../../utils/apis';
-import BioEditor from '../changeBio';
-import ChangePhoto from '../changePhoto';
-
-interface Props {
-  isEditable: boolean,
-    setError: Dispatch<SetStateAction<boolean>>,
-}
+import { BioEditor, ChangePhoto, EditableTextField } from '..';
+import { TherapistData, Props } from './types';
 
 const TherapistHeader: React.FC<Props> = ({ isEditable, setError }) => {
   const { id } = useParams();
   const [dataFromTherapist, setDataFromTherapist] = useState<TherapistData | null>(null);
-  const [name, setName] = useState<string>('');
-  const [major, setMajor] = useState<string>('');
-  const [hourlyRate, setHourlyRate] = useState<number>(0);
-  const [textBio, setTextBio] = useState<string>('');
-  const [image, setImage] = useState<string>('');
-  const [openModal, setOpenModal] = useState(false);
-  const handleOpenModal = () => setOpenModal(true);
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [showReservationModal, setShowReservationModal] = useState(false);
+  const handleShowReservationModal = () => setShowReservationModal(true);
+  const [openAppointmentsModal, setOpenAppointmentsModal] = useState(false);
+  const handleOpenAppointmentsModal = () => setOpenAppointmentsModal(true);
+  const handleCloseAppointmentsModal = () => setOpenAppointmentsModal(false);
   const [hover, setHover] = useState(false);
 
   useEffect(() => {
@@ -39,11 +27,6 @@ const TherapistHeader: React.FC<Props> = ({ isEditable, setError }) => {
         const response = await axiosInstance.get<TherapistData>(`therapists/${id}`);
         const { data } = response;
         setDataFromTherapist(data);
-        setName(data.user?.fullName || '');
-        setMajor(data.major || '');
-        setHourlyRate(data.hourlyRate || 0);
-        setTextBio(data.bio || '');
-        setImage(data.profileImg || '');
       } catch (err) {
         setError(true);
       }
@@ -54,25 +37,61 @@ const TherapistHeader: React.FC<Props> = ({ isEditable, setError }) => {
   }, [id]);
 
   const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setName(event.target.value);
+    setDataFromTherapist((prevData) => {
+      if (prevData) {
+        return {
+          ...prevData,
+          user: {
+            ...prevData.user,
+            fullName: event.target.value,
+          },
+        };
+      }
+      return prevData;
+    });
   };
 
   const handleChangeMajor = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setMajor(event.target.value);
+    setDataFromTherapist((prevData) => {
+      if (prevData) {
+        return {
+          ...prevData,
+          major: event.target.value,
+        };
+      }
+      return prevData;
+    });
   };
 
   const handleChangeHourlyRate = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setHourlyRate(Number(event.target.value));
+    setDataFromTherapist((prevData) => {
+      if (prevData) {
+        return { ...prevData, hourlyRate: parseFloat(event.target.value) };
+      }
+      return prevData;
+    });
   };
 
   const handleChangeTextBio = (value: string) => {
-    setTextBio(value);
+    setDataFromTherapist((prevData) => {
+      if (prevData) {
+        return { ...prevData, Bio: value };
+      }
+      return prevData;
+    });
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      setImage(URL.createObjectURL(file));
+      setDataFromTherapist((prevData) => {
+        if (prevData) {
+          return {
+            ...prevData, profileImg: URL.createObjectURL(file),
+          };
+        }
+        return prevData;
+      });
     }
   };
   return (
@@ -81,32 +100,27 @@ const TherapistHeader: React.FC<Props> = ({ isEditable, setError }) => {
       {dataFromTherapist ? (
         <Box sx={{ width: 1, mt: 8 }}>
           <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={2}>
-            <Box
-              gridColumn="span 7"
-              sx={{
-                position: 'relative',
-                ml: 10,
-              }}
-              onMouseEnter={() => setHover(true)}
-              onMouseLeave={() => setHover(false)}
-            >
-              <img
-                src={image}
-                alt="profile"
-                style={{
-                  width: '100%',
-                  height: '260px',
-                  objectFit: 'cover',
-                  opacity: hover && isEditable ? '0.5' : '1',
-                  borderRadius: '6px',
-                }}
-              />
-              {hover && <ChangePhoto onChange={handleFileChange} isEditable={isEditable} />}
-            </Box>
 
+            <ChangePhoto
+              isEditable={isEditable}
+              onChange={handleFileChange}
+              hover={hover}
+              setHover={setHover}
+              imgUrl={dataFromTherapist.profileImg}
+            />
             <Box sx={{ width: '500px', ml: '50px' }}>
-              <TextFieldEdited value={name} dataType="fullName" onChange={handleChangeName} isEditable={isEditable} />
-              <TextFieldEdited value={major} dataType="major" onChange={handleChangeMajor} isEditable={isEditable} />
+              <EditableTextField
+                value={dataFromTherapist.user.fullName}
+                dataType="fullName"
+                onChange={handleChangeName}
+                isEditable={isEditable}
+              />
+              <EditableTextField
+                value={dataFromTherapist.major}
+                dataType="major"
+                onChange={handleChangeMajor}
+                isEditable={isEditable}
+              />
 
               <Box sx={BoxStyle}>
                 <Typography sx={{
@@ -115,12 +129,37 @@ const TherapistHeader: React.FC<Props> = ({ isEditable, setError }) => {
                 >
                   for session: $
                 </Typography>
-                <TextFieldEdited value={hourlyRate} dataType="hourlyRate" onChange={handleChangeHourlyRate} isEditable={isEditable} />
+                <EditableTextField value={dataFromTherapist.hourlyRate} dataType="hourlyRate" onChange={handleChangeHourlyRate} isEditable={isEditable} />
               </Box>
-              {isEditable ? <Button variant="contained" style={ButtonStyle} onClick={handleOpen}> Add Appointment</Button>
-                : <Button variant="contained" style={ButtonStyle} onClick={handleOpenModal}>Reserve a Session</Button>}
-              <SessionReservationModal open={openModal} setOpen={setOpenModal} />
-              {open && <AppointmentsModal handleClose={handleClose} open={open} />}
+              {isEditable
+                ? (
+                  <Button
+                    variant="contained"
+                    style={ButtonStyle}
+                    onClick={handleOpenAppointmentsModal}
+                  >
+                    Add Appointment
+                  </Button>
+                )
+                : (
+                  <Button
+                    variant="contained"
+                    style={ButtonStyle}
+                    onClick={handleShowReservationModal}
+                  >
+                    Reserve a Session
+                  </Button>
+                )}
+              <SessionReservationModal
+                open={showReservationModal}
+                setOpen={setShowReservationModal}
+              />
+              {openAppointmentsModal && (
+              <AppointmentsModal
+                handleClose={handleCloseAppointmentsModal}
+                open={openAppointmentsModal}
+              />
+              )}
             </Box>
             <Box gridColumn="span 12" sx={{ mt: 4 }}>
               <Box
@@ -139,12 +178,12 @@ const TherapistHeader: React.FC<Props> = ({ isEditable, setError }) => {
                 {
                   isEditable ? (
                     <BioEditor
-                      textBio={textBio}
+                      textBio={dataFromTherapist.bio}
                       handleChangeTextBio={handleChangeTextBio}
                     />
                   ) : (
                     <div
-                      dangerouslySetInnerHTML={{ __html: textBio }}
+                      dangerouslySetInnerHTML={{ __html: dataFromTherapist.bio }}
                       style={{
                         marginTop: '50px',
                         marginLeft: '65px',

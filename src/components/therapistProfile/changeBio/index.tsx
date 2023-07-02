@@ -1,33 +1,33 @@
 import React, { useState } from 'react';
-import { Button, IconButton } from '@mui/material';
+import { IconButton, CircularProgress } from '@mui/material';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import LoadingButton from '@mui/lab/LoadingButton';
 import { Edit } from '@mui/icons-material';
-import { useSnackbar } from 'notistack';
+import { enqueueSnackbar } from 'notistack';
+import { AxiosError } from 'axios';
+import BioEditorProps from './types';
 import axiosInstance from '../../../utils/apis/axios';
 
-interface BioEditorProps {
-    textBio: string;
-    // eslint-disable-next-line no-unused-vars
-    handleChangeTextBio: (value: string) => void;
-}
 const BioEditor: React.FC<BioEditorProps> = ({
   textBio, handleChangeTextBio,
 }) => {
-  const { enqueueSnackbar } = useSnackbar();
-
   const [show, setShow] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSaveChanges = async () => {
-    setShow(!show);
     try {
+      setIsLoading(true);
+      setShow(false);
       await axiosInstance.patch('therapists/', {
         bio: textBio,
-      }, {
-        headers: { Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoidGhlcmFwaXN0IiwidXNlcklkIjoiNSIsInRoZXJhcGlzdElkIjoiMiJ9.gGlnqHx0QN93rw87HdavQH-QN1kA3mQ6yALwl9M2L_w' },
       });
+      setIsLoading(false);
     } catch (error) {
-      enqueueSnackbar(error.message, { variant: 'error' });
+      setShow(true);
+      const axiosError = error as AxiosError;
+      enqueueSnackbar(axiosError.message, { variant: 'error' });
+      setIsLoading(false);
     }
   };
 
@@ -45,14 +45,16 @@ const BioEditor: React.FC<BioEditorProps> = ({
             value={textBio}
             onChange={handleChangeTextBio}
           />
-          <Button
+          <LoadingButton
             variant="contained"
             color="primary"
             onClick={handleSaveChanges}
             sx={{ fontSize: '10px', ml: 80 }}
+            loading={isLoading}
+            loadingIndicator={<CircularProgress size={16} />}
           >
             Save
-          </Button>
+          </LoadingButton>
         </>
       ) : (
         <>
