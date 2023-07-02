@@ -1,6 +1,7 @@
 import {
   Container, Typography, Grid, Button,
 } from '@mui/material';
+import { Link } from 'react-router-dom';
 import { online, online2, group } from '../../assets';
 
 const OnlineMedical = () => (
@@ -23,7 +24,9 @@ const OnlineMedical = () => (
             MORE FULFILLING LIFE.
           </Typography>
           <Button variant="contained" sx={{ borderColor: 'primary.main' }}>
-            SIGN UP
+            <Link to="/signup" style={{ textDecoration: 'none', color: 'white' }}>
+              SIGN UP
+            </Link>
           </Button>
         </Grid>
       </Grid>
@@ -44,7 +47,9 @@ const OnlineMedical = () => (
             AND IMPROVE CLIENT SERVICE.
           </Typography>
           <Button variant="contained" sx={{ borderColor: 'primary.main' }}>
-            JOIN US
+            <Link to="/signup" style={{ textDecoration: 'none', color: 'white' }}>
+              JOIN US
+            </Link>
           </Button>
         </Grid>
         <Grid item xs={5} sx={{ mt: 5 }}>
@@ -64,7 +69,9 @@ const OnlineMedical = () => (
             book your appointment
           </Typography>
           <Button variant="contained" sx={{ borderColor: 'primary.main' }}>
-            Discover our therapists
+            <Link to="/therapists" style={{ textDecoration: 'none', color: 'white' }}>
+              Discover our therapists
+            </Link>
           </Button>
         </Grid>
 
