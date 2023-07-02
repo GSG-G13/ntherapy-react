@@ -20,6 +20,7 @@ interface UserDataContextValue {
     setUserData: React.Dispatch<React.SetStateAction<UserData[]>>;
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const userDataContext = createContext < UserDataContextValue>(null!);
 const AppContext: React.FC<AppContextProps> = ({ children }) => {
   const [userData, setUserData] = useState<UserData[]>([]);
