@@ -8,10 +8,10 @@ const OnlineMedical = () => (
   <>
     <Container>
       <Grid container spacing={2} mt={5}>
-        <Grid item xs={6} sx={{ mt: 5 }}>
+        <Grid item lg={6} xs={12} sx={{ mt: 5 }}>
           <img src={online} alt="online" />
         </Grid>
-        <Grid item xs={5} sx={{ mt: 5, ml: 5 }}>
+        <Grid item lg={5} xs={12} sx={{ mt: 5, ml: 5 }}>
           <Typography variant="h5" color="primary" sx={{ fontWeight: 'bold', mb: 2, mt: 3 }}>
             DISCOVER YOUR SELF
           </Typography>
@@ -33,8 +33,7 @@ const OnlineMedical = () => (
     </Container>
     <Container>
       <Grid container spacing={2} mt={5}>
-
-        <Grid item xs={6} sx={{ mt: 5, ml: 5 }}>
+        <Grid item lg={6} xs={12} sx={{ mt: 5, ml: 5 }}>
           <Typography variant="h5" color="primary" sx={{ fontWeight: 'bold', mb: 2, mt: 3 }}>
             BE ONE OF THE TEAM
           </Typography>
@@ -52,17 +51,25 @@ const OnlineMedical = () => (
             </Link>
           </Button>
         </Grid>
-        <Grid item xs={5} sx={{ mt: 5 }}>
+        <Grid item lg={5} xs={12} sx={{ mt: 5 }}>
           <img src={online2} alt="online" />
         </Grid>
       </Grid>
     </Container>
-    <Container style={{ backgroundColor: '#F4F7FF', height: '25rem' }}>
+    <Container sx={{
+      backgroundColor: '#F4F7FF',
+      height: '25rem',
+      '@media (max-width: 600px)': {
+        height: '50rem',
+        textAlign: 'center',
+      },
+    }}
+    >
       <Grid container spacing={2} mt={5}>
-        <Grid item xs={6}>
+        <Grid item lg={6} xs={12}>
           <img src={group} alt="group" />
         </Grid>
-        <Grid item xs={6} sx={{ mt: 5 }}>
+        <Grid item lg={5} xs={12} sx={{ mt: 5 }}>
           <Typography variant="h5" color="primary" sx={{ fontWeight: 'bold', mb: 2, mt: 5 }}>
             Come on
             <br />
