@@ -1,3 +1,4 @@
 import HeroSection from './heroSection';
+import Personalized from './personalized';
 
-export default HeroSection;
+export { HeroSection, Personalized };

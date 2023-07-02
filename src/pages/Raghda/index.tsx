@@ -1,6 +1,9 @@
-import HeroSection from '../../components/landingPage';
+import { HeroSection, Personalized } from '../../components/landingPage';
 
 const LandingPage2 = () => (
-  <HeroSection />
+  <>
+    <HeroSection />
+    <Personalized />
+  </>
 );
 export default LandingPage2;
