@@ -68,7 +68,8 @@ const Signup = () => {
     setUserType(event.target.value);
     formik.setFieldValue('role', event.target.value);
   };
-
+  // console.log('Formik values', formik.values);
+  console.log('Formik errors', formik.errors);
   const handleFileUpload = (event:React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {

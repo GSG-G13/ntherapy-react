@@ -26,19 +26,21 @@ const validationSchema = yup.object({
   major: yup
     .string()
     .when('role', {
-      is: 'user',
+      is: 'therapist',
       then: (schema) => schema.required('Major is required'),
+      otherwise: (schema) => schema.notRequired(),
     }),
   hourlyRate: yup
     .number()
     .when('role', {
-      is: 'user',
+      is: 'therapist',
       then: (schema) => schema.required('Hourly Rate is required'),
+      otherwise: (schema) => schema.notRequired(),
     }),
   cv: yup
     .mixed()
     .when('role', {
-      is: 'user',
+      is: 'therapist',
       then: (schema) => schema.required('CV is required')
         .test('fileSize', 'File Size is too large', (value) => {
           if (!value) return false;
@@ -54,25 +56,29 @@ const validationSchema = yup.object({
           }
           return true;
         }),
+      otherwise: (schema) => schema.notRequired(),
     }),
   image: yup
     .mixed()
-    .required('Image is required')
-    .test('fileSize', 'File Size is too large', (value) => {
-      if (!value) return false;
-      if (value instanceof File) {
-        return value.size <= 2000000;
-      }
-      return true;
-    })
-    .test('fileType', 'Unsupported File Format', (value) => {
-      if (!value) return false;
-      if (value instanceof File) {
-        return ['image/jpeg', 'image/png'].includes(value.type);
-      }
-      return true;
-    })
-    .required('CV is required'),
+    .when('role', {
+      is: 'therapist',
+      then: (schema) => schema.required('Image is required')
+        .test('fileSize', 'File Size is too large', (value) => {
+          if (!value) return false;
+          if (value instanceof File) {
+            return value.size <= 2000000;
+          }
+          return true;
+        })
+        .test('fileType', 'Unsupported File Format', (value) => {
+          if (!value) return false;
+          if (value instanceof File) {
+            return ['image/jpeg', 'image/png'].includes(value.type);
+          }
+          return true;
+        }),
+      otherwise: (schema) => schema.notRequired(),
+    }),
 
 });
 
