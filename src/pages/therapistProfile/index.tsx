@@ -1,25 +1,41 @@
-import {
-  Container, Button,
-} from '@mui/material';
 import { useState } from 'react';
-
-import { AppointmentsModal, SessionReservationModal, AppointmentTableContainer } from '../../components';
+import { Container, Snackbar } from '@mui/material';
+import MuiAlert from '@mui/material/Alert';
+import { AppointmentTableContainer, TherapistHeader } from '../../components';
 
 const TherapistProfile = () => {
-  const [openModal, setOpenModal] = useState(false);
-  const handleOpenModal = () => setOpenModal(true);
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [error, setError] = useState<boolean>(false);
+
+  // eslint-disable-next-line no-unused-vars
+  const [isEditable, setIsEditable] = useState(true);
+
+  if (error) {
+    return (
+
+      <Container>
+        <Snackbar
+          open={error}
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+          style={{ marginTop: '20px' }}
+        >
+          <MuiAlert severity="error">
+            Therapist not found
+          </MuiAlert>
+        </Snackbar>
+      </Container>
+    );
+  }
+
   return (
     <Container>
-      <Button onClick={handleOpenModal}>Reserve a Session</Button>
-      <SessionReservationModal open={openModal} setOpen={setOpenModal} />
-      <Button onClick={handleOpen}> Add Appointment</Button>
-      {open && <AppointmentsModal handleClose={handleClose} open={open} />}
-      <AppointmentTableContainer />
+      <TherapistHeader isEditable={isEditable} setError={setError} />
+      {
+        isEditable
+        && <AppointmentTableContainer />
 
+      }
     </Container>
   );
 };
+
 export default TherapistProfile;

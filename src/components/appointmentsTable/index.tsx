@@ -10,7 +10,7 @@ const AppointmentTableContainer = () => {
   const [loading, setLoading] = useState<boolean>(true);
 
   return (
-    <Container sx={{ position: 'relative' }}>
+    <Container sx={{ position: 'relative', mt: 5 }}>
       <DatePick
         date={date}
         setDate={setDate as typeof useState<Dayjs | string>}
