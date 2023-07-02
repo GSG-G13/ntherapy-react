@@ -1,6 +1,7 @@
 import {
   Container, Typography, Grid, Button,
 } from '@mui/material';
+import { Link } from 'react-router-dom';
 import { Worldimg } from '../../assets';
 
 const World = () => (
@@ -25,7 +26,9 @@ const World = () => (
           receive the best of the best in mental health care.
         </Typography>
         <Button variant="contained" sx={{ borderColor: 'primary.main' }}>
-          Book an appointment
+          <Link to="/therapists" style={{ textDecoration: 'none', color: 'white' }}>
+            Book an appointment
+          </Link>
         </Button>
       </Grid>
       <Grid item xs={5} sx={{ mt: 5 }}>
