@@ -36,51 +36,23 @@ const TherapistHeader: React.FC<Props> = ({ isEditable, setError }) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
-  const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (key: string) => (value: string | number | object) => {
     setDataFromTherapist((prevData) => {
       if (prevData) {
+        if (key === 'user.fullName') {
+          return {
+            ...prevData,
+            user: { ...prevData.user, fullName: value },
+          };
+        }
         return {
           ...prevData,
-          user: {
-            ...prevData.user,
-            fullName: event.target.value,
-          },
+          [key]: value,
         };
       }
       return prevData;
     });
   };
-
-  const handleChangeMajor = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setDataFromTherapist((prevData) => {
-      if (prevData) {
-        return {
-          ...prevData,
-          major: event.target.value,
-        };
-      }
-      return prevData;
-    });
-  };
-
-  const handleChangeHourlyRate = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setDataFromTherapist((prevData) => {
-      if (prevData) {
-        return { ...prevData, hourlyRate: parseFloat(event.target.value) };
-      }
-      return prevData;
-    });
-  };
-
-  const handleChangeTextBio = (value: string) => {
-    setDataFromTherapist((prevData) => {
-      if (prevData) {
-        return { ...prevData, bio: value };
-      }
-      return prevData;
-    });
-  };
-
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
@@ -94,6 +66,7 @@ const TherapistHeader: React.FC<Props> = ({ isEditable, setError }) => {
       });
     }
   };
+
   return (
     <Container>
 
@@ -112,13 +85,14 @@ const TherapistHeader: React.FC<Props> = ({ isEditable, setError }) => {
               <EditableTextField
                 value={dataFromTherapist.user.fullName}
                 dataType="fullName"
-                onChange={handleChangeName}
+                onChange={handleChange('user.fullName')}
                 isEditable={isEditable}
               />
+
               <EditableTextField
                 value={dataFromTherapist.major}
                 dataType="major"
-                onChange={handleChangeMajor}
+                onChange={handleChange('major')}
                 isEditable={isEditable}
               />
 
@@ -129,7 +103,7 @@ const TherapistHeader: React.FC<Props> = ({ isEditable, setError }) => {
                 >
                   for session: $
                 </Typography>
-                <EditableTextField value={dataFromTherapist.hourlyRate} dataType="hourlyRate" onChange={handleChangeHourlyRate} isEditable={isEditable} />
+                <EditableTextField value={dataFromTherapist.hourlyRate} dataType="hourlyRate" onChange={handleChange('hourlyRate')} isEditable={isEditable} />
               </Box>
               {isEditable
                 ? (
@@ -179,7 +153,7 @@ const TherapistHeader: React.FC<Props> = ({ isEditable, setError }) => {
                   isEditable ? (
                     <BioEditor
                       textBio={dataFromTherapist.bio}
-                      handleChangeTextBio={handleChangeTextBio}
+                      handleChangeTextBio={handleChange('bio')}
                     />
                   ) : (
                     <div

@@ -1,9 +1,8 @@
-import { ChangeEventHandler } from 'react';
-
 interface Props {
     value: string | number | undefined;
     dataType: 'fullName' | 'hourlyRate' | 'major';
-    onChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
+    // eslint-disable-next-line no-unused-vars
+    onChange: (value: string | number) => void;
     isEditable: boolean
 }
 export default Props;

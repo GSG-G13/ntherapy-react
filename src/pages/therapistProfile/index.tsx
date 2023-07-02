@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Container } from '@mui/material';
-import { enqueueSnackbar } from 'notistack';
+import { Container, Snackbar } from '@mui/material';
+import MuiAlert from '@mui/material/Alert';
 import { AppointmentTableContainer, TherapistHeader } from '../../components';
 
 const TherapistProfile = () => {
@@ -11,10 +11,17 @@ const TherapistProfile = () => {
 
   if (error) {
     return (
+
       <Container>
-        {
-          enqueueSnackbar('Therapist not found', { variant: 'error' })
-       }
+        <Snackbar
+          open={error}
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+          style={{ marginTop: '20px' }}
+        >
+          <MuiAlert severity="error">
+            Therapist not found
+          </MuiAlert>
+        </Snackbar>
       </Container>
     );
   }

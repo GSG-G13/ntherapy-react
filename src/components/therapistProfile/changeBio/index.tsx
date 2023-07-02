@@ -18,13 +18,12 @@ const BioEditor: React.FC<BioEditorProps> = ({
   const handleSaveChanges = async () => {
     try {
       setIsLoading(true);
-      setShow(false);
       await axiosInstance.patch('therapists/', {
         bio: textBio,
       });
       setIsLoading(false);
+      setShow(false);
     } catch (error) {
-      setShow(true);
       const axiosError = error as AxiosError;
       enqueueSnackbar(axiosError.message, { variant: 'error' });
       setIsLoading(false);

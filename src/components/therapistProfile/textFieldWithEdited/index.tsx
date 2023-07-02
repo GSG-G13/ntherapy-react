@@ -28,12 +28,13 @@ const EditableTextField: React.FC<Props> = ({
   };
 
   const handleUpdate = async () => {
-    setEditMode(false);
     try {
       setIsLoading(true);
       await axiosInstance.patch('therapists/', {
         [dataType]: value,
+
       });
+      setEditMode(false);
       setIsLoading(false);
     } catch (error) {
       const axiosError = error as AxiosError;
@@ -47,7 +48,7 @@ const EditableTextField: React.FC<Props> = ({
     <TextField
       name="text"
       defaultValue={value}
-      onChange={onChange}
+      onChange={(e) => onChange(e.target.value)}
       disabled={!editMode}
       onMouseEnter={toggleMouseover}
       onMouseLeave={toggleMouseover}
