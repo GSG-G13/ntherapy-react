@@ -3,9 +3,10 @@ import React, { useState } from 'react';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import Edit from '@mui/icons-material/Edit';
-import { Button } from '@mui/material';
+import { CircularProgress } from '@mui/material';
 import { enqueueSnackbar } from 'notistack';
 import { AxiosError } from 'axios';
+import LoadingButton from '@mui/lab/LoadingButton';
 import getStyle from './style';
 import axiosInstance from '../../../utils/apis/axios';
 import Props from './types';
@@ -15,6 +16,7 @@ const EditableTextField: React.FC<Props> = ({
 }) => {
   const [editMode, setEditMode] = useState(false);
   const [mouseOver, setMouseOver] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const toggleMouseover = () => {
     setMouseOver(!mouseOver);
@@ -28,12 +30,15 @@ const EditableTextField: React.FC<Props> = ({
   const handleUpdate = async () => {
     setEditMode(false);
     try {
+      setIsLoading(true);
       await axiosInstance.patch('therapists/', {
         [dataType]: value,
       });
+      setIsLoading(false);
     } catch (error) {
       const axiosError = error as AxiosError;
       enqueueSnackbar(axiosError.message, { variant: 'error' });
+      setIsLoading(false);
     }
   };
 
@@ -59,7 +64,16 @@ const EditableTextField: React.FC<Props> = ({
         <Edit />
       </IconButton>
     ) : null}
-    {editMode && <Button variant="contained" onClick={handleUpdate}>Save</Button>}
+    {editMode && (
+    <LoadingButton
+      variant="contained"
+      onClick={handleUpdate}
+      loading={isLoading}
+      loadingIndicator={<CircularProgress size={16} />}
+    >
+      Save
+    </LoadingButton>
+    )}
   </InputAdornment>,
 
       }}
