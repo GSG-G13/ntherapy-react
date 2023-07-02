@@ -2,10 +2,11 @@ import {
   Container, Typography, Grid, Button,
 } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { backehero, hero } from '../../assets';
+import { hero } from '../../assets';
+import './style.css';
 
 const HeroSection = () => (
-  <div style={{ backgroundColor: '#F4F7FF', height: '29rem' }}>
+  <div className="hersection">
     <Container>
       <Grid container spacing={2} mt={5}>
         <Grid item xs={12} md={6} lg={6} sx={{ mt: 5 }}>
@@ -27,19 +28,31 @@ const HeroSection = () => (
             <Link to="/therapists" style={{ textDecoration: 'none', color: 'white' }}>
               Discover our therapists
             </Link>
-
           </Button>
         </Grid>
-        <Grid item xs={12} md={6} lg={6}>
-          <div style={{ position: 'relative' }}>
-            <img src={backehero} alt="hero" style={{ position: 'absolute', top: '8px', left: '-12px' }} />
-            <img src={hero} alt="hero" style={{ position: 'absolute', top: 0, left: 0 }} />
-          </div>
+        <Grid
+          item
+          xs={12}
+          md={6}
+          lg={6}
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            '@media (max-width: 600px)': {
+              // marginTop: '10rem',
+
+              // margin: '3rem',
+              marginBottom: '5rem',
+            },
+          }}
+        >
+          <img src={hero} alt="hero" style={{ maxWidth: '100%' }} />
         </Grid>
       </Grid>
-
     </Container>
   </div>
+
 );
 
 export default HeroSection;
