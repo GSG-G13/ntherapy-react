@@ -1,6 +1,7 @@
 import {
   Container, Typography, Grid, Button,
 } from '@mui/material';
+import { Link } from 'react-router-dom';
 import { backehero, hero } from '../../assets';
 
 const HeroSection = () => (
@@ -23,7 +24,10 @@ const HeroSection = () => (
             therapy and psychiatry.
           </Typography>
           <Button variant="contained" sx={{ borderColor: 'primary.main' }}>
-            Discover our therapists
+            <Link to="/therapists" style={{ textDecoration: 'none', color: 'white' }}>
+              Discover our therapists
+            </Link>
+
           </Button>
         </Grid>
         <Grid item xs={12} md={6} lg={6}>
