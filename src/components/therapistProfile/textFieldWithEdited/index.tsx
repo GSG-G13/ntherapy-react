@@ -13,7 +13,7 @@ import axiosInstance from '../../../utils/apis/axios';
 import Props from './types';
 
 const EditableTextField: React.FC<Props> = ({
-  value, dataType, onChange, isEditable,
+  value, dataType, onChange, isProfileOwner,
 }) => {
   const [editMode, setEditMode] = useState(false);
   const [mouseOver, setMouseOver] = useState(false);
@@ -59,7 +59,7 @@ const EditableTextField: React.FC<Props> = ({
         disableUnderline: true,
         endAdornment:
           <InputAdornment position="end">
-            {isEditable ? (
+            {isProfileOwner ? (
               <IconButton
                 onClick={handleClick}
               >

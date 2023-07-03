@@ -5,7 +5,7 @@ import IconStyle from './classes';
 import Props from './types';
 
 const ChangePhoto: React.FC<Props> = ({
-  onChange, isEditable, hover, setHover, imgUrl,
+  onChange, isProfileOwner, hover, setHover, imgUrl,
 }) => (
   <Box
     gridColumn="span 7"
@@ -23,11 +23,11 @@ const ChangePhoto: React.FC<Props> = ({
         width: '100%',
         height: '260px',
         objectFit: 'cover',
-        opacity: hover && isEditable ? '0.5' : '1',
+        opacity: hover && isProfileOwner ? '0.5' : '1',
         borderRadius: '6px',
       }}
     />
-    {isEditable
+    {isProfileOwner
       && (
       <label htmlFor="upload-photo">
         <input

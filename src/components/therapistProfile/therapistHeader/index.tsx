@@ -11,7 +11,7 @@ import { axiosInstance } from '../../../utils/apis';
 import { BioEditor, ChangePhoto, EditableTextField } from '..';
 import { TherapistData, Props } from './types';
 
-const TherapistHeader: React.FC<Props> = ({ isEditable, setError }) => {
+const TherapistHeader: React.FC<Props> = ({ isProfileOwner, setError }) => {
   const { id } = useParams();
   const [dataFromTherapist, setDataFromTherapist] = useState<TherapistData | null>(null);
   const [showReservationModal, setShowReservationModal] = useState(false);
@@ -75,7 +75,7 @@ const TherapistHeader: React.FC<Props> = ({ isEditable, setError }) => {
           <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={2}>
 
             <ChangePhoto
-              isEditable={isEditable}
+              isProfileOwner={isProfileOwner}
               onChange={handleFileChange}
               hover={hover}
               setHover={setHover}
@@ -86,14 +86,14 @@ const TherapistHeader: React.FC<Props> = ({ isEditable, setError }) => {
                 value={dataFromTherapist.user.fullName}
                 dataType="fullName"
                 onChange={handleChange('user.fullName')}
-                isEditable={isEditable}
+                isProfileOwner={isProfileOwner}
               />
 
               <EditableTextField
                 value={dataFromTherapist.major}
                 dataType="major"
                 onChange={handleChange('major')}
-                isEditable={isEditable}
+                isProfileOwner={isProfileOwner}
               />
 
               <Box sx={BoxStyle}>
@@ -103,9 +103,9 @@ const TherapistHeader: React.FC<Props> = ({ isEditable, setError }) => {
                 >
                   for session: $
                 </Typography>
-                <EditableTextField value={dataFromTherapist.hourlyRate} dataType="hourlyRate" onChange={handleChange('hourlyRate')} isEditable={isEditable} />
+                <EditableTextField value={dataFromTherapist.hourlyRate} dataType="hourlyRate" onChange={handleChange('hourlyRate')} isProfileOwner={isProfileOwner} />
               </Box>
-              {isEditable
+              {isProfileOwner
                 ? (
                   <Button
                     variant="contained"
@@ -150,7 +150,7 @@ const TherapistHeader: React.FC<Props> = ({ isEditable, setError }) => {
                   Abstract ...
                 </Typography>
                 {
-                  isEditable ? (
+                  isProfileOwner ? (
                     <BioEditor
                       textBio={dataFromTherapist.bio}
                       handleChangeTextBio={handleChange('bio')}
