@@ -33,8 +33,10 @@ const LoginAdmin = () => {
         });
         localStorage.setItem('access_token', resp.data.access_token);
         navigate('/admin');
-      } catch (e:any) {
-        showSnackbar(e.message, 'error');
+      } catch (e) {
+        if (e instanceof Error) {
+          showSnackbar('Something went wrong', 'error');
+        }
       }
     },
   });
@@ -73,7 +75,7 @@ const LoginAdmin = () => {
         />
         <LoadingButton
           loading={formik.isSubmitting}
-          disabled={!(formik.values.username && formik.values.password)}
+          disabled={!formik.isValid || formik.isSubmitting}
           sx={{ width: '90%', padding: '15px', margin: 'auto' }}
           onClick={() => formik.handleSubmit()}
           variant="contained"
