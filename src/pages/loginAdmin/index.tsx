@@ -33,10 +33,8 @@ const LoginAdmin = () => {
         });
         localStorage.setItem('access_token', resp.data.access_token);
         navigate('/admin');
-      } catch (e) {
-        if (e instanceof Error) {
-          showSnackbar('Something went wrong', 'error');
-        }
+      } catch (e: any) {
+        showSnackbar(e.message, 'error');
       }
     },
   });
