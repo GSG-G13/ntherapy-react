@@ -21,7 +21,15 @@ body {
   width: 150px;
   text-align: center;
 }
-
+.logo{
+  display: block;
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  margin-bottom: 40px;
+  opacity: .7;
+  
+}
 .therapy-card {
   display: flex;
   flex-direction: column;
@@ -30,6 +38,9 @@ body {
   background-color: #f7f7f7a4;
   min-height: 150px;
   border-left: 10px solid #516EFF;
+}
+.MuiFormHelperText-root {
+  color: red!important;
 }
 .therapist-link {
   display: flex;
