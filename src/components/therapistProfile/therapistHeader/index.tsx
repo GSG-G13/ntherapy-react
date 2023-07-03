@@ -59,13 +59,12 @@ const TherapistHeader: React.FC<Props> = ({ isEditable, setError }) => {
     const file = event.target.files?.[0];
     if (file) {
       const uploadURL = await axiosInstance.get('therapists/profile_img');
-      console.log(uploadURL);
       await axios.put(uploadURL.data.url, file, {
         headers: {
           'Content-Type': file.type,
         },
       });
-      setPhotoTimestamp(Date.now()); // Update the timestamp
+      setPhotoTimestamp(Date.now());
     }
   };
 
