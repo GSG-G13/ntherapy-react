@@ -3,7 +3,6 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { useFormik } from 'formik';
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSnackbar, VariantType } from 'notistack';
 import { axiosInstance } from '../../utils/apis';
@@ -12,7 +11,7 @@ import adminSchema from './adminSchema';
 
 const LoginAdmin = () => {
   const { enqueueSnackbar } = useSnackbar();
-  const [loading, setLoading] = useState(false);
+
   const showSnackbar = (message:string, severity:VariantType) => {
     enqueueSnackbar(message, { variant: severity });
   };
@@ -22,21 +21,22 @@ const LoginAdmin = () => {
       username: '',
       password: '',
     },
+    validateOnMount: true,
     validationSchema: adminSchema,
     onSubmit: async (values) => {
       try {
-        setLoading(true);
-        await axiosInstance.post('/admin/login', {
+        const resp = await axiosInstance.post('/admin/login', {
           data: {
             username: values.username,
-        await axiosInstance.post('/admin/login', {
-          username: values.username,
-          password: values.password,
+            password: values.password,
+          },
         });
+        localStorage.setItem('access_token', resp.data.access_token);
         navigate('/admin');
-      } catch (e:any) {
-        setLoading(false);
-        showSnackbar(e.message, 'error');
+      } catch (e) {
+        if (e instanceof Error) {
+          showSnackbar('Something went wrong', 'error');
+        }
       }
     },
   });
@@ -74,12 +74,12 @@ const LoginAdmin = () => {
           helperText={formik.touched.password && formik.errors.password}
         />
         <LoadingButton
-          loading={loading}
-          disabled={!(formik.values.username && formik.values.password)}
+          loading={formik.isSubmitting}
+          disabled={!formik.isValid || formik.isSubmitting}
           sx={{ width: '90%', padding: '15px', margin: 'auto' }}
           onClick={() => formik.handleSubmit()}
           variant="contained"
-          loadingIndicator="Logging ..."
+
         >
           login
         </LoadingButton>
