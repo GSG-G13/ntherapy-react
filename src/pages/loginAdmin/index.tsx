@@ -27,9 +27,6 @@ const LoginAdmin = () => {
       try {
         setLoading(true);
         await axiosInstance.post('/admin/login', {
-          data: {
-            username: values.username,
-        await axiosInstance.post('/admin/login', {
           username: values.username,
           password: values.password,
         });

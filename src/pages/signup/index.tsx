@@ -4,6 +4,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
+import { LoadingButton } from '@mui/lab';
 import {
   Button,
   CssBaseline,
@@ -16,7 +17,8 @@ import {
   FormControlLabel,
   Radio,
 } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import { useFormik } from 'formik';
 import validationSchema from './schema';
 import imageSrc from '../../assets/loginImg.jpg';
@@ -24,6 +26,7 @@ import {
   boxStyle, textFieldStyle, buttonStyle, gridStyle, imageStyle, fileUploadStyle,
 } from './classes';
 import './style.css';
+import { axiosInstance } from '../../utils/apis';
 
 const Signup = () => {
   const { enqueueSnackbar } = useSnackbar();
@@ -35,13 +38,15 @@ const Signup = () => {
   const [userType, setUserType] = useState('user');
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [cvFileName, setCvFileName] = useState('');
+  const [imageFileName, setImageFileName] = useState('');
 
-  const handleUserTypeChange = (event:React.ChangeEvent<HTMLInputElement>) => {
-    setUserType(event.target.value);
-  };
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
+      role: userType,
       username: '',
       email: '',
       password: '',
@@ -50,28 +55,83 @@ const Signup = () => {
       hourlyRate: '',
       cv: null,
       image: null,
+      phoneNumber: '',
     },
     validationSchema,
-    onSubmit: (values) => {
-      console.log(JSON.stringify(values, null, 2));
-      showSnackbar('Signup successful!', 'success');
+    onSubmit: async (values) => {
+      try {
+        if (userType === 'therapist') {
+          const s3ImgUploadUrlPromise = axiosInstance.get('/upload-url');
+          const s3CvUploadUrlPromise = axiosInstance.get('/upload-url');
+
+          const [s3ImgUploadUrlResponse, s3CvUploadUrlResponse] = await Promise.all([
+            s3ImgUploadUrlPromise,
+            s3CvUploadUrlPromise,
+          ]);
+
+          const s3ImgUploadUrl = s3ImgUploadUrlResponse.data;
+          const s3CvUploadUrl = s3CvUploadUrlResponse.data;
+
+          const imgUploadPromise = axios.put(s3ImgUploadUrl, values.image);
+          const cvUploadPromise = axios.put(s3CvUploadUrl, values.cv, {
+            headers: {
+              'Content-Type': 'application/pdf',
+            },
+          });
+
+          await Promise.all([imgUploadPromise, cvUploadPromise]);
+
+          const imgUrl = s3ImgUploadUrl.split('?')[0];
+          const cvUrl = s3CvUploadUrl.split('?')[0];
+
+          await axiosInstance.post('/auth/register', {
+            role: values.role,
+            fullName: values.username,
+            email: values.email,
+            password: values.password,
+            major: values.major,
+            hourlyRate: values.hourlyRate,
+            cvLink: cvUrl,
+            profileImg: imgUrl,
+            phoneNumber: values.phoneNumber,
+          });
+          setIsSubmitted(true);
+          showSnackbar('Registration successful! Please Check Your Email', 'success');
+        } else {
+          await axiosInstance.post('/auth/register', {
+            role: values.role,
+            fullName: values.username,
+            email: values.email,
+            password: values.password,
+          });
+          navigate('/login');
+        }
+      } catch (err:any) {
+        showSnackbar(err.message, 'error');
+      }
     },
   });
 
+  const handleUserTypeChange = (event:React.ChangeEvent<HTMLInputElement>) => {
+    setUserType(event.target.value);
+    formik.setFieldValue('role', event.target.value);
+  };
   const handleFileUpload = (event:React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       const allowedTypes = ['application/pdf', 'image/jpeg', 'image/png'];
       if (allowedTypes.includes(file.type)) {
-        console.log('File uploaded successfully.', file);
         formik.setFieldValue(event.target.name, file);
+        if (event.target.name === 'cv') {
+          setCvFileName(file.name);
+        } else if (event.target.name === 'image') {
+          setImageFileName(file.name);
+        }
         showSnackbar('File uploaded successfully!', 'success');
       } else {
-        console.log('Invalid file type. Please upload a PDF, JPEG, or PNG file.');
         showSnackbar('Invalid file type. Please upload a PDF, JPEG, or PNG file.', 'error');
       }
     } else {
-      console.log('Failed to upload file.');
       showSnackbar('Failed to upload file.', 'error');
     }
   };
@@ -107,6 +167,17 @@ const Signup = () => {
               ),
             }}
           />
+          <TextField
+            margin="normal"
+            required
+            sx={textFieldStyle}
+            id="phoneNumber"
+            name="phoneNumber"
+            label="Phone Number"
+            onChange={formik.handleChange}
+            error={formik.touched.phoneNumber && Boolean(formik.errors.phoneNumber)}
+            helperText={formik.touched.phoneNumber && formik.errors.phoneNumber}
+          />
 
           <label htmlFor="file-upload">
             <input
@@ -122,7 +193,7 @@ const Signup = () => {
               component="span"
               style={fileUploadStyle}
             >
-              Upload CV
+              {cvFileName || 'Upload CV'}
             </Button>
           </label>
 
@@ -136,7 +207,7 @@ const Signup = () => {
               onChange={handleFileUpload}
             />
             <Button variant="contained" component="span" style={fileUploadStyle}>
-              Upload Image
+              {imageFileName || 'Upload Image'}
             </Button>
           </label>
         </>
@@ -274,9 +345,16 @@ const Signup = () => {
               }}
             />
             {renderAdditionalFields()}
-            <Button type="submit" variant="contained" fullWidth sx={buttonStyle}>
+            <LoadingButton
+              type="submit"
+              variant="contained"
+              fullWidth
+              sx={buttonStyle}
+              loading={formik.isSubmitting}
+              disabled={!formik.isValid || formik.isSubmitting || isSubmitted}
+            >
               Join us
-            </Button>
+            </LoadingButton>
             <Grid container>
               <Grid item>
                 <Link to="/login" style={{ margin: '80px' }}>
