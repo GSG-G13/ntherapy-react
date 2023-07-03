@@ -4,6 +4,7 @@ import {
 import React, {
   useState, useEffect,
 } from 'react';
+import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { SessionReservationModal, AppointmentsModal } from '../..';
 import { BoxStyle, ButtonStyle, TypographyStyle } from './classes';
@@ -20,6 +21,7 @@ const TherapistHeader: React.FC<Props> = ({ isEditable, setError }) => {
   const handleOpenAppointmentsModal = () => setOpenAppointmentsModal(true);
   const handleCloseAppointmentsModal = () => setOpenAppointmentsModal(false);
   const [hover, setHover] = useState(false);
+  const [photoTimestamp, setPhotoTimestamp] = useState(Date.now());
 
   useEffect(() => {
     const fetchData = async () => {
@@ -53,17 +55,17 @@ const TherapistHeader: React.FC<Props> = ({ isEditable, setError }) => {
       return prevData;
     });
   };
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      setDataFromTherapist((prevData) => {
-        if (prevData) {
-          return {
-            ...prevData, profileImg: URL.createObjectURL(file),
-          };
-        }
-        return prevData;
+      const uploadURL = await axiosInstance.get('therapists/profile_img');
+      console.log(uploadURL);
+      await axios.put(uploadURL.data.url, file, {
+        headers: {
+          'Content-Type': file.type,
+        },
       });
+      setPhotoTimestamp(Date.now()); // Update the timestamp
     }
   };
 
@@ -79,7 +81,7 @@ const TherapistHeader: React.FC<Props> = ({ isEditable, setError }) => {
               onChange={handleFileChange}
               hover={hover}
               setHover={setHover}
-              imgUrl={dataFromTherapist.profileImg}
+              imgUrl={`${dataFromTherapist.profileImg}?timestamp=${photoTimestamp}`}
             />
             <Box sx={{ width: '500px', ml: '50px' }}>
               <EditableTextField
