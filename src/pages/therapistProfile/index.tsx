@@ -1,9 +1,12 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Container, Snackbar } from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
 import { AppointmentTableContainer, TherapistHeader } from '../../components';
+import { userDataContext } from '../../context';
 
 const TherapistProfile = () => {
+  const dataa = useContext(userDataContext);
+  console.log(dataa, 'userData');
   const [error, setError] = useState<boolean>(false);
 
   // eslint-disable-next-line no-unused-vars
