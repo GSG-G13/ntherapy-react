@@ -2,20 +2,31 @@ import {
   Container, Box, Typography, Skeleton, Button,
 } from '@mui/material';
 import React, {
-  useState, useEffect,
+  useState, useEffect, useContext,
 } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { SessionReservationModal, AppointmentsModal } from '../..';
 import { BoxStyle, ButtonStyle, TypographyStyle } from './classes';
 import { axiosInstance } from '../../../utils/apis';
 import { BioEditor, ChangePhoto, EditableTextField } from '..';
 import { TherapistData, Props } from './types';
+import { userDataContext } from '../../../context';
 
 const TherapistHeader: React.FC<Props> = ({ isProfileOwner, setError }) => {
   const { id } = useParams();
+  const navigate = useNavigate();
+  const location = useLocation();
   const [dataFromTherapist, setDataFromTherapist] = useState<TherapistData | null>(null);
   const [showReservationModal, setShowReservationModal] = useState(false);
-  const handleShowReservationModal = () => setShowReservationModal(true);
+  const userContext = useContext(userDataContext);
+  const userData = userContext?.userData;
+  const handleShowReservationModal = () => {
+    if (!userData) {
+      navigate('/login', { state: { from: location.pathname } });
+    } else {
+      setShowReservationModal(true);
+    }
+  };
   const [openAppointmentsModal, setOpenAppointmentsModal] = useState(false);
   const handleOpenAppointmentsModal = () => setOpenAppointmentsModal(true);
   const handleCloseAppointmentsModal = () => setOpenAppointmentsModal(false);
