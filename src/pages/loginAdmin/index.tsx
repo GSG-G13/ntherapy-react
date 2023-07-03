@@ -34,9 +34,9 @@ const LoginAdmin = () => {
 
         });
         navigate('/admin');
-      } catch (e) {
+      } catch (e:any) {
         setLoading(false);
-        showSnackbar('Something went wrong', 'error');
+        showSnackbar(e.message, 'error');
       }
     },
   });
