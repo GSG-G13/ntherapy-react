@@ -1,4 +1,4 @@
 import userDataContext from './contextData';
-import UserContext from './authContext ';
+import AuthContext from './authContext ';
 
-export { userDataContext, UserContext };
+export { userDataContext, AuthContext };
