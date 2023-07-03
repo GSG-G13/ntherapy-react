@@ -4,6 +4,7 @@ import React, {
 import { axiosInstance } from '../utils/apis';
 import { AppContextProps, UserData } from './types';
 import userDataContext from './contextData';
+import Spinner from './spinner';
 
 const AuthContext: React.FC<AppContextProps> = ({ children }) => {
   const [userData, setUserData] = useState<UserData | null>(null);
@@ -21,9 +22,14 @@ const AuthContext: React.FC<AppContextProps> = ({ children }) => {
     };
     getUserData();
   }, []);
+
+  if (loading) {
+    <Spinner />;
+  }
+
   const contextValue = useMemo(() => ({
-    userData, setUserData, loading, setLoading,
-  }), [loading, setLoading, userData, setUserData]);
+    userData, setUserData,
+  }), [userData, setUserData]);
 
   return (
     <userDataContext.Provider
