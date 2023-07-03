@@ -29,9 +29,9 @@ const LoginAdmin = () => {
         await axiosInstance.post('/admin/login', {
           data: {
             username: values.username,
-            password: values.password,
-          },
-
+        await axiosInstance.post('/admin/login', {
+          username: values.username,
+          password: values.password,
         });
         navigate('/admin');
       } catch (e:any) {
