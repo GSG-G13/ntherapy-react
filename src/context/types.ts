@@ -13,8 +13,8 @@ interface AppContextProps {
 }
 
 interface UserDataContextValue {
-    userData: UserData[];
-    setUserData: React.Dispatch<React.SetStateAction<UserData[]>>;
+    userData: UserData | null;
+    setUserData: React.Dispatch<React.SetStateAction<UserData|null>>;
 }
 
 export type { AppContextProps, UserDataContextValue, UserData };
