@@ -133,8 +133,7 @@ const Navbar = () => {
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Typography>{userData?.userData?.fullName}</Typography>
-
-                <Avatar alt="Remy Sharp" src={userData?.userData?.profileImg || 'https://2u.pw/boTFzk6'} />
+                {userData?.userData && <Avatar alt="user avatar" src={userData?.userData?.profileImg || 'https://2u.pw/boTFzk6'} />}
               </IconButton>
             </Tooltip>
             <Menu
