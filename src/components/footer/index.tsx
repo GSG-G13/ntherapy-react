@@ -1,32 +1,21 @@
 import { Box, Link, Typography } from '@mui/material';
 import { Facebook, Twitter, Instagram } from '@mui/icons-material';
 import logo from '../../assets/img/logo.png';
+import {
+  BoxContainer, BoxContainerFooter, TypographyBody1, TypographyH3, BoxCopy, TypographyBody2,
+} from './classes';
 
 const Footer = () => (
   <footer>
-    <Box sx={{
-      backgroundColor: '#f7f4f4', padding: '60px 0', boxShadow: '10px 10px 8px 7px #888888', mt: 3,
-    }}
-    >
-      <Box sx={{
-        maxWidth: 'container', display: 'flex', flexDirection: 'row', alignItems: 'center',
-      }}
-      >
+    <Box sx={BoxContainer}>
+      <Box sx={BoxContainerFooter}>
         <Box sx={{ flexBasis: '50%' }}>
           <Box sx={{ marginBottom: '20px', textAlign: 'center' }}>
             <img src={logo} alt="logo" style={{ maxWidth: '30%' }} />
           </Box>
           <Typography
             variant="body1"
-            sx={{
-              color: '#516EFF',
-              fontWeight: 'bold',
-              fontSize: '18.52px',
-              lineHeight: '28px',
-              width: '500px',
-              textAlign: 'center',
-              mx: 'auto',
-            }}
+            sx={TypographyBody1}
           >
             We&apos;re committed to delivering life-changing anxiety
             and depression care to everyone who needs it.
@@ -36,26 +25,14 @@ const Footer = () => (
           <Box sx={{ marginBottom: '20px' }}>
             <Typography
               variant="h3"
-              sx={{
-                color: '#516EFF',
-                fontWeight: 600,
-                fontSize: '22.52px',
-                lineHeight: '28px',
-                textAlign: 'center',
-              }}
+              sx={TypographyH3}
             >
               CONTACTS
             </Typography>
           </Box>
           <Typography
             variant="body1"
-            sx={{
-              color: '#516EFF',
-              fontWeight: 500,
-              fontSize: '18.52px',
-              lineHeight: '28px',
-              textAlign: 'center',
-            }}
+            sx={TypographyBody2}
           >
             <Link href="/" sx={{ color: '#516EFF' }}>Ntherapist@gmail.com</Link>
           </Typography>
@@ -63,9 +40,6 @@ const Footer = () => (
             variant="body1"
             sx={{
               color: '#516EFF',
-              fontWeight: 500,
-              fontSize: '18.52px',
-              lineHeight: '28px',
               textAlign: 'center',
               marginTop: '16px',
             }}
@@ -84,17 +58,12 @@ const Footer = () => (
       </Box>
     </Box>
     <Box sx={{ backgroundColor: '#5885ff', padding: '20px 0' }}>
-      <Box sx={{
-        maxWidth: 'container', display: 'flex', flexDirection: 'row', justifyContent: 'center',
-      }}
-      >
+      <Box sx={BoxCopy}>
         <Typography
           variant="body1"
           sx={{
             color: '#fff',
             fontWeight: 500,
-            fontSize: '15.52px',
-            lineHeight: '28px',
             textAlign: 'center',
           }}
         >
