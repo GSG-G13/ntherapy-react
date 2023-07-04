@@ -52,10 +52,10 @@ Ntherapy is a web application that helps people to find the right therapist for 
 
 
 ## Our Great Team
-- @MohannadSabaa - Mohannad Sabaa
-- @raghdarizq - Raghad Rizq
-- @YasserAmro0 - Yasser Amro
-- @ahmedmurtaja - Ahmed Murtaja
+- [@MohannadSabaa](https://github.com/MohannadSabaa) - Mohannad Sabaa
+- [@raghdarizq](https://github.com/raghdarizq)  - Raghad Rizq
+- [@YasserAmro0](https://github.com/YasserAmro0) - Yasser Amro
+- [@ahmedmurtaja](https://github.com/ahmedmurtaja) - Ahmed Murtaja
 
 ## Our Great Team Leader
-- @LinaYahya - Lina Yahya @LinaYahya
+- @LinaYahya - Lina Yahya 
