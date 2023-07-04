@@ -15,6 +15,7 @@ const container = {
   borderRadius: '5px',
   boxShadow: '0 0 10px 0 rgba(0, 0, 0, 0.077)',
   width: '100%',
+  height: '500px',
 };
 const message = {
   position: 'absolute', left: '47%', top: '50%', transform: 'translate(-50px, -50px)',
