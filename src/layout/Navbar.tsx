@@ -132,8 +132,15 @@ const Navbar = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Typography>{userData?.userData?.fullName}</Typography>
-                {userData?.userData && <Avatar alt="user avatar" src={userData?.userData?.profileImg || 'https://2u.pw/boTFzk6'} />}
+                {userData?.userData
+               && (
+               <>
+                 <Typography style={{ color: 'white', fontWeight: 'bold' }}>
+                   {userData?.userData.fullName}
+                 </Typography>
+                 <Avatar alt="user avatar" src={userData?.userData?.profileImg || 'https://2u.pw/boTFzk6'} />
+               </>
+               )}
               </IconButton>
             </Tooltip>
             <Menu
