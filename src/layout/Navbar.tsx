@@ -12,11 +12,15 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import { useContext } from 'react';
+import { userDataContext } from '../context';
 
 const pages = ['Home', 'find therapists'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const Navbar = () => {
+  const userData = useContext(userDataContext);
+  console.log(userData?.userData);
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
@@ -128,7 +132,9 @@ const Navbar = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Typography>{userData?.userData?.fullName}</Typography>
+
+                <Avatar alt="Remy Sharp" src={userData?.userData?.profileImg || 'https://2u.pw/boTFzk6'} />
               </IconButton>
             </Tooltip>
             <Menu
