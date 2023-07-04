@@ -5,6 +5,7 @@ import React, {
   useState, useEffect, useContext,
 } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import axios from 'axios';
 import { SessionReservationModal, AppointmentsModal } from '../..';
 import { BoxStyle, ButtonStyle, TypographyStyle } from './classes';
 import { axiosInstance } from '../../../utils/apis';
@@ -31,6 +32,7 @@ const TherapistHeader: React.FC<Props> = ({ isProfileOwner, setError }) => {
   const handleOpenAppointmentsModal = () => setOpenAppointmentsModal(true);
   const handleCloseAppointmentsModal = () => setOpenAppointmentsModal(false);
   const [hover, setHover] = useState(false);
+  const [photoTimestamp, setPhotoTimestamp] = useState(Date.now());
 
   useEffect(() => {
     const fetchData = async () => {
@@ -64,17 +66,16 @@ const TherapistHeader: React.FC<Props> = ({ isProfileOwner, setError }) => {
       return prevData;
     });
   };
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      setDataFromTherapist((prevData) => {
-        if (prevData) {
-          return {
-            ...prevData, profileImg: URL.createObjectURL(file),
-          };
-        }
-        return prevData;
+      const uploadURL = await axiosInstance.get('therapists/profile_img');
+      await axios.put(uploadURL.data.url, file, {
+        headers: {
+          'Content-Type': file.type,
+        },
       });
+      setPhotoTimestamp(Date.now());
     }
   };
 
@@ -101,7 +102,7 @@ const TherapistHeader: React.FC<Props> = ({ isProfileOwner, setError }) => {
               onChange={handleFileChange}
               hover={hover}
               setHover={setHover}
-              imgUrl={dataFromTherapist.profileImg}
+              imgUrl={`${dataFromTherapist.profileImg}?timestamp=${photoTimestamp}`}
             />
             <Box sx={{ width: '500px', ml: '50px' }}>
               <EditableTextField

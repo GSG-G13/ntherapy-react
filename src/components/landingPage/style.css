@@ -1,0 +1,11 @@
+.hersection{
+  background-color: #F4F7FF;
+  height: '29rem' 
+}
+@media only screen and (max-width: 600px) {
+  .hersection {
+    height: 50rem;
+    text-align: center;
+  }
+  
+}
