@@ -34,6 +34,8 @@ Ntherapy is a web application that helps people to find the right therapist for 
   <img src="https://img.icons8.com/color/48/000000/material-ui.png" width="24" height="24"/> Material UI<br>
   <img src="https://img.icons8.com/dusk/48/000000/form.png" width="24" height="24"/> Formik<br>
   <img src="https://img.icons8.com/color/48/000000/amazon-s3.png" width="24" height="24"/> S3
+  <br>
+  <img src="https://img.icons8.com/color/48/000000/stripe.png" width="24" height="24"/>React Stripe 
 </p>
 
 
