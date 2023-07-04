@@ -58,4 +58,4 @@ Ntherapy is a web application that helps people to find the right therapist for 
 - [@ahmedmurtaja](https://github.com/ahmedmurtaja) - Ahmed Murtaja
 
 ## Our Great Team Leader
-- @LinaYahya - Lina Yahya 
+- [@LinaYahya](https://github.com/LinaYahya) - Lina Yahya 
