@@ -13,6 +13,8 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { useContext } from 'react';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { useNavigate } from 'react-router-dom';
 import { userDataContext } from '../context';
 
 const pages = ['Home', 'find therapists'];
@@ -23,6 +25,7 @@ const Navbar = () => {
   console.log(userData?.userData);
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+  const navigate = useNavigate();
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -37,6 +40,10 @@ const Navbar = () => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+  const handleLogout = () => {
+    localStorage.removeItem('access_token');
+    navigate('/login');
   };
 
   return (
@@ -127,6 +134,11 @@ const Navbar = () => {
                 {page}
               </Button>
             ))}
+            {userData?.userData?.role === 'therapist' && (
+            <Typography style={{ color: 'white', fontWeight: 'bold' }}>
+              profile
+            </Typography>
+            )}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
@@ -139,10 +151,13 @@ const Navbar = () => {
                    {userData?.userData.fullName}
                  </Typography>
                  <Avatar alt="user avatar" src={userData?.userData?.profileImg || 'https://2u.pw/boTFzk6'} />
+                 <LogoutIcon onClick={handleLogout} />
                </>
                )}
               </IconButton>
+
             </Tooltip>
+
             <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"
