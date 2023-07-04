@@ -1,18 +1,19 @@
 import {
-  Container, Pagination, Button, Box,
+  Container, Pagination,
 } from '@mui/material';
 import { useEffect, useState, ChangeEvent } from 'react';
 import { AxiosError } from 'axios';
 import { enqueueSnackbar } from 'notistack';
 import TherapistTable from '../../components/dashboard/table/therapists';
+import Filter from '../../components/dashboard/filter/filter';
 import { axiosInstance } from '../../utils/apis';
 
 const Admin = () => {
   const [therapists, setTherapists] = useState<null | []>([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(1);
   const [loading, setLoading] = useState(true);
-  const [active, setActive] = useState< boolean | null>(null);
+  const [active, setActive] = useState<boolean | null>(null);
 
   const handlePageChange = (_event: ChangeEvent<unknown>, page: number) => {
     setTherapists([]);
@@ -50,33 +51,10 @@ const Admin = () => {
   return (
 
     <Container sx={{ marginTop: '50px' }}>
-      <Box sx={{
-        background: '#bcc8ff', borderRadius: '5px', alignSelf: 'flex-start', padding: '5px', margin: '3px',
-      }}
-      >
-        {' '}
-        <Button sx={{ color: 'white' }} onClick={() => setActive(null)}>All</Button>
-        <Button
-          sx={{ color: 'white' }}
-          onClick={() => {
-            setActive(true);
-            setCurrentPage(1);
-          }}
-        >
-          Active
-
-        </Button>
-        <Button
-          sx={{ color: 'white' }}
-          onClick={() => {
-            setActive(false);
-            setCurrentPage(1);
-          }}
-        >
-          In Active
-
-        </Button>
-      </Box>
+      <Filter
+        setActive={setActive as typeof useState<boolean| null>}
+        setCurrentPage={setCurrentPage as typeof useState<number>}
+      />
       <TherapistTable therapists={therapists} loading={loading} />
       <Pagination
         sx={{ display: 'block', margin: '10px 20px' }}
