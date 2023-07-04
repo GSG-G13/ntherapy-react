@@ -14,15 +14,15 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { useContext } from 'react';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { userDataContext } from '../context';
 
-const pages = ['Home', 'find therapists'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const pages = [
+  { title: 'Find Therapists', link: '/therapists' },
+]; const settings = ['Profile'];
 
 const Navbar = () => {
   const userData = useContext(userDataContext);
-  console.log(userData?.userData);
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
   const navigate = useNavigate();
@@ -99,8 +99,8 @@ const Navbar = () => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem key={page.title} onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">{page.title}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -127,18 +127,14 @@ const Navbar = () => {
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
-                key={page}
+                key={page.title}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                {page}
+                <Link to={page.link} style={{ textDecoration: 'none', color: 'white' }}>{page.title}</Link>
               </Button>
             ))}
-            {userData?.userData?.role === 'therapist' && (
-            <Typography style={{ color: 'white', fontWeight: 'bold' }}>
-              profile
-            </Typography>
-            )}
+
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
@@ -157,6 +153,7 @@ const Navbar = () => {
               </IconButton>
 
             </Tooltip>
+            {userData?.userData?.role === 'therapist' && (
 
             <Menu
               sx={{ mt: '45px' }}
@@ -180,6 +177,8 @@ const Navbar = () => {
                 </MenuItem>
               ))}
             </Menu>
+            )}
+
           </Box>
         </Toolbar>
       </Container>
