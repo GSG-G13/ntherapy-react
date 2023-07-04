@@ -1,7 +1,14 @@
 
 Ntherapy 
 
-Ntherapy is a web application that helps people to find the right therapist for them. It allows users to search for therapists based on their location, specialty, and insurance. Users can also book an appointment with the therapist they choose.
+<p align=center>
+
+![](https://imgur.com/AX55kbo.png)
+
+</p>
+
+
+Ntherapy is a web application that helps people to find the right therapist for them. It allows users to search for **Verified** therapists and view their specialty. Users can also book an appointment with the therapist they choose.
 ## [View Demo]()
 
 
