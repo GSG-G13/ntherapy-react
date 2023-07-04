@@ -6,9 +6,9 @@ import { meet } from '../../assets';
 const Questions = () => (
   <Container sx={{
     backgroundColor: '#F4F7FF',
-    height: '50rem',
+    height: '55rem',
     '@media (max-width: 600px)': {
-      height: '90rem',
+      height: '95rem',
       textAlign: 'center',
     },
   }}
@@ -37,7 +37,7 @@ const Questions = () => (
             1:1 Video Sessions
           </Typography>
           <Typography sx={{
-            mb: 4, color: '#90AAB9', fontSize: 12, mt: 1,
+            mb: 4, color: '#90AAB9', fontSize: 15, mt: 1,
           }}
           >
             Let your provider know how you’re feeling, get to know you,
@@ -51,7 +51,7 @@ const Questions = () => (
 
           </Typography>
           <Typography sx={{
-            mb: 4, color: '#90AAB9', fontSize: 12, mt: 1,
+            mb: 4, color: '#90AAB9', fontSize: 15, mt: 1,
           }}
           >
             Therapy is an essential part of any successful recovery process,
@@ -65,7 +65,7 @@ const Questions = () => (
             Is Therapy Right for You?
           </Typography>
           <Typography sx={{
-            mb: 4, color: '#90AAB9', fontSize: 12, mt: 1,
+            mb: 4, color: '#90AAB9', fontSize: 15, mt: 1,
           }}
           >
             Find out the pros and cons of this type of therapy
@@ -77,7 +77,7 @@ const Questions = () => (
             What are the benefits of therapy?
           </Typography>
           <Typography sx={{
-            mb: 4, color: '#90AAB9', fontSize: 12, mt: 1,
+            mb: 4, color: '#90AAB9', fontSize: 15, mt: 1,
           }}
           >
             Therapy can be a powerful tool for improving mental health and wellbeing.
@@ -90,7 +90,7 @@ const Questions = () => (
             Where should therapy be used?
           </Typography>
           <Typography sx={{
-            mb: 4, color: '#90AAB9', fontSize: 12, mt: 1,
+            mb: 4, color: '#90AAB9', fontSize: 15, mt: 1,
           }}
           >
             Therapy can be a powerful tool for improving mental health,
@@ -102,7 +102,7 @@ const Questions = () => (
             Therapy Impacts on Mental Health
           </Typography>
           <Typography sx={{
-            mb: 4, color: '#90AAB9', fontSize: 12, mt: 1,
+            mb: 4, color: '#90AAB9', fontSize: 15, mt: 1,
           }}
           >
             Therapy can have a powerful impact on mental health,

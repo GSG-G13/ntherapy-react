@@ -17,7 +17,7 @@ const Services = () => (
             <Typography variant="h6" sx={{ fontWeight: 600, fontSize: '1rem' }} color="primary.dark">
               Appointments in as little as 24 hrs
             </Typography>
-            <Typography variant="body2" color="primary.main" sx={{ mb: 4, color: '#90AAB9', fontSize: 12 }}>
+            <Typography variant="body2" color="primary.main" sx={{ mb: 4, color: '#90AAB9', fontSize: 14 }}>
               We offer care for mild to severe depression, anxiety,
               and more — including Crisis Care for individuals with
             </Typography>
@@ -35,7 +35,7 @@ const Services = () => (
               {' '}
 
             </Typography>
-            <Typography variant="body2" color="primary.main" sx={{ mb: 4, color: '#90AAB9', fontSize: 12 }}>
+            <Typography variant="body2" color="primary.main" sx={{ mb: 4, color: '#90AAB9', fontSize: 14 }}>
               We offer care for mild to severe depression, anxiety,
               and more — including Crisis Care for individuals with
             </Typography>
@@ -51,7 +51,7 @@ const Services = () => (
             <Typography variant="h6" sx={{ fontWeight: 600, fontSize: '1rem' }} color="primary.dark">
               Care for even the most severe cases
             </Typography>
-            <Typography variant="body2" color="primary.main" sx={{ mb: 4, color: '#90AAB9', fontSize: 12 }}>
+            <Typography variant="body2" color="primary.main" sx={{ mb: 4, color: '#90AAB9', fontSize: 14 }}>
               We offer care for mild to severe depression, anxiety,
               and more — including Crisis Care for individuals with
             </Typography>
@@ -68,7 +68,7 @@ const Services = () => (
             <Typography variant="h6" sx={{ fontWeight: 600, fontSize: '1rem' }} color="primary.dark">
               Personalized plans unique to you
             </Typography>
-            <Typography variant="body2" color="primary.main" sx={{ mb: 4, color: '#90AAB9', fontSize: 12 }}>
+            <Typography variant="body2" color="primary.main" sx={{ mb: 4, color: '#90AAB9', fontSize: 14 }}>
               We offer care for mild to severe depression, anxiety,
               and more — including Crisis Care for individuals with
             </Typography>

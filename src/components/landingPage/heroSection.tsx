@@ -16,7 +16,7 @@ const HeroSection = () => (
             privately anytime anywhere
           </Typography>
           <Typography sx={{
-            mb: 4, mt: 5, color: '#90AAB9', fontSize: 12,
+            mb: 4, mt: 5, color: '#90AAB9', fontSize: 15,
           }}
           >
             It gets much better from here. Get 1:1 help that

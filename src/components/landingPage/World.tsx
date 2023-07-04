@@ -27,7 +27,7 @@ const World = () => (
 
         </Typography>
         <Typography sx={{
-          mb: 4, mt: 3, color: '#90AAB9', fontSize: 12,
+          mb: 4, mt: 3, color: '#90AAB9', fontSize: 15,
         }}
         >
           Connect with expert therapists & psychiatric providers

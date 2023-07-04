@@ -16,12 +16,11 @@ const OnlineMedical = () => (
             DISCOVER YOUR SELF
           </Typography>
           <Typography sx={{
-            mb: 4, mt: 3, color: '#90AAB9', fontSize: 12,
+            mb: 4, mt: 3, color: '#90AAB9', fontSize: 15,
           }}
           >
-            JOIN US TO GET PROVIDED WITH THE TOOLS AND SUPPORT YOU NEED TO MANAGE
-            YOUR MENTAL HEALTH AND LEAD A HEALTHIER
-            MORE FULFILLING LIFE.
+            Join Us to get goodd with the tops and support you need to
+            manage your memory health and lead a health
           </Typography>
           <Button variant="contained" sx={{ borderColor: 'primary.main' }}>
             <Link to="/signup" style={{ textDecoration: 'none', color: 'white' }}>
@@ -38,12 +37,12 @@ const OnlineMedical = () => (
             BE ONE OF THE TEAM
           </Typography>
           <Typography sx={{
-            mb: 4, mt: 3, color: '#90AAB9', fontSize: 12,
+            mb: 4, mt: 3, color: '#90AAB9', fontSize: 15,
           }}
           >
-            JOIN US AND INCREASE EFFICIENCY, IMPROVE COMMUNICATION,
-            ENHANCED COLLABORATION, AND IT CAN ALSO HELP TO REDUCE COSTS,
-            AND IMPROVE CLIENT SERVICE.
+            Join us and informality, Improving Communication,
+            Enhanceed Collaboration, and it can also help to Reduce Costs,
+            and Improve Client Service.
           </Typography>
           <Button variant="contained" sx={{ borderColor: 'primary.main' }}>
             <Link to="/signup" style={{ textDecoration: 'none', color: 'white' }}>
