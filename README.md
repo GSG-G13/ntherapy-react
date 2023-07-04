@@ -1,7 +1,7 @@
 
 Ntherapy 
 
-
+Ntherapy is a web application that helps people to find the right therapist for them. It allows users to search for therapists based on their location, specialty, and insurance. Users can also book an appointment with the therapist they choose.
 ## [View Demo]()
 
 
@@ -10,11 +10,19 @@ Ntherapy
 ## Solution
 
 ## Database Schema
-- [Database](https://drawsql.app/teams/shatha/diagrams/freelance)
+- [Database](https://drawsql.app/teams/jjj-11/diagrams/team1)
 
-![](https://i.imgur.com/26vntx4.jpg)
+![](https://imgur.com/PbdUfCp.png)
 
-## Built With
+## Tech Stack
+<p align="left">
+  <img src="https://img.icons8.com/color/48/000000/react-native.png" width="24" height="24"/> React.js<br>
+  <img src="https://img.icons8.com/color/48/000000/typescript.png" width="24" height="24"/> TypeScript<br>
+  <img src="https://img.icons8.com/color/48/000000/material-ui.png" width="24" height="24"/> Material UI<br>
+  <img src="https://img.icons8.com/dusk/48/000000/form.png" width="24" height="24"/> Formik<br>
+  <img src="https://img.icons8.com/color/48/000000/amazon-s3.png" width="24" height="24"/> S3
+</p>
+
 
 ## User journey
 
