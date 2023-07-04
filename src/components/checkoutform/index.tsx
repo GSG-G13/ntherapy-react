@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { SyntheticEvent, useState } from 'react';
 import { CircularProgress, Container } from '@mui/material';
 import {
   PaymentElement,
@@ -14,7 +14,7 @@ const CheckoutForm = () => {
   const elements = useElements();
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async (e:Event) => {
+  const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
 
     if (!stripe || !elements) {

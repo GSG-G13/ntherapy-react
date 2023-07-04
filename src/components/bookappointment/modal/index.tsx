@@ -12,9 +12,12 @@ import ValidationSchema from './validation';
 import buttonStyle from './classes';
 
 const steps = ['select appointment', 'Payment details'];
+interface IBookAppointment {
+  appointmentId: string
+}
 interface StepComponentProps {
   step: number;
-  formik: FormikProps<string>;
+  formik: FormikProps<IBookAppointment>;
 }
 
 interface SessionReservationModalProps {

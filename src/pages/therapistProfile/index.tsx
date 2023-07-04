@@ -9,8 +9,7 @@ const TherapistProfile = () => {
   console.log(dataa, 'userData');
   const [error, setError] = useState<boolean>(false);
 
-  // eslint-disable-next-line no-unused-vars
-  const [isEditable, setIsEditable] = useState(true);
+  const isEditable = false;
 
   if (error) {
     return (

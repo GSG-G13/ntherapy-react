@@ -2,7 +2,7 @@ import * as yup from 'yup';
 
 const validationSchema = yup.object({
   email: yup
-    .string('Enter your email')
+    .string()
     .test('email-domain', 'Enter a valid email', (value) => {
       if (!value) return false;
       const emailParts = value.split('@');
@@ -11,7 +11,7 @@ const validationSchema = yup.object({
     })
     .required('Email is required'),
   password: yup
-    .string('Enter your password')
+    .string()
     .min(8, 'Password should be of minimum 8 characters length')
     .required('Password is required'),
 });

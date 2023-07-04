@@ -35,7 +35,7 @@ const AppointmentsModal = ({ handleClose, open }: Props) => {
     },
     validateOnMount: true,
     validationSchema,
-    onSubmit: (values :any) => {
+    onSubmit: (values) => {
       const { from: dateFrom, to: dateTo }: any = values.date;
 
       const date = {
