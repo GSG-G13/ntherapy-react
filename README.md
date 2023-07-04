@@ -13,8 +13,14 @@ Ntherapy is a web application that helps people to find the right therapist for 
 
 
 ## Problem
-- 
+- Finding the right therapist is a hard task.
+- its hard to verify the therapist's identity.
+- its hard to book an appointment with the therapist.
+- its hard to view the therapist's specialty.
 ## Solution
+- Ntherapy helps people to find the right therapist for them.
+- Ntherapy allows users to search for **Verified** therapists and view their specialty.
+- Ntherapy allows users to book an appointment with the therapist they choose.
 
 ## Database Schema
 - [Database](https://drawsql.app/teams/jjj-11/diagrams/team1)
@@ -31,10 +37,15 @@ Ntherapy is a web application that helps people to find the right therapist for 
 </p>
 
 
-## User journey
-
 ## User Stories
-
+- As a user, I want to be able to search for therapists.
+- As a user, I want to be able to view the therapist's specialty.
+- As a user, I want to be able to book an appointment with the therapist I choose.
+- As a user, I want to be able to view the therapist's profile.
+- As a therapist, I want to be able to create an account.
+- As a therapist, I want to be able to create a profile.
+- As a therapist, I want to be able to add my specialty.
+- As a therapist, I want to be able to add my availability.
   
 ### Figma and UI/UX Design
 
@@ -43,12 +54,23 @@ Ntherapy is a web application that helps people to find the right therapist for 
 
 
 1. Clone the repo
-   
+   ```sh
+    git clone https://github.com/GSG-G13/ntherapy-react.git
+    ```
 2. Install NPM packages
    ```sh
    npm install
    ```
-
+3. run in development mode
+   ```sh
+   npm run dev
+   ```
+ 
+4. run in production mode
+   ```sh
+    npm run build
+    npm run start
+    ```
 
 
 ## Our Great Team
