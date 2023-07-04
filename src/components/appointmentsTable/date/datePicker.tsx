@@ -13,7 +13,7 @@ const DatePick = ({
     <DemoContainer components={['DatePicker']}>
       <DatePicker
         format="DD-MM-YYYY"
-        sx={{ position: 'absolute', top: 0, right: '275px' }}
+        sx={{ position: 'absolute', top: -54, right: '30px' }}
         onChange={(newValue) => {
           setDate(dayjs(newValue));
         }}

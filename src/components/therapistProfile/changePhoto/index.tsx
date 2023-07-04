@@ -8,10 +8,10 @@ const ChangePhoto: React.FC<Props> = ({
   onChange, isProfileOwner, hover, setHover, imgUrl,
 }) => (
   <Box
-    gridColumn="span 7"
+    gridColumn="span 6"
     sx={{
       position: 'relative',
-      ml: 10,
+      ml: 2,
     }}
     onMouseEnter={() => setHover(true)}
     onMouseLeave={() => setHover(false)}

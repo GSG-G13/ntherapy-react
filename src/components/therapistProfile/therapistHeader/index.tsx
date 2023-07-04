@@ -83,7 +83,18 @@ const TherapistHeader: React.FC<Props> = ({ isProfileOwner, setError }) => {
 
       {dataFromTherapist ? (
         <Box sx={{ width: 1, mt: 8 }}>
-          <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={2}>
+          <Box
+            display="grid"
+            gridTemplateColumns="repeat(12, 1fr)"
+            gap={2}
+            sx={{
+              backgroundColor: '#fff',
+              border: '2px solid #ddd',
+              borderRadius: '8px',
+              boxShadow: '1px 4px 6px rgba(0, 0, 0, 0.1)',
+              padding: '16px',
+            }}
+          >
 
             <ChangePhoto
               isProfileOwner={isProfileOwner}
@@ -171,7 +182,6 @@ const TherapistHeader: React.FC<Props> = ({ isProfileOwner, setError }) => {
                       dangerouslySetInnerHTML={{ __html: dataFromTherapist.bio }}
                       style={{
                         marginTop: '50px',
-                        marginLeft: '65px',
                       }}
                     />
                   )

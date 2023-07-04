@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { Container, Snackbar } from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
 import { useParams } from 'react-router-dom';
@@ -14,6 +14,10 @@ const TherapistProfile = () => {
   const userData = userContext?.userData;
 
   const isProfileOwner = Boolean(userData && id === userData.id.toString());
+
+  useEffect(() => {
+    document.body.style.backgroundColor = 'rgb(244, 244, 245)';
+  });
 
   if (error) {
     return (
@@ -33,7 +37,10 @@ const TherapistProfile = () => {
   }
 
   return (
-    <Container>
+    <Container sx={{
+      // backgroundColor: 'red',
+    }}
+    >
       <TherapistHeader isProfileOwner={isProfileOwner} setError={setError} />
       {
         isProfileOwner
