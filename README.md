@@ -3,7 +3,7 @@ Ntherapy
 
 <p align="center">
 
-![](https://imgur.com/AX55kbo.png)
+<img src="https://imgur.com/AX55kbo.png">
 
 </p>
 
