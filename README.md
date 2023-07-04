@@ -1,7 +1,7 @@
 
 Ntherapy 
 
-<p align=center>
+<p align="center">
 
 ![](https://imgur.com/AX55kbo.png)
 
