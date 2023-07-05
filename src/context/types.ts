@@ -6,6 +6,7 @@ interface UserData {
     id: string,
     profileImg?: string,
     username?: string
+    therapistId?:number
 
 }
 interface AppContextProps {

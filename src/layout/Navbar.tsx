@@ -194,7 +194,7 @@ const Navbar = () => {
                 {settings.map((setting) => (
                   <MenuItem key={setting} onClick={handleCloseUserMenu}>
                     <Typography textAlign="center">
-                      <Link to={`/therapist/${userData?.userData?.id}`}>
+                      <Link to={`/therapist/${userData?.userData?.therapistId}`}>
                         {setting}
                       </Link>
 

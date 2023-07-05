@@ -18,7 +18,7 @@ export interface Appointment{
     isBooked: boolean;
     isAvailable: boolean;
     datetime: string;
-    therapistId: number
+    therapistId: number;
   }
 
 export interface TRow {

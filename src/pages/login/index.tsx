@@ -54,7 +54,7 @@ const Login = () => {
         localStorage.setItem('access_token', response.data.access_token);
         setUserChange(!userChange);
 
-        if (location.state.from) {
+        if (location.state && location.state.from) {
           navigate(location.state.from);
         } else {
           navigate('/');

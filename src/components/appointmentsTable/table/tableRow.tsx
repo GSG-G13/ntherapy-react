@@ -14,6 +14,7 @@ const RowTable = ({ appointment }:TRow) => {
   const {
     isAvailable, isBooked, datetime, id,
   } = appointment;
+  console.log(id);
   const [availability, setAvailability] = useState<boolean>(isAvailable);
   const availabilityHandler = async () => {
     try {
