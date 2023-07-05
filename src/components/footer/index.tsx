@@ -58,7 +58,7 @@ const Footer = () => (
         </Box>
       </Box>
     </Box>
-    <Box sx={{ backgroundColor: '#5885ff', padding: '20px 0' }}>
+    <Box sx={{ backgroundColor: '#5885ff', padding: '15px 0' }}>
       <Box sx={BoxCopy}>
         <Typography
           variant="body1"
