@@ -1,16 +1,23 @@
-import { useState, useContext } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { Container, Snackbar } from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
+import { useParams } from 'react-router-dom';
 import { AppointmentTableContainer, TherapistHeader } from '../../components';
 import { userDataContext } from '../../context';
 
 const TherapistProfile = () => {
-  const dataa = useContext(userDataContext);
-  console.log(dataa, 'userData');
+  const { id } = useParams();
+
   const [error, setError] = useState<boolean>(false);
 
-  // eslint-disable-next-line no-unused-vars
-  const [isEditable, setIsEditable] = useState(true);
+  const userContext = useContext(userDataContext);
+  const userData = userContext?.userData;
+
+  const isProfileOwner = Boolean(userData && id === userData.id.toString());
+
+  useEffect(() => {
+    document.body.style.backgroundColor = 'rgb(244, 244, 245)';
+  });
 
   if (error) {
     return (
@@ -30,10 +37,13 @@ const TherapistProfile = () => {
   }
 
   return (
-    <Container>
-      <TherapistHeader isEditable={isEditable} setError={setError} />
+    <Container sx={{
+      // backgroundColor: 'red',
+    }}
+    >
+      <TherapistHeader isProfileOwner={isProfileOwner} setError={setError} />
       {
-        isEditable
+        isProfileOwner
         && <AppointmentTableContainer />
 
       }

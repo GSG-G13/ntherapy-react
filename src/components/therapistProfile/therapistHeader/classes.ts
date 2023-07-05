@@ -4,9 +4,9 @@ interface Type {
 
 const TypographyStyle: Type = {
   fontWeight: 'bold',
-  marginBottom: '-20px',
+  marginBottom: '-25px',
   color: '#2B127B',
-  marginLeft: '60px',
+
 };
 
 const BoxStyle: Type = {

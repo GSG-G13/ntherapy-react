@@ -3,6 +3,6 @@ interface Props {
     dataType: 'fullName' | 'hourlyRate' | 'major';
     // eslint-disable-next-line no-unused-vars
     onChange: (value: string | number) => void;
-    isEditable: boolean
+    isProfileOwner: boolean
 }
 export default Props;

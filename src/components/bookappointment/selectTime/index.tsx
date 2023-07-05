@@ -33,7 +33,6 @@ const BookAppointment = ({ formik }: FormikProps<string>) => {
     getAppointments();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
-
   const timeErrorMessage = useMemo(() => (time.length === 0 ? 'Sorry, no appointments found.' : ''), [time]);
   return (
     <>
