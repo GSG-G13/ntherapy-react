@@ -36,6 +36,10 @@ Ntherapy is a web application that helps people to find the right therapist for 
   <img src="https://img.icons8.com/color/48/000000/amazon-s3.png" width="24" height="24"/> S3
   <br>
   <img src="https://img.icons8.com/color/48/000000/stripe.png" width="24" height="24"/>React Stripe 
+  <br>
+   <img src="https://img.icons8.com/color/48/000000/nodejs.png" width="24" height="24"/> Node.js<br>
+   <img src="https://img.icons8.com/color/48/000000/express.png" width="24" height="24"/> Express.js<br>
+   <img src="https://img.icons8.com/color/48/000000/postgreesql.png" width="24" height="24"/> PostgreSQL<br>
 </p>
 
 
