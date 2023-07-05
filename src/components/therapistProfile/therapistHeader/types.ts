@@ -14,7 +14,7 @@ interface TherapistData {
     };
 }
 interface Props {
-    isEditable: boolean,
+    isProfileOwner: boolean,
     setError: Dispatch<SetStateAction<boolean>>,
 }
 export type{ TherapistData, Props };

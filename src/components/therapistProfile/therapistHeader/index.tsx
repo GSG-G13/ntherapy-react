@@ -2,24 +2,37 @@ import {
   Container, Box, Typography, Skeleton, Button,
 } from '@mui/material';
 import React, {
-  useState, useEffect,
+  useState, useEffect, useContext,
 } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import axios from 'axios';
 import { SessionReservationModal, AppointmentsModal } from '../..';
 import { BoxStyle, ButtonStyle, TypographyStyle } from './classes';
 import { axiosInstance } from '../../../utils/apis';
 import { BioEditor, ChangePhoto, EditableTextField } from '..';
 import { TherapistData, Props } from './types';
+import { userDataContext } from '../../../context';
 
-const TherapistHeader: React.FC<Props> = ({ isEditable, setError }) => {
+const TherapistHeader: React.FC<Props> = ({ isProfileOwner, setError }) => {
   const { id } = useParams();
+  const navigate = useNavigate();
+  const location = useLocation();
   const [dataFromTherapist, setDataFromTherapist] = useState<TherapistData | null>(null);
   const [showReservationModal, setShowReservationModal] = useState(false);
-  const handleShowReservationModal = () => setShowReservationModal(true);
+  const userContext = useContext(userDataContext);
+  const userData = userContext?.userData;
+  const handleShowReservationModal = () => {
+    if (!userData) {
+      navigate('/login', { state: { from: location.pathname } });
+    } else {
+      setShowReservationModal(true);
+    }
+  };
   const [openAppointmentsModal, setOpenAppointmentsModal] = useState(false);
   const handleOpenAppointmentsModal = () => setOpenAppointmentsModal(true);
   const handleCloseAppointmentsModal = () => setOpenAppointmentsModal(false);
   const [hover, setHover] = useState(false);
+  const [photoTimestamp, setPhotoTimestamp] = useState(Date.now());
 
   useEffect(() => {
     const fetchData = async () => {
@@ -53,17 +66,16 @@ const TherapistHeader: React.FC<Props> = ({ isEditable, setError }) => {
       return prevData;
     });
   };
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      setDataFromTherapist((prevData) => {
-        if (prevData) {
-          return {
-            ...prevData, profileImg: URL.createObjectURL(file),
-          };
-        }
-        return prevData;
+      const uploadURL = await axiosInstance.get('therapists/profile_img');
+      await axios.put(uploadURL.data.url, file, {
+        headers: {
+          'Content-Type': file.type,
+        },
       });
+      setPhotoTimestamp(Date.now());
     }
   };
 
@@ -72,28 +84,39 @@ const TherapistHeader: React.FC<Props> = ({ isEditable, setError }) => {
 
       {dataFromTherapist ? (
         <Box sx={{ width: 1, mt: 8 }}>
-          <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={2}>
+          <Box
+            display="grid"
+            gridTemplateColumns="repeat(12, 1fr)"
+            gap={2}
+            sx={{
+              backgroundColor: '#fff',
+              border: '2px solid #ddd',
+              borderRadius: '8px',
+              boxShadow: '1px 4px 6px rgba(0, 0, 0, 0.1)',
+              padding: '16px',
+            }}
+          >
 
             <ChangePhoto
-              isEditable={isEditable}
+              isProfileOwner={isProfileOwner}
               onChange={handleFileChange}
               hover={hover}
               setHover={setHover}
-              imgUrl={dataFromTherapist.profileImg}
+              imgUrl={`${dataFromTherapist.profileImg}?timestamp=${photoTimestamp}`}
             />
             <Box sx={{ width: '500px', ml: '50px' }}>
               <EditableTextField
                 value={dataFromTherapist.user.fullName}
                 dataType="fullName"
                 onChange={handleChange('user.fullName')}
-                isEditable={isEditable}
+                isProfileOwner={isProfileOwner}
               />
 
               <EditableTextField
                 value={dataFromTherapist.major}
                 dataType="major"
                 onChange={handleChange('major')}
-                isEditable={isEditable}
+                isProfileOwner={isProfileOwner}
               />
 
               <Box sx={BoxStyle}>
@@ -103,9 +126,9 @@ const TherapistHeader: React.FC<Props> = ({ isEditable, setError }) => {
                 >
                   for session: $
                 </Typography>
-                <EditableTextField value={dataFromTherapist.hourlyRate} dataType="hourlyRate" onChange={handleChange('hourlyRate')} isEditable={isEditable} />
+                <EditableTextField value={dataFromTherapist.hourlyRate} dataType="hourlyRate" onChange={handleChange('hourlyRate')} isProfileOwner={isProfileOwner} />
               </Box>
-              {isEditable
+              {isProfileOwner
                 ? (
                   <Button
                     variant="contained"
@@ -150,7 +173,7 @@ const TherapistHeader: React.FC<Props> = ({ isEditable, setError }) => {
                   Abstract ...
                 </Typography>
                 {
-                  isEditable ? (
+                  isProfileOwner ? (
                     <BioEditor
                       textBio={dataFromTherapist.bio}
                       handleChangeTextBio={handleChange('bio')}
@@ -160,7 +183,6 @@ const TherapistHeader: React.FC<Props> = ({ isEditable, setError }) => {
                       dangerouslySetInnerHTML={{ __html: dataFromTherapist.bio }}
                       style={{
                         marginTop: '50px',
-                        marginLeft: '65px',
                       }}
                     />
                   )
