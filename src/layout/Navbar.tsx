@@ -39,7 +39,6 @@ const Navbar = () => {
     localStorage.removeItem('access_token');
     navigate('/login');
   };
-
   return (
     <AppBar position="static" sx={{ backgroundColor: '#F4F7FF', color: '#516EFF' }}>
       <Container maxWidth="xl">
@@ -125,7 +124,14 @@ const Navbar = () => {
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                <Link to={page.link} style={{ textDecoration: 'none', color: '#516EFF' }}>{page.title}</Link>
+                <Link
+                  to={page.link}
+                  key={page.title}
+                  style={{ textDecoration: 'none', color: '#516EFF' }}
+                >
+                  {page.title}
+
+                </Link>
               </Button>
             ))}
 
@@ -137,7 +143,7 @@ const Navbar = () => {
                 {userData?.userData ? (
                   <>
                     <Typography sx={{ color: '#516EFF', fontWeight: 'bold', ml: 3 }}>
-                      {userData?.userData.fullName}
+                      {userData?.userData.fullName || 'Amain'}
                     </Typography>
                     <Avatar
                       alt="user avatar"
@@ -165,7 +171,7 @@ const Navbar = () => {
               </IconButton>
 
             </Tooltip>
-            {userData?.userData?.role === 'therapist' && (
+            {(userData?.userData?.role === 'therapist' || userData?.userData?.role === 'admin') && (
 
               <Menu
                 sx={{ mt: '45px' }}
@@ -186,10 +192,13 @@ const Navbar = () => {
                 {settings.map((setting) => (
                   <MenuItem key={setting} onClick={handleCloseUserMenu}>
                     <Typography textAlign="center">
-                      <Link to={`/therapist/${userData?.userData?.therapistId}`}>
-                        {setting}
-                      </Link>
-
+                      {userData?.userData?.role === 'therapist' ? (
+                        <Link to={`/therapist/${userData?.userData?.therapistId}`}>
+                          {setting}
+                        </Link>
+                      ) : (
+                        <Link to="/admin">Dashboard</Link>
+                      )}
                     </Typography>
                   </MenuItem>
                 ))}
