@@ -8,7 +8,7 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
+import { Button } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
@@ -47,7 +47,7 @@ const Navbar = () => {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{ backgroundColor: '#F4F7FF', color: '#516EFF' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
@@ -131,7 +131,7 @@ const Navbar = () => {
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                <Link to={page.link} style={{ textDecoration: 'none', color: 'white' }}>{page.title}</Link>
+                <Link to={page.link} style={{ textDecoration: 'none', color: '#516EFF' }}>{page.title}</Link>
               </Button>
             ))}
 
@@ -140,43 +140,60 @@ const Navbar = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                {userData?.userData
-               && (
-               <>
-                 <Typography style={{ color: 'white', fontWeight: 'bold' }}>
-                   {userData?.userData.fullName}
-                 </Typography>
-                 <Avatar alt="user avatar" src={userData?.userData?.profileImg || 'https://2u.pw/boTFzk6'} />
-                 <LogoutIcon onClick={handleLogout} />
-               </>
-               )}
+                {userData?.userData ? (
+                  <>
+                    <Typography style={{ color: 'white', fontWeight: 'bold' }}>
+                      {userData?.userData.fullName}
+                    </Typography>
+                    <Avatar
+                      alt="user avatar"
+                      src={userData?.userData?.profileImg || 'https://2u.pw/boTFzk6'}
+                    />
+                    <LogoutIcon onClick={handleLogout} />
+                  </>
+                ) : (
+                  <>
+                    <Button variant="contained" sx={{ borderColor: 'primary.main', ml: 3 }}>
+                      <Link to="/signup" style={{ textDecoration: 'none', color: 'white' }}>
+                        SIGN UP
+                      </Link>
+                    </Button>
+
+                    <Button variant="contained" sx={{ borderColor: 'primary.main', ml: 1 }}>
+                      <Link to="/login" style={{ textDecoration: 'none', color: 'white' }}>
+                        SIGN IN
+                      </Link>
+                    </Button>
+
+                  </>
+                )}
               </IconButton>
 
             </Tooltip>
             {userData?.userData?.role === 'therapist' && (
 
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
+              <Menu
+                sx={{ mt: '45px' }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {settings.map((setting) => (
+                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center">{setting}</Typography>
+                  </MenuItem>
+                ))}
+              </Menu>
             )}
 
           </Box>
