@@ -1,5 +1,6 @@
 interface TherapistCardType {
   userId: number;
+  id: number;
   major: string;
   hourlyRate: number;
   profileImg: string;
