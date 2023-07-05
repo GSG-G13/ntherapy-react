@@ -6,7 +6,7 @@ const SearchBoxStyle: Type = {
   width: '100%',
   maxWidth: 400,
   borderRadius: '999px',
-  backgroundColor: '#f5f5f5',
+  backgroundColor: '#eee',
   paddingLeft: 2,
   paddingRight: 2,
 };
