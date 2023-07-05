@@ -13,7 +13,7 @@ const TherapistProfile = () => {
   const userContext = useContext(userDataContext);
   const userData = userContext?.userData;
 
-  const isProfileOwner = Boolean(userData && id === userData.id.toString());
+  const isProfileOwner = Boolean(userData && id === userData.therapistId?.toString());
 
   useEffect(() => {
     document.body.style.backgroundColor = 'rgb(244, 244, 245)';
