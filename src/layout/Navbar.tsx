@@ -19,13 +19,15 @@ import { userDataContext } from '../context';
 
 const pages = [
   { title: 'Find Therapists', link: '/therapists' },
-]; const settings = ['Profile'];
+];
+const settings = ['Profile'];
 
 const Navbar = () => {
   const userData = useContext(userDataContext);
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
   const navigate = useNavigate();
+  console.log(userData);
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -142,14 +144,15 @@ const Navbar = () => {
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 {userData?.userData ? (
                   <>
-                    <Typography style={{ color: 'white', fontWeight: 'bold' }}>
+                    <Typography sx={{ color: '#516EFF', fontWeight: 'bold', ml: 3 }}>
                       {userData?.userData.fullName}
                     </Typography>
                     <Avatar
                       alt="user avatar"
                       src={userData?.userData?.profileImg || 'https://2u.pw/boTFzk6'}
+                      sx={{ ml: 1 }}
                     />
-                    <LogoutIcon onClick={handleLogout} />
+                    <LogoutIcon onClick={handleLogout} sx={{ ml: 1 }} />
                   </>
                 ) : (
                   <>
@@ -190,7 +193,12 @@ const Navbar = () => {
               >
                 {settings.map((setting) => (
                   <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
+                    <Typography textAlign="center">
+                      <Link to={`/therapist/${userData?.userData?.id}`}>
+                        {setting}
+                      </Link>
+
+                    </Typography>
                   </MenuItem>
                 ))}
               </Menu>
