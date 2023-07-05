@@ -6,6 +6,7 @@ interface UserData {
     id: string,
     profileImg?: string,
     username?: string
+    therapistId?:number
 
 }
 interface AppContextProps {
@@ -15,6 +16,8 @@ interface AppContextProps {
 interface UserDataContextValue {
     userData: UserData | null;
     setUserData: React.Dispatch<React.SetStateAction<UserData|null>>;
+    userChange: boolean;
+    setUserChange: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export type { AppContextProps, UserDataContextValue, UserData };

@@ -21,6 +21,11 @@ const router = createBrowserRouter([
         path: '/therapist/:id',
         element: <TherapistPage />,
       },
+      {
+        path: '/admin',
+        element: <Admin />,
+      },
+
     ],
 
   },
@@ -34,13 +39,10 @@ const router = createBrowserRouter([
     element: <Login />,
   },
   {
-    path: '/admin',
-    element: <Admin />,
-  },
-  {
     path: '/admin/login',
     element: <LoginAdmin />,
   },
+
   { path: '*', element: <NotFound /> },
 
 ]);
