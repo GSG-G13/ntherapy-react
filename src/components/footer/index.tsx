@@ -69,7 +69,9 @@ const Footer = () => (
 
           }}
         >
-          &copy; 2023. All rights reserved.
+          &copy;
+          {new Date().getFullYear()}
+          . All rights reserved.
         </Typography>
       </Box>
     </Box>
