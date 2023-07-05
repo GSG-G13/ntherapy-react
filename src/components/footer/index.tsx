@@ -1,17 +1,18 @@
 import { Box, Link, Typography } from '@mui/material';
 import { Facebook, Twitter, Instagram } from '@mui/icons-material';
-import logo from '../../assets/img/logo.png';
 import {
   BoxContainer, BoxContainerFooter, TypographyBody1, TypographyH3, BoxCopy, TypographyBody2,
 } from './classes';
+import Logo from '../logo';
 
 const Footer = () => (
   <footer>
     <Box sx={BoxContainer}>
       <Box sx={BoxContainerFooter}>
         <Box sx={{ flexBasis: '50%' }}>
-          <Box sx={{ marginBottom: '20px', textAlign: 'center' }}>
-            <img src={logo} alt="logo" style={{ maxWidth: '30%' }} />
+          <Box sx={{ textAlign: 'center' }}>
+            <Logo />
+
           </Box>
           <Typography
             variant="body1"
@@ -22,36 +23,36 @@ const Footer = () => (
           </Typography>
         </Box>
         <Box sx={{ flexBasis: '50%' }}>
-          <Box sx={{ marginBottom: '20px' }}>
+          <Box sx={{ mt: 3.5 }}>
             <Typography
               variant="h3"
               sx={TypographyH3}
             >
-              CONTACTS
+              CONTACT US
             </Typography>
           </Box>
           <Typography
             variant="body1"
             sx={TypographyBody2}
           >
-            <Link href="/" sx={{ color: '#516EFF' }}>Ntherapist@gmail.com</Link>
+            <Link href="https://mail.google.com" sx={{ color: '#fff' }}>ntherapypro@gmail.com</Link>
           </Typography>
           <Typography
             variant="body1"
             sx={{
-              color: '#516EFF',
+              color: '#fff',
               textAlign: 'center',
-              marginTop: '16px',
+              marginTop: '22px',
             }}
           >
             <Link href="/" sx={{ marginRight: '8px' }}>
-              <Facebook fontSize="small" sx={{ color: '#516EFF' }} />
+              <Facebook fontSize="small" sx={{ color: '#fff' }} />
             </Link>
             <Link href="/" sx={{ marginRight: '8px' }}>
-              <Twitter fontSize="small" sx={{ color: '#516EFF' }} />
+              <Twitter fontSize="small" sx={{ color: '#fff' }} />
             </Link>
             <Link href="/">
-              <Instagram fontSize="small" sx={{ color: '#516EFF' }} />
+              <Instagram fontSize="small" sx={{ color: '#fff' }} />
             </Link>
           </Typography>
         </Box>
@@ -65,6 +66,7 @@ const Footer = () => (
             color: '#fff',
             fontWeight: 500,
             textAlign: 'center',
+
           }}
         >
           &copy; 2023. All rights reserved.

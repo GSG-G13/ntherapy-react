@@ -3,8 +3,8 @@ interface Type {
 }
 
 const BoxContainer: Type = {
-  backgroundColor: '#F4F7FF',
-  padding: '60px 0',
+  backgroundColor: '#5885ff',
+  padding: '12px 0',
   boxShadow: '10px 10px 8px 6px #888888',
   mt: '20px',
 };
@@ -16,28 +16,30 @@ const BoxContainerFooter: Type = {
   alignItems: 'center',
 };
 const TypographyBody1: Type = {
-  color: '#516EFF',
+  color: '#fff',
   fontWeight: 'bold',
   fontSize: '18.52px',
   lineHeight: '28px',
   width: '500px',
   textAlign: 'center',
   mx: 'auto',
+  mt: '-20px',
 };
 
 const TypographyH3: Type = {
-  color: '#516EFF',
+  color: '#fff',
   fontWeight: '600',
   fontSize: '22.52px',
   lineHeight: '28px',
   textAlign: 'center',
 };
 const TypographyBody2: Type = {
-  color: '#516EFF',
+  color: '#fff',
   fontWeight: '500',
   fontSize: '18.52px',
   lineHeight: '28px',
   textAlign: 'center',
+  marginTop: '20px',
 };
 
 const BoxCopy: Type = {
