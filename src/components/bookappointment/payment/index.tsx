@@ -15,7 +15,7 @@ const Payment = () => {
   useEffect(() => {
     const getClientSecret = async () => {
       try {
-        const data = await axiosInstance.post('payment-intent', {
+        const data: any = await axiosInstance.post('payment-intent', {
           // we will get price from Doctor profile
           SessionPrice: 100,
         });
