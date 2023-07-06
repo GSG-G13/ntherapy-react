@@ -6,14 +6,12 @@ import { useParams } from 'react-router-dom';
 import dayjs, { Dayjs } from 'dayjs';
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import moment from 'moment';
-import { FormikProps } from 'formik';
 import { useSnackbar } from 'notistack';
 import axiosInstance from '../../../utils/apis/axios';
 import getTimeRange from '../../../utils/TimeRange';
 import ElementTimeType from './type';
 
-const BookAppointment = ({ formik }: FormikProps<string>) => {
+const BookAppointment = ({ formik }: any) => {
   const currentDate = dayjs().format('YYYY-MM-DD').toString();
   const params = useParams();
   const [value, setValue] = useState<Dayjs | null>(dayjs(currentDate));
@@ -24,7 +22,7 @@ const BookAppointment = ({ formik }: FormikProps<string>) => {
     const getAppointments = async () => {
       try {
         formik.setFieldValue('appointmentId', '');
-        const data = await axiosInstance.get(`appointments/${params.id}?date=${moment(value?.$d).format('YYYY-MM-DD')}`);
+        const data = await axiosInstance.get(`appointments/${params.id}?date=${value?.format('YYYY-MM-DD')}`);
         setTime(data.data);
       } catch (error) {
         enqueueSnackbar('Failed to fetch appointments.', { variant: 'error' });
