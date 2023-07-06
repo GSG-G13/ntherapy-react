@@ -42,7 +42,7 @@ const LoginAdmin = () => {
   return (
     <Container sx={formContainer}>
       <Box sx={{ width: '500px' }}>
-        <img className="logo" src="../src/assets/img/logo.png" alt="logo" />
+        <img className="logo" src="https://imgur.com/uXh9MXM.png" alt="logo" />
       </Box>
       <Box sx={loginContainer}>
         <TextField
