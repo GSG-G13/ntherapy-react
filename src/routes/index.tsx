@@ -1,8 +1,9 @@
 import { createBrowserRouter } from 'react-router-dom';
 import {
-  Admin, LandingPage, Login, Signup, Therapists, TherapistPage, LoginAdmin, NotFound,
+  LandingPage, Login, Signup, Therapists, TherapistPage, LoginAdmin, NotFound,
 } from '../pages';
 import Layout from '../layout/Layout';
+import { ProtectedAdmin, ProtectedUser } from './protected';
 
 const router = createBrowserRouter([
   {
@@ -23,7 +24,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/admin',
-        element: <Admin />,
+        element: <ProtectedAdmin />,
       },
 
     ],
@@ -31,12 +32,12 @@ const router = createBrowserRouter([
   },
   {
     path: '/signup',
-    element: <Signup />,
+    element: <ProtectedUser><Signup /></ProtectedUser>,
 
   },
   {
     path: '/login',
-    element: <Login />,
+    element: <ProtectedUser><Login /></ProtectedUser>,
   },
   {
     path: '/admin/login',
