@@ -9,28 +9,28 @@ import Spinner from './spinner';
 const AuthContext: React.FC<AppContextProps> = ({ children }) => {
   const [userData, setUserData] = useState<UserData | null>(null);
   const [userChange, setUserChange] = useState<boolean>(true);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const getUserData = async () => {
       try {
-        setLoading(true);
         const response = await axiosInstance.get('auth/');
         setUserData(response.data);
+        setLoading(false);
       } catch (error) {
         setLoading(false);
       }
     };
     getUserData();
-    setLoading(false);
   }, [userChange]);
-
-  if (loading) {
-    <Spinner />;
-  }
 
   const contextValue = useMemo(() => ({
     userData, setUserData, userChange, setUserChange,
   }), [userData, setUserData, userChange, setUserChange]);
+
+  if (loading) {
+    return <Spinner />;
+  }
 
   return (
     <userDataContext.Provider
@@ -38,7 +38,6 @@ const AuthContext: React.FC<AppContextProps> = ({ children }) => {
     >
       {children}
     </userDataContext.Provider>
-
   );
 };
 

@@ -18,6 +18,8 @@ const ProtectedAdmin = () => {
 
 const ProtectedUser = ({ children }: TypeChildren) => {
   const userContext = useContext(userDataContext);
+
+  console.log(userContext?.userData, 'user context');
   const userData = userContext?.userData;
   if (userData) {
     return <Navigate to="/" replace />;
