@@ -3,15 +3,19 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AdbIcon from '@mui/icons-material/Adb';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Container from '@mui/material/Container';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import {
-  Button, AppBar, Box, Toolbar, Typography, Menu, Avatar, Tooltip, MenuItem, IconButton,
+  Button, AppBar, Box, Toolbar, Typography, Menu, Avatar, MenuItem, IconButton,
 } from '@mui/material';
 import { useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { userDataContext } from '../context';
+import Logo from '../assets/img/logo.png';
 
 const pages = [
-  { title: 'Find Therapists', link: '/therapists' },
+  { title: 'Home', link: '/' },
+  { title: 'Therapists', link: '/therapists' },
+
 ];
 const settings = ['Profile'];
 
@@ -43,24 +47,9 @@ const Navbar = () => {
     <AppBar position="static" sx={{ backgroundColor: '#F4F7FF', color: '#516EFF' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            NTherapy
-          </Typography>
+          <Link to="/">
+            <img src={Logo} alt="logo" style={{ width: '160px' }} />
+          </Link>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -121,8 +110,11 @@ const Navbar = () => {
             {pages.map((page) => (
               <Button
                 key={page.title}
+                variant="outlined"
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+                sx={{
+                  my: 2, color: 'white', display: 'block', ml: 2,
+                }}
               >
                 <Link
                   to={page.link}
@@ -137,40 +129,42 @@ const Navbar = () => {
 
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                {userData?.userData ? (
-                  <>
-                    <Typography sx={{ color: '#516EFF', fontWeight: 'bold', ml: 3 }}>
-                      {userData?.userData.fullName || 'Amain'}
-                    </Typography>
-                    <Avatar
-                      alt="user avatar"
-                      src={userData?.userData?.profileImg || 'https://2u.pw/boTFzk6'}
-                      sx={{ ml: 1 }}
-                    />
-                    <LogoutIcon onClick={handleLogout} sx={{ ml: 1 }} />
-                  </>
-                ) : (
-                  <>
-                    <Button variant="contained" sx={{ borderColor: 'primary.main', ml: 3 }}>
-                      <Link to="/signup" style={{ textDecoration: 'none', color: 'white' }}>
-                        SIGN UP
-                      </Link>
-                    </Button>
+          <Box sx={{ display: 'flex' }}>
+            {userData?.userData ? (
 
-                    <Button variant="contained" sx={{ borderColor: 'primary.main', ml: 1 }}>
-                      <Link to="/login" style={{ textDecoration: 'none', color: 'white' }}>
-                        SIGN IN
-                      </Link>
-                    </Button>
+              <>
+                <Button onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Typography sx={{ color: '#516EFF', fontWeight: 'bold', ml: 3 }}>
+                    {userData?.userData.fullName || 'Amain'}
+                  </Typography>
 
-                  </>
-                )}
-              </IconButton>
+                  <Avatar
+                    alt="user avatar"
+                    src={userData?.userData?.profileImg || 'https://2u.pw/boTFzk6'}
+                    sx={{ ml: 1 }}
+                  />
+                </Button>
+                <LogoutIcon onClick={handleLogout} sx={{ ml: 1, mt: 1 }} />
 
-            </Tooltip>
+              </>
+
+            ) : (
+              <>
+                <Button variant="contained" sx={{ borderColor: 'primary.main', ml: 3 }}>
+                  <Link to="/signup" style={{ textDecoration: 'none', color: 'white' }}>
+                    SIGN UP
+                  </Link>
+                </Button>
+
+                <Button variant="contained" sx={{ borderColor: 'primary.main', ml: 1 }}>
+                  <Link to="/login" style={{ textDecoration: 'none', color: 'white' }}>
+                    SIGN IN
+                  </Link>
+                </Button>
+
+              </>
+            )}
+
             {(userData?.userData?.role === 'therapist' || userData?.userData?.role === 'admin') && (
 
               <Menu
@@ -191,10 +185,15 @@ const Navbar = () => {
               >
                 {settings.map((setting) => (
                   <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">
+                    <Typography textAlign="center" sx={{ width: '120px' }}>
                       {userData?.userData?.role === 'therapist' ? (
-                        <Link to={`/therapist/${userData?.userData?.therapistId}`}>
+                        <Link to={`/therapist/${userData?.userData?.therapistId}`} style={{ textDecoration: 'none', fontWeight: 'bold' }}>
+                          <AccountCircleIcon style={{
+                            position: 'absolute', top: '5', left: '22',
+                          }}
+                          />
                           {setting}
+
                         </Link>
                       ) : (
                         <Link to="/admin">Dashboard</Link>
