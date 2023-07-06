@@ -35,7 +35,8 @@ const TherapistPage = () => {
             enqueueSnackbar(error.message, { variant: 'error' });
             setLoading(false);
           } else {
-            enqueueSnackbar('Something went wrong', { variant: 'error' });
+            const { message } = error as AxiosError;
+            enqueueSnackbar(message, { variant: 'error' });
             setLoading(false);
           }
         }
@@ -57,7 +58,6 @@ const TherapistPage = () => {
 
   return (
     <>
-      <Container>Therapist Page</Container>
       <Box sx={{ flexGrow: 1 }}>
         <Container>
           <Grid
@@ -103,6 +103,7 @@ const TherapistPage = () => {
             page={currentPage}
             onChange={handlePageChange}
             color="primary"
+            disabled={totalPages === 1}
           />
         </Box>
       </Container>
