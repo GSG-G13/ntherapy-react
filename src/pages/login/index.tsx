@@ -1,4 +1,5 @@
-import { useState } from 'react';
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+import { useState, useContext } from 'react';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { enqueueSnackbar, VariantType } from 'notistack';
 import { LoadingButton } from '@mui/lab';
@@ -13,8 +14,9 @@ import {
   InputAdornment,
   IconButton,
 } from '@mui/material';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useFormik } from 'formik';
+import { userDataContext } from '../../context';
 import validationSchema from './schema';
 import imageSrc from '../../assets/loginImg.jpg';
 import {
@@ -28,10 +30,12 @@ import { axiosInstance } from '../../utils/apis';
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const { userChange, setUserChange } = useContext(userDataContext!)!;
   const showSnackbar = (message:string, severity:VariantType) => {
     enqueueSnackbar(message, { variant: severity });
   };
   const navigate = useNavigate();
+  const location = useLocation();
 
   const formik = useFormik({
     initialValues: {
@@ -48,7 +52,13 @@ const Login = () => {
           password: values.password,
         });
         localStorage.setItem('access_token', response.data.access_token);
-        navigate('/');
+        setUserChange(!userChange);
+
+        if (location.state && location.state.from) {
+          navigate(location.state.from);
+        } else {
+          navigate('/');
+        }
       } catch (error) {
         if (error instanceof Error) {
           showSnackbar(error.message, 'error');

@@ -35,7 +35,7 @@ const BioEditor: React.FC<BioEditorProps> = ({
   };
 
   return (
-    <div style={{ marginLeft: '65px' }}>
+    <div>
       {show ? (
         <>
           <ReactQuill
@@ -59,7 +59,7 @@ const BioEditor: React.FC<BioEditorProps> = ({
         <>
           <IconButton
             onClick={handleEditBio}
-            sx={{ fontSize: '10px', ml: 91 }}
+            sx={{ fontSize: '10px', ml: 120 }}
           >
             <Edit />
           </IconButton>

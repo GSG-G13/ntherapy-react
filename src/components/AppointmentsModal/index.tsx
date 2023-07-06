@@ -7,8 +7,11 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { FormikErrors, useFormik } from 'formik';
 import DeleteIcon from '@mui/icons-material/Delete';
 import moment from 'moment';
+import { AxiosError } from 'axios';
+import { enqueueSnackbar } from 'notistack';
 import validationSchema from './schema';
 import classes from './classes';
+import { axiosInstance } from '../../utils/apis';
 
 interface Props {
   handleClose: () => void;
@@ -48,7 +51,13 @@ const AppointmentsModal = ({ handleClose, open }: Props) => {
       }));
 
       const updatedValues = { date, time };
-      console.log(JSON.stringify(updatedValues, null, 2));
+      try {
+        await axiosInstance.post('/appointments', updatedValues);
+        enqueueSnackbar('Successfully added an appointment', { variant: 'success' });
+      } catch (error) {
+        const axiosError = error as AxiosError;
+        enqueueSnackbar(axiosError.message, { variant: 'error' });
+      }
     },
   });
 

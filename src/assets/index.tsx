@@ -9,8 +9,9 @@ import online2 from './img/online2.png';
 import group from './img/group.png';
 import meet from './img/meet.png';
 import Worldimg from './img/World.png';
+import Logo from './logo';
 
 export {
   hero, icon1, icon2, icon3, icon4, online,
-  online2, group, meet, Worldimg,
+  online2, group, meet, Worldimg, Logo,
 };

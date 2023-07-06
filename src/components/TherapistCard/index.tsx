@@ -30,7 +30,7 @@ const GridCard = ({ therapist }:TherapistCardProps) => (
             {therapist.hourlyRate}
             /hr
           </Typography>
-          <Link to={`/therapist/${therapist.userId}`}>
+          <Link to={`/therapist/${therapist.id}`}>
             <Button variant="contained" sx={classes.button}>View Profile</Button>
           </Link>
         </CardContent>
