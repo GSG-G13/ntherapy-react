@@ -112,23 +112,23 @@ const Navbar = () => {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
-              <Button
+              <Link
+                to={page.link}
                 key={page.title}
-                variant="outlined"
-                onClick={handleCloseNavMenu}
-                sx={{
-                  my: 2, color: 'white', display: 'block', ml: 2,
-                }}
+                style={{ textDecoration: 'none', color: '#516EFF' }}
               >
-                <Link
-                  to={page.link}
+                <Button
                   key={page.title}
-                  style={{ textDecoration: 'none', color: '#516EFF' }}
+                  variant="outlined"
+                  onClick={handleCloseNavMenu}
+                  sx={{
+                    my: 2, color: '#516EFF', display: 'block', ml: 2,
+                  }}
                 >
                   {page.title}
+                </Button>
+              </Link>
 
-                </Link>
-              </Button>
             ))}
 
           </Box>
