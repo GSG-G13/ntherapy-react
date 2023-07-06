@@ -26,10 +26,10 @@ const LoginAdmin = () => {
     onSubmit: async (values) => {
       try {
         const resp = await axiosInstance.post('/admin/login', {
-          data: {
-            username: values.username,
-            password: values.password,
-          },
+
+          username: values.username,
+          password: values.password,
+
         });
         localStorage.setItem('access_token', resp.data.access_token);
         navigate('/admin');
