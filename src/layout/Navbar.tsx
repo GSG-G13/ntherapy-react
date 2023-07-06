@@ -12,6 +12,8 @@ import { useNavigate, Link } from 'react-router-dom';
 import { userDataContext } from '../context';
 import Logo from '../assets/img/logo.png';
 
+export { ProtectedUser } from '../routes/protected';
+
 const pages = [
   { title: 'Home', link: '/' },
   { title: 'Therapists', link: '/therapists' },
@@ -41,9 +43,11 @@ const Navbar = () => {
   };
   const handleLogout = () => {
     localStorage.removeItem('access_token');
-    navigate('/login');
+    userData?.setUserData(null);
+    navigate('/');
   };
   return (
+
     <AppBar position="static" sx={{ backgroundColor: '#F4F7FF', color: '#516EFF' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
@@ -144,7 +148,7 @@ const Navbar = () => {
                     sx={{ ml: 1 }}
                   />
                 </Button>
-                <LogoutIcon onClick={handleLogout} sx={{ ml: 1, mt: 1 }} />
+                <LogoutIcon onClick={handleLogout} sx={{ ml: 1, mt: 1, cursor: 'pointer' }} />
 
               </>
 

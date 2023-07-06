@@ -16,12 +16,12 @@ const AuthContext: React.FC<AppContextProps> = ({ children }) => {
         setLoading(true);
         const response = await axiosInstance.get('auth/');
         setUserData(response.data);
-        setLoading(false);
       } catch (error) {
         setLoading(false);
       }
     };
     getUserData();
+    setLoading(false);
   }, [userChange]);
 
   if (loading) {
