@@ -6,11 +6,12 @@ const Logo = () => (
     height="160px"
     viewBox="0 0 766.000000 480.000000"
     preserveAspectRatio="xMidYMid meet"
+
   >
 
     <g
       transform="translate(0.000000,480.000000) scale(0.100000,-0.100000)"
-      fill="white"
+      fill="#fff"
       stroke="none"
     >
       <path d="M1610 3082 c-72 -35 -70 -18 -70 -667 0 -649 -2 -632 70 -667 32 -17
