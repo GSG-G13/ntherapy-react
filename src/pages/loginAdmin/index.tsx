@@ -1,16 +1,20 @@
 import { Container } from '@mui/material';
+import { useContext } from 'react';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { useFormik } from 'formik';
 import { useNavigate } from 'react-router-dom';
 import { useSnackbar, VariantType } from 'notistack';
+import { AxiosError } from 'axios';
 import { axiosInstance } from '../../utils/apis';
 import { formContainer, loginContainer } from './style';
 import adminSchema from './adminSchema';
+import { userDataContext } from '../../context';
 
 const LoginAdmin = () => {
   const { enqueueSnackbar } = useSnackbar();
+  const userContext = useContext(userDataContext);
 
   const showSnackbar = (message:string, severity:VariantType) => {
     enqueueSnackbar(message, { variant: severity });
@@ -32,9 +36,12 @@ const LoginAdmin = () => {
 
         });
         localStorage.setItem('access_token', resp.data.access_token);
+        const response = await axiosInstance.get('auth/');
+        userContext?.setUserData(response.data);
         navigate('/admin');
-      } catch (e: any) {
-        showSnackbar(e.message, 'error');
+      } catch (e) {
+        const error = e as AxiosError;
+        showSnackbar(error.message, 'error');
       }
     },
   });
@@ -42,7 +49,7 @@ const LoginAdmin = () => {
   return (
     <Container sx={formContainer}>
       <Box sx={{ width: '500px' }}>
-        <img className="logo" src="https://thrivetherapyclinic.com/wp-content/uploads/2020/03/ThriveLogo-Horizontal-500.png" alt="logo" />
+        <img className="logo" src="https://imgur.com/uXh9MXM.png" alt="logo" />
       </Box>
       <Box sx={loginContainer}>
         <TextField

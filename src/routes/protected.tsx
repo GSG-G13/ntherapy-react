@@ -9,8 +9,7 @@ interface TypeChildren {
 }
 const ProtectedAdmin = () => {
   const userContext = useContext(userDataContext);
-
-  if (userContext?.userData?.role !== 'admin') {
+  if (userContext?.userData?.username !== 'admin') {
     return <Navigate to="/" replace />;
   }
   return <Admin />;
@@ -18,6 +17,7 @@ const ProtectedAdmin = () => {
 
 const ProtectedUser = ({ children }: TypeChildren) => {
   const userContext = useContext(userDataContext);
+
   const userData = userContext?.userData;
   if (userData) {
     return <Navigate to="/" replace />;
