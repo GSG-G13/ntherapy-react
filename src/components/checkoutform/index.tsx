@@ -7,6 +7,7 @@ import {
 } from '@stripe/react-stripe-js';
 import Button from '@mui/material/Button';
 import { useSnackbar } from 'notistack';
+import { AxiosError } from 'axios';
 import { axiosInstance } from '../../utils/apis';
 
 const CheckoutForm = ({ id }:any) => {
@@ -42,7 +43,8 @@ const CheckoutForm = ({ id }:any) => {
         throw new Error('Payment was not successful.');
       }
     } catch (error) {
-      enqueueSnackbar(error.message || 'An error occurred while confirming the payment.', { variant: 'error' });
+      const axiosError = error as AxiosError;
+      enqueueSnackbar(axiosError.message || 'An error occurred while confirming the payment.', { variant: 'error' });
     } finally {
       setIsLoading(false);
     }
