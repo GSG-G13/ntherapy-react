@@ -36,8 +36,7 @@ const LoginAdmin = () => {
 
         });
         localStorage.setItem('access_token', resp.data.access_token);
-        const response = await axiosInstance.get('auth/');
-        userContext?.setUserData(response.data);
+        userContext?.setUserData(resp.data.data);
         navigate('/admin');
       } catch (e) {
         const error = e as AxiosError;

@@ -139,7 +139,7 @@ const Navbar = () => {
               <>
                 <Button onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Typography sx={{ color: '#516EFF', fontWeight: 'bold', ml: 3 }}>
-                    {userData?.userData.fullName || 'Amain'}
+                    {userData?.userData.fullName || 'Ahmed Izz'}
                   </Typography>
 
                   <Avatar
