@@ -7,8 +7,9 @@ import {
 } from '@stripe/react-stripe-js';
 import Button from '@mui/material/Button';
 import { useSnackbar } from 'notistack';
+import { axiosInstance } from '../../utils/apis';
 
-const CheckoutForm = () => {
+const CheckoutForm = ({ id }:any) => {
   const { enqueueSnackbar } = useSnackbar();
   const stripe = useStripe();
   const elements = useElements();
@@ -27,14 +28,23 @@ const CheckoutForm = () => {
         elements,
         redirect: 'if_required',
       });
-      setIsLoading(false);
+
       if (error) {
-        enqueueSnackbar(error.message, { variant: 'error' });
-      } else if (paymentIntent?.status === 'succeeded') {
+        throw new Error(error.message);
+      }
+
+      if (paymentIntent?.status === 'succeeded') {
+        await axiosInstance.post('/session', {
+          appointmentId: id,
+        });
         enqueueSnackbar('Payment succeeded 🔥', { variant: 'success' });
+      } else {
+        throw new Error('Payment was not successful.');
       }
     } catch (error) {
-      enqueueSnackbar('An error occurred while confirming the payment.', { variant: 'error' });
+      enqueueSnackbar(error.message || 'An error occurred while confirming the payment.', { variant: 'error' });
+    } finally {
+      setIsLoading(false);
     }
   };
 
