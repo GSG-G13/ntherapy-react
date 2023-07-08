@@ -157,6 +157,7 @@ const TherapistHeader: React.FC<Props> = ({ isProfileOwner, setError }) => {
               <AppointmentsModal
                 handleClose={handleCloseAppointmentsModal}
                 open={openAppointmentsModal}
+                setOpenAppointmentsModal={setOpenAppointmentsModal}
               />
               )}
             </Box>
