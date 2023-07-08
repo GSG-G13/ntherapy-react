@@ -144,7 +144,7 @@ const Navbar = () => {
 
                   <Avatar
                     alt="user avatar"
-                    src={userData?.userData?.profileImg || 'https://2u.pw/boTFzk6'}
+                    src={`${userData?.userData?.profileImg}?timestamp=${Date.now()} || 'https://2u.pw/boTFzk6'`}
                     sx={{ ml: 1 }}
                   />
                 </Button>
@@ -154,17 +154,20 @@ const Navbar = () => {
 
             ) : (
               <>
-                <Button variant="contained" sx={{ borderColor: 'primary.main', ml: 3 }}>
-                  <Link to="/signup" style={{ textDecoration: 'none', color: 'white' }}>
-                    SIGN UP
-                  </Link>
-                </Button>
+                <Link to="/signup" style={{ textDecoration: 'none', color: 'white' }}>
+                  <Button variant="contained" sx={{ borderColor: 'primary.main', ml: 3 }}>
 
-                <Button variant="contained" sx={{ borderColor: 'primary.main', ml: 1 }}>
-                  <Link to="/login" style={{ textDecoration: 'none', color: 'white' }}>
+                    SIGN UP
+
+                  </Button>
+                </Link>
+                <Link to="/login" style={{ textDecoration: 'none', color: 'white' }}>
+                  <Button variant="contained" sx={{ borderColor: 'primary.main', ml: 1 }}>
+
                     SIGN IN
-                  </Link>
-                </Button>
+
+                  </Button>
+                </Link>
 
               </>
             )}
@@ -189,20 +192,21 @@ const Navbar = () => {
               >
                 {settings.map((setting) => (
                   <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center" sx={{ width: '120px' }}>
-                      {userData?.userData?.role === 'therapist' ? (
-                        <Link to={`/therapist/${userData?.userData?.therapistId}`} style={{ textDecoration: 'none', fontWeight: 'bold' }}>
+                    {userData?.userData?.role === 'therapist' ? (
+                      <Link to={`/therapist/${userData?.userData?.therapistId}`} style={{ textDecoration: 'none', fontWeight: 'bold' }}>
+                        <Typography textAlign="center" sx={{ width: '120px' }}>
+
                           <AccountCircleIcon style={{
                             position: 'absolute', top: '5', left: '22',
                           }}
                           />
                           {setting}
+                        </Typography>
+                      </Link>
+                    ) : (
+                      <Link to="/admin">Dashboard</Link>
+                    )}
 
-                        </Link>
-                      ) : (
-                        <Link to="/admin">Dashboard</Link>
-                      )}
-                    </Typography>
                   </MenuItem>
                 ))}
               </Menu>
