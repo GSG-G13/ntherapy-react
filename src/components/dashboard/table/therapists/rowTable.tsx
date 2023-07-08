@@ -18,7 +18,7 @@ const RowTable = ({ therapist }: {therapist: Therapist}) => {
       setIsLoading(true);
       await axiosInstance.patch('/admin/therapists', {
         userId: therapist.userId,
-        active: active === true ? 'false' : 'true',
+        active: !active,
 
       });
       setActive(!active);
