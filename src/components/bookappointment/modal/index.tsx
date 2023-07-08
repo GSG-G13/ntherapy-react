@@ -19,6 +19,7 @@ interface StepComponentProps {
   step: number;
   formik: FormikProps<IBookAppointment>;
   hourlyRate: number;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface SessionReservationModalProps {
@@ -27,12 +28,14 @@ interface SessionReservationModalProps {
   hourlyRate: number;
 }
 
-const StepComponent: React.FC<StepComponentProps> = ({ step, formik, hourlyRate }) => {
+const StepComponent: React.FC<StepComponentProps> = ({
+  step, formik, hourlyRate, setOpen,
+}) => {
   switch (step) {
     case 0:
       return <BookAppointment formik={formik} />;
     case 1:
-      return <StripePaymentForm formik={formik} hourlyRate={hourlyRate} />;
+      return <StripePaymentForm formik={formik} hourlyRate={hourlyRate} setOpen={setOpen} />;
     default:
       return null;
   }
@@ -40,7 +43,9 @@ const StepComponent: React.FC<StepComponentProps> = ({ step, formik, hourlyRate 
 const SessionReservationModal: React.FC<SessionReservationModalProps> = (
   { open, setOpen, hourlyRate },
 ) => {
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
   const [activeStep, setActiveStep] = React.useState(0);
 
   const handleNext = () => {
@@ -65,7 +70,6 @@ const SessionReservationModal: React.FC<SessionReservationModalProps> = (
   return (
     <Modal
       open={open}
-      onClose={handleClose}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
       sx={ModelStyle}
@@ -96,7 +100,12 @@ const SessionReservationModal: React.FC<SessionReservationModalProps> = (
             </Stepper>
 
             <>
-              <StepComponent step={activeStep} formik={formik} hourlyRate={hourlyRate} />
+              <StepComponent
+                step={activeStep}
+                formik={formik}
+                hourlyRate={hourlyRate}
+                setOpen={setOpen}
+              />
               <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                 {activeStep !== 0 && (
                   <Button
