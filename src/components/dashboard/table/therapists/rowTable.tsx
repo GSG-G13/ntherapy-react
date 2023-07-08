@@ -4,22 +4,29 @@ import {
 } from '@mui/material';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import { enqueueSnackbar } from 'notistack';
+import { LoadingButton } from '@mui/lab';
+
+import { AxiosError } from 'axios';
 import { axiosInstance } from '../../../../utils/apis';
 import { Therapist } from './types';
 
 const RowTable = ({ therapist }: {therapist: Therapist}) => {
   const [active, setActive] = useState<boolean>(therapist.user.isActive);
+  const [isLoading, setIsLoading] = useState(false);
   const profileStateHandler = async () => {
     try {
+      setIsLoading(true);
       await axiosInstance.patch('/admin/therapists', {
         userId: therapist.userId,
-        active: therapist?.user?.isActive ? 'false' : 'true',
+        active: active === true ? 'false' : 'true',
 
       });
       setActive(!active);
-    } catch (error: any) {
-      enqueueSnackbar(error.message, { variant: 'error' });
+    } catch (error) {
+      const axiosError = error as AxiosError;
+      enqueueSnackbar(axiosError.message, { variant: 'error' });
     }
+    setIsLoading(false);
   };
   return (
     <TableRow
@@ -52,13 +59,14 @@ const RowTable = ({ therapist }: {therapist: Therapist}) => {
         <Typography color="primary.main">{active ? 'Active' : 'In Active'}</Typography>
       </TableCell>
       <TableCell align="center" style={{ gap: '3px' }}>
-        <Button
+        <LoadingButton
           variant="contained"
-          color="primary"
+          color={active ? 'error' : 'success'}
           onClick={profileStateHandler}
+          loading={isLoading}
         >
-          Activate
-        </Button>
+          {active ? 'deactivate' : 'Activate'}
+        </LoadingButton>
       </TableCell>
     </TableRow>
   );

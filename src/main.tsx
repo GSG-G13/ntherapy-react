@@ -11,7 +11,12 @@ import './index.css';
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <SnackbarProvider maxSnack={3}>
+      <SnackbarProvider
+        maxSnack={3}
+        anchorOrigin={
+        { vertical: 'top', horizontal: 'right' }
+      }
+      >
         <AuthContext>
           <RouterProvider router={router} />
         </AuthContext>
