@@ -46,9 +46,6 @@ const TherapistHeader: React.FC<Props> = ({ isProfileOwner, setError }) => {
     };
 
     fetchData();
-    return () => {
-      setDataFromTherapist(null);
-    };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
