@@ -7,14 +7,14 @@ import classes from './classes';
 
 import { TherapistCardProps } from './types';
 
-const GridCard = ({ therapist }:TherapistCardProps) => (
+const GridCard = ({ therapist }: TherapistCardProps) => (
   <Grid item xs={3} sx={{ marginTop: 5 }}>
     <Card>
       <CardActionArea>
         <CardMedia
           component="img"
           height="210"
-          image={therapist.profileImg}
+          image={`${therapist.profileImg}?timestamp=${Date.now()}`}
           alt={therapist.user.fullName}
           sx={{ marginBottom: '5px' }}
         />
@@ -24,7 +24,7 @@ const GridCard = ({ therapist }:TherapistCardProps) => (
             {therapist.user.fullName}
           </Typography>
           <Typography variant="body1" color="primary.dark" textAlign="center">
-            {therapist.major.trim().length > 30 ? `${therapist.major.slice(0, 20)}...` : therapist.major }
+            {therapist.major.trim().length > 30 ? `${therapist.major.slice(0, 20)}...` : therapist.major}
           </Typography>
           <Typography variant="body1" color="primary.dark" textAlign="center" sx={{ fontWeight: '900' }}>
             {therapist.hourlyRate}

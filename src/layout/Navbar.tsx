@@ -144,7 +144,7 @@ const Navbar = () => {
 
                   <Avatar
                     alt="user avatar"
-                    src={userData?.userData?.profileImg || 'https://2u.pw/boTFzk6'}
+                    src={`${userData?.userData?.profileImg}?timestamp=${Date.now()} || 'https://2u.pw/boTFzk6'`}
                     sx={{ ml: 1 }}
                   />
                 </Button>
