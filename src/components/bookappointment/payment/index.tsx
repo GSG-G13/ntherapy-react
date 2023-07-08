@@ -8,16 +8,14 @@ import axiosInstance from '../../../utils/apis/axios';
 const { VITE_PUBLIC_API_KEY } = import.meta.env;
 const stripePromise = loadStripe(VITE_PUBLIC_API_KEY);
 
-const Payment = () => {
+const Payment = ({ formik, hourlyRate }: any) => {
   const [clientSecret, setClientSecret] = useState('');
   const { enqueueSnackbar } = useSnackbar();
-
   useEffect(() => {
     const getClientSecret = async () => {
       try {
         const data: any = await axiosInstance.post('payment-intent', {
-          // we will get price from Doctor profile
-          SessionPrice: 100,
+          SessionPrice: hourlyRate,
         });
 
         setClientSecret(data.clientSecret);
@@ -26,13 +24,12 @@ const Payment = () => {
       }
     };
     getClientSecret();
-  }, [enqueueSnackbar]);
-
+  }, [enqueueSnackbar, hourlyRate]);
   return (
     <div>
       {clientSecret ? (
         <Elements options={{ clientSecret }} stripe={stripePromise}>
-          <CheckoutForm />
+          <CheckoutForm id={formik.values.appointmentId} />
         </Elements>
       ) : (
         <div>Loading...</div>

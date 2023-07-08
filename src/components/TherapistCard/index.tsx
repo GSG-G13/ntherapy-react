@@ -28,7 +28,7 @@ const GridCard = ({ therapist }:TherapistCardProps) => (
           </Typography>
           <Typography variant="body1" color="primary.dark" textAlign="center" sx={{ fontWeight: '900' }}>
             {therapist.hourlyRate}
-            /hr
+            $ /hr
           </Typography>
           <Link to={`/therapist/${therapist.id}`}>
             <Button variant="contained" sx={classes.button}>View Profile</Button>

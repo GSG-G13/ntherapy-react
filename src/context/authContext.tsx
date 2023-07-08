@@ -14,6 +14,7 @@ const AuthContext: React.FC<AppContextProps> = ({ children }) => {
   useEffect(() => {
     const getUserData = async () => {
       try {
+        setLoading(true);
         const response = await axiosInstance.get('auth/');
         setUserData(response.data);
         setLoading(false);

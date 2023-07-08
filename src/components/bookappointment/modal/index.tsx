@@ -18,24 +18,28 @@ interface IBookAppointment {
 interface StepComponentProps {
   step: number;
   formik: FormikProps<IBookAppointment>;
+  hourlyRate: number;
 }
 
 interface SessionReservationModalProps {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  hourlyRate: number;
 }
 
-const StepComponent: React.FC<StepComponentProps> = ({ step, formik }) => {
+const StepComponent: React.FC<StepComponentProps> = ({ step, formik, hourlyRate }) => {
   switch (step) {
     case 0:
       return <BookAppointment formik={formik} />;
     case 1:
-      return <StripePaymentForm />;
+      return <StripePaymentForm formik={formik} hourlyRate={hourlyRate} />;
     default:
       return null;
   }
 };
-const SessionReservationModal: React.FC<SessionReservationModalProps> = ({ open, setOpen }) => {
+const SessionReservationModal: React.FC<SessionReservationModalProps> = (
+  { open, setOpen, hourlyRate },
+) => {
   const handleClose = () => setOpen(false);
   const [activeStep, setActiveStep] = React.useState(0);
 
@@ -92,7 +96,7 @@ const SessionReservationModal: React.FC<SessionReservationModalProps> = ({ open,
             </Stepper>
 
             <>
-              <StepComponent step={activeStep} formik={formik} />
+              <StepComponent step={activeStep} formik={formik} hourlyRate={hourlyRate} />
               <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                 {activeStep !== 0 && (
                   <Button
@@ -103,14 +107,14 @@ const SessionReservationModal: React.FC<SessionReservationModalProps> = ({ open,
                   </Button>
                 )}
                 {activeStep === 0 && (
-                <Button
-                  variant="contained"
-                  onClick={handleNext}
-                  sx={{ mt: 3, ml: 1 }}
-                  disabled={!formik.isValid}
-                >
-                  next
-                </Button>
+                  <Button
+                    variant="contained"
+                    onClick={handleNext}
+                    sx={{ mt: 3, ml: 1 }}
+                    disabled={!formik.isValid}
+                  >
+                    next
+                  </Button>
                 )}
               </Box>
             </>

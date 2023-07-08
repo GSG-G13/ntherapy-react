@@ -143,6 +143,7 @@ const TherapistHeader: React.FC<Props> = ({ isProfileOwner, setError }) => {
                     variant="contained"
                     style={ButtonStyle}
                     onClick={handleShowReservationModal}
+
                   >
                     Reserve a Session
                   </Button>
@@ -150,6 +151,7 @@ const TherapistHeader: React.FC<Props> = ({ isProfileOwner, setError }) => {
               <SessionReservationModal
                 open={showReservationModal}
                 setOpen={setShowReservationModal}
+                hourlyRate={dataFromTherapist.hourlyRate}
               />
               {openAppointmentsModal && (
               <AppointmentsModal
