@@ -3,7 +3,7 @@ interface Type {
 }
 
 const SearchBoxStyle: Type = {
-  width: '100%',
+  width: '70%',
   maxWidth: 400,
   borderRadius: '999px',
   backgroundColor: '#eee',
@@ -11,5 +11,9 @@ const SearchBoxStyle: Type = {
   paddingRight: 2,
 };
 
-// eslint-disable-next-line import/prefer-default-export
-export { SearchBoxStyle };
+const SelectInputStyle: Type = {
+  with: '30%',
+  marginRight: '50px',
+};
+
+export { SearchBoxStyle, SelectInputStyle };
