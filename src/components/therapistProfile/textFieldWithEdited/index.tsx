@@ -48,7 +48,7 @@ const EditableTextField: React.FC<Props> = ({
   return (
     <TextField
       name="text"
-      defaultValue={value}
+      value={value}
       onChange={(e) => onChange(e.target.value)}
       disabled={!editMode}
       onMouseEnter={toggleMouseover}

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import {
   Box, Grid, Modal, Fade, Button, Typography, Container,
 } from '@mui/material';
@@ -16,13 +16,18 @@ import { axiosInstance } from '../../utils/apis';
 interface Props {
   handleClose: () => void;
   open: boolean;
+  setOpenAppointmentsModal: Dispatch<SetStateAction<boolean>>;
 }
 
-const AppointmentsModal = ({ handleClose, open }: Props) => {
+const AppointmentsModal = ({ handleClose, open, setOpenAppointmentsModal }: Props) => {
   const [timeInput, setTimeInput] = useState([1]);
 
   const addInput = () => {
     setTimeInput((prev) => ([...prev, prev.length + 1]));
+  };
+
+  const handleCloseAppointmentsModal = () => {
+    setOpenAppointmentsModal(false);
   };
 
   const formik = useFormik({
@@ -54,6 +59,7 @@ const AppointmentsModal = ({ handleClose, open }: Props) => {
       try {
         await axiosInstance.post('/appointments', updatedValues);
         enqueueSnackbar('Successfully added an appointment', { variant: 'success' });
+        handleCloseAppointmentsModal();
       } catch (error) {
         const axiosError = error as AxiosError;
         enqueueSnackbar(axiosError.message, { variant: 'error' });
