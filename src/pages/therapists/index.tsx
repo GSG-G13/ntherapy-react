@@ -3,7 +3,6 @@ import {
   Container, InputBase,
   IconButton, Box, Grid,
   Pagination, InputLabel,
-  MenuItem, Select, SelectChangeEvent,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { enqueueSnackbar } from 'notistack';
@@ -12,16 +11,11 @@ import { SearchBoxStyle, SelectInputStyle } from './classes';
 import { TherapistList } from '../../components';
 import { axiosInstance } from '../../utils/apis';
 
-const priceRangeOptions = [
-  { value: 'all', label: 'All' },
-  { value: '0-50', label: '$0 - $50' },
-  { value: '50-100', label: '$50 - $100' },
-  { value: '100-200', label: '$100 - $200' },
-];
 const TherapistPage = () => {
   const [therapists, setTherapists] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedPriceRange, setSelectedPriceRange] = useState('all');
+  const [minPrice, setMinPrice] = useState('');
+  const [maxPrice, setMaxPrice] = useState('');
 
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -36,7 +30,8 @@ const TherapistPage = () => {
             params: {
               q: searchQuery,
               page: currentPage,
-              price: selectedPriceRange,
+              minPrice,
+              maxPrice,
             },
           });
           setTherapists(response.data.rows);
@@ -55,7 +50,7 @@ const TherapistPage = () => {
       };
       getTherapistData();
     },
-    [currentPage, selectedPriceRange, searchQuery],
+    [currentPage, maxPrice, minPrice, searchQuery],
   );
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
@@ -67,8 +62,12 @@ const TherapistPage = () => {
     setTherapists([]);
     setCurrentPage(page);
   };
-  const handlePriceFilterChange = (e: SelectChangeEvent<string>) => {
-    setSelectedPriceRange(e.target.value);
+  const handleMinPriceChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setMinPrice(e.target.value);
+    setCurrentPage(1);
+  };
+  const handleMaxPriceChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setMaxPrice(e.target.value);
     setCurrentPage(1);
   };
 
@@ -87,12 +86,12 @@ const TherapistPage = () => {
               mt: 4,
             }}
           >
-            <InputLabel id="price-filter-label" sx={{ mr: 2 }}>Price :</InputLabel>
-            <Select
-              labelId="price-filter-label"
-              id="price-filter"
-              value={selectedPriceRange}
-              onChange={handlePriceFilterChange}
+            <InputLabel id="price-filter-label" sx={{ mr: 2 }}> Filter Price :</InputLabel>
+            <InputBase
+              placeholder="Enter min"
+              inputProps={{ 'aria-label': 'price-filter' }}
+              value={minPrice}
+              onChange={handleMinPriceChange}
               style={SelectInputStyle}
               sx={{
                 '& .MuiInputBase-input': {
@@ -100,14 +99,31 @@ const TherapistPage = () => {
                   color: 'inherit',
                   padding: '10px 12px',
                 },
+                '& .MuiInputBase-input::placeholder': {
+                  color: '#999',
+                  opacity: 1,
+                },
               }}
-            >
-              {priceRangeOptions.map((option) => (
-                <MenuItem key={option.value} value={option.value} sx={{ pr: 4 }}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </Select>
+            />
+
+            <InputBase
+              placeholder=" Enter max"
+              inputProps={{ 'aria-label': 'price-filter' }}
+              value={maxPrice}
+              onChange={handleMaxPriceChange}
+              style={SelectInputStyle}
+              sx={{
+                '& .MuiInputBase-input': {
+                  fontSize: '1rem',
+                  color: 'inherit',
+                  padding: '10px 12px',
+                },
+                '& .MuiInputBase-input::placeholder': {
+                  color: '#999',
+                  opacity: 1,
+                },
+              }}
+            />
             <InputBase
               placeholder="Search..."
               inputProps={{ 'aria-label': 'search' }}

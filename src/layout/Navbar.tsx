@@ -1,6 +1,5 @@
 import * as React from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
-import AdbIcon from '@mui/icons-material/Adb';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Container from '@mui/material/Container';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -91,7 +90,6 @@ const Navbar = () => {
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
