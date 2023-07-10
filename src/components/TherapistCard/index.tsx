@@ -7,9 +7,12 @@ import classes from './classes';
 
 import { TherapistCardProps } from './types';
 
-const GridCard = ({ therapist }:TherapistCardProps) => (
-  <Grid item xs={3} sx={{ marginTop: 5 }}>
-    <Card>
+const GridCard = ({ therapist }: TherapistCardProps) => (
+  <Grid item xs={12} sm={6} md={4} lg={3} xl={2} sx={{ marginTop: 5 }}>
+    <Card sx={{
+      display: 'flex', flexDirection: 'column', height: '100%', boxShadow: '0px 0px 10px 0px rgba(0,0,0,0.2)',
+    }}
+    >
       <CardActionArea>
         <CardMedia
           component="img"
