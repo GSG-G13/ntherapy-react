@@ -1,17 +1,22 @@
 import { useState, useEffect, ChangeEvent } from 'react';
 import {
-  Container, InputBase, IconButton, Box, Grid, Pagination,
+  Container, InputBase,
+  IconButton, Box, Grid,
+  Pagination, InputLabel,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { enqueueSnackbar } from 'notistack';
 import { AxiosError } from 'axios';
-import { SearchBoxStyle } from './classes';
+import { SearchBoxStyle, SelectInputStyle } from './classes';
 import { TherapistList } from '../../components';
 import { axiosInstance } from '../../utils/apis';
 
 const TherapistPage = () => {
   const [therapists, setTherapists] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [minPrice, setMinPrice] = useState('');
+  const [maxPrice, setMaxPrice] = useState('');
+
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true);
@@ -25,6 +30,8 @@ const TherapistPage = () => {
             params: {
               q: searchQuery,
               page: currentPage,
+              minPrice,
+              maxPrice,
             },
           });
           setTherapists(response.data.rows);
@@ -43,7 +50,7 @@ const TherapistPage = () => {
       };
       getTherapistData();
     },
-    [currentPage, searchQuery],
+    [currentPage, maxPrice, minPrice, searchQuery],
   );
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
@@ -54,6 +61,14 @@ const TherapistPage = () => {
   const handlePageChange = (_event: ChangeEvent<unknown>, page: number) => {
     setTherapists([]);
     setCurrentPage(page);
+  };
+  const handleMinPriceChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setMinPrice(e.target.value);
+    setCurrentPage(1);
+  };
+  const handleMaxPriceChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setMaxPrice(e.target.value);
+    setCurrentPage(1);
   };
 
   return (
@@ -71,6 +86,44 @@ const TherapistPage = () => {
               mt: 4,
             }}
           >
+            <InputLabel id="price-filter-label" sx={{ mr: 2 }}> Filter Price :</InputLabel>
+            <InputBase
+              placeholder="Enter min"
+              inputProps={{ 'aria-label': 'price-filter' }}
+              value={minPrice}
+              onChange={handleMinPriceChange}
+              style={SelectInputStyle}
+              sx={{
+                '& .MuiInputBase-input': {
+                  fontSize: '1rem',
+                  color: 'inherit',
+                  padding: '10px 12px',
+                },
+                '& .MuiInputBase-input::placeholder': {
+                  color: '#999',
+                  opacity: 1,
+                },
+              }}
+            />
+
+            <InputBase
+              placeholder=" Enter max"
+              inputProps={{ 'aria-label': 'price-filter' }}
+              value={maxPrice}
+              onChange={handleMaxPriceChange}
+              style={SelectInputStyle}
+              sx={{
+                '& .MuiInputBase-input': {
+                  fontSize: '1rem',
+                  color: 'inherit',
+                  padding: '10px 12px',
+                },
+                '& .MuiInputBase-input::placeholder': {
+                  color: '#999',
+                  opacity: 1,
+                },
+              }}
+            />
             <InputBase
               placeholder="Search..."
               inputProps={{ 'aria-label': 'search' }}
@@ -89,6 +142,7 @@ const TherapistPage = () => {
                 },
               }}
             />
+
             <IconButton aria-label="search" sx={{ ml: 1 }}>
               <SearchIcon />
             </IconButton>

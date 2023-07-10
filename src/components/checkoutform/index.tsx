@@ -10,11 +10,14 @@ import { useSnackbar } from 'notistack';
 import { AxiosError } from 'axios';
 import { axiosInstance } from '../../utils/apis';
 
-const CheckoutForm = ({ id }:any) => {
+const CheckoutForm = ({ id, setOpen }:any) => {
   const { enqueueSnackbar } = useSnackbar();
   const stripe = useStripe();
   const elements = useElements();
   const [isLoading, setIsLoading] = useState(false);
+  const handleCloseModelAfterSuccessful = () => {
+    setOpen(false);
+  };
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
@@ -39,6 +42,7 @@ const CheckoutForm = ({ id }:any) => {
           appointmentId: id,
         });
         enqueueSnackbar('Payment succeeded 🔥', { variant: 'success' });
+        handleCloseModelAfterSuccessful();
       } else {
         throw new Error('Payment was not successful.');
       }

@@ -80,7 +80,7 @@ const TherapistHeader: React.FC<Props> = ({ isProfileOwner, setError }) => {
   };
 
   return (
-    <Container>
+    <Container sx={{ mb: 16 }}>
 
       {dataFromTherapist ? (
         <Box sx={{ width: 1, mt: 8 }}>
@@ -157,6 +157,7 @@ const TherapistHeader: React.FC<Props> = ({ isProfileOwner, setError }) => {
               <AppointmentsModal
                 handleClose={handleCloseAppointmentsModal}
                 open={openAppointmentsModal}
+                setOpenAppointmentsModal={setOpenAppointmentsModal}
               />
               )}
             </Box>
