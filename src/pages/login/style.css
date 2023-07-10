@@ -3,10 +3,19 @@
     height: 100vh;
     object-fit: cover;
 }
+.signUpLink{
+     margin: 60px;
+}
+
 
 @media (max-width: 900px) {
     .imageLogin{
         display: none;
+    }
+    @media(max-width: 600px){
+.signUpLink{
+    margin: 20px;
+}
     }
     
 }

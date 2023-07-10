@@ -12,7 +12,6 @@ import {
   Paper,
   Box,
   Grid,
-  Typography,
   RadioGroup,
   FormControlLabel,
   Radio,
@@ -27,6 +26,7 @@ import {
 } from './classes';
 import './style.css';
 import { axiosInstance } from '../../utils/apis';
+import logosrc from '../../assets/img/logo.png';
 
 const Signup = () => {
   const { enqueueSnackbar } = useSnackbar();
@@ -241,10 +241,11 @@ const Signup = () => {
         style={{ height: '100vh', overflow: 'auto', overflowX: 'hidden' }}
       >
         <Box sx={boxStyle}>
-          <Typography component="h1" variant="h5" sx={{ ml: 5, fontSize: '30px' }}>
-            Join us
-          </Typography>
-          <Box component="form" noValidate sx={{ mt: 5 }} onSubmit={formik.handleSubmit}>
+          <Link to="/">
+            <img src={logosrc} alt="login" style={{ width: '250px', cursor: 'pointer' }} />
+          </Link>
+
+          <Box component="form" noValidate onSubmit={formik.handleSubmit}>
             <RadioGroup
               style={{
                 display: 'flex',
@@ -357,7 +358,7 @@ const Signup = () => {
             </LoadingButton>
             <Grid container>
               <Grid item>
-                <Link to="/login" style={{ margin: '80px' }}>
+                <Link to="/login" className="LinkSignIn">
                   Already have an account? Sign in
                 </Link>
               </Grid>
