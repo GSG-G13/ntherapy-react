@@ -39,15 +39,13 @@ const Footer = () => {
                 ntherapypro@gmail.com
               </Link>
             </Typography>
-            <Typography
-              variant="body1"
-              sx={{
-                color: '#fff',
-                textAlign: isSmallScreen ? 'center' : 'left',
-                marginTop: isSmallScreen ? '22px' : 0,
-              }}
-            >
-              <Link href="/" sx={{ marginRight: '8px' }}>
+            <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '22px' }}>
+              <Link
+                href="/"
+                sx={{
+                  marginRight: '8px',
+                }}
+              >
                 <Facebook fontSize="small" sx={{ color: '#fff' }} />
               </Link>
               <Link href="/" sx={{ marginRight: '8px' }}>
@@ -56,7 +54,7 @@ const Footer = () => {
               <Link href="/">
                 <Instagram fontSize="small" sx={{ color: '#fff' }} />
               </Link>
-            </Typography>
+            </Box>
           </Box>
         </Box>
       </Box>
