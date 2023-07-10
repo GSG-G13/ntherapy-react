@@ -1,5 +1,5 @@
 interface Card {
-  [key: string]: string;
+  [key: string]: string | number | Record<string, string | number>;
 }
 
 const card: Card = {
@@ -19,6 +19,15 @@ const DoctorName: Card = {
   paddingTop: '1px',
   margin: '0',
 };
+const therapistImage: Card = {
+  marginBottom: '5px',
+  '@media (max-width: 600px)': {
+    height: '400px',
+  },
 
-const classes = { card, button, DoctorName };
+};
+
+const classes = {
+  card, button, DoctorName, therapistImage,
+};
 export default classes;
