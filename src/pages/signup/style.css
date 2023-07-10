@@ -47,10 +47,16 @@
   ::-webkit-scrollbar-thumb:hover {
     background-color: #949090;
   }
+  .LinkSignIn{
+     margin: 80px;
+  }
   
 @media (max-width: 767px) {
     .imageLogin{
         display: none;
+    }
+    .LinkSignIn{
+      margin: 20px;
     }
     
 }

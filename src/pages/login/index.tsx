@@ -10,7 +10,6 @@ import {
   Paper,
   Box,
   Grid,
-  Typography,
   InputAdornment,
   IconButton,
 } from '@mui/material';
@@ -19,6 +18,7 @@ import { useFormik } from 'formik';
 import { userDataContext } from '../../context';
 import validationSchema from './schema';
 import imageSrc from '../../assets/loginImg.jpg';
+import logosrc from '../../assets/img/logo.png';
 import {
   boxStyle,
   textFieldStyle,
@@ -70,6 +70,7 @@ const Login = () => {
   });
 
   return (
+
     <Grid container component="main" sx={gridStyle}>
       <CssBaseline />
       <Grid
@@ -92,9 +93,10 @@ const Login = () => {
         style={{ height: '100vh', overflow: 'auto', overflowX: 'hidden' }}
       >
         <Box sx={boxStyle}>
-          <Typography component="h1" variant="h5" sx={{ ml: 5, fontSize: '30px' }}>
-            Hello, Again
-          </Typography>
+          <Link to="/">
+            <img src={logosrc} alt="login" style={{ width: '250px', cursor: 'pointer' }} />
+          </Link>
+
           <Box component="form" noValidate sx={{ mt: 5 }} onSubmit={formik.handleSubmit}>
             <TextField
               margin="normal"
@@ -144,9 +146,9 @@ const Login = () => {
               Sign In
             </LoadingButton>
             <Grid container>
-              <Grid item>
-                <Link to="/signup" style={{ margin: '80px' }}>
-                  Do not have an account? Sign Up
+              <Grid>
+                <Link to="/signup" className="signUpLink">
+                  Do not have an account?  Sign Up
                 </Link>
               </Grid>
             </Grid>
