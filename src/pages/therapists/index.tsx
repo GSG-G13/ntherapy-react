@@ -59,6 +59,7 @@ const TherapistPage = () => {
   };
 
   const handlePageChange = (_event: ChangeEvent<unknown>, page: number) => {
+    if (page === currentPage) return;
     setTherapists([]);
     setCurrentPage(page);
   };
