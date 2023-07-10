@@ -1,0 +1,29 @@
+ .SelectInputStyle {
+     width: 20%;
+     margin-right: 50px;
+     background-color: #eee;
+     border-radius: 999px;
+ }
+
+ /* .SearchBoxStyle {
+     width: 70%;
+     max-width: 400;
+     border-radius: 999px;
+     background-color: #eee;
+     padding-left: 10px;
+     padding-right: 10px;
+ }
+
+
+ @media (max-width: 767px) {
+     .SelectInputStyle {
+         width: 100%;
+         margin-right: 0;
+         margin-bottom: 10px
+     }
+
+     .SearchBoxStyle{
+        display: block;
+        margin-top: 200px;
+     }
+ } */

@@ -7,9 +7,10 @@ import {
 import SearchIcon from '@mui/icons-material/Search';
 import { enqueueSnackbar } from 'notistack';
 import { AxiosError } from 'axios';
-import { SearchBoxStyle, SelectInputStyle } from './classes';
 import { TherapistList } from '../../components';
 import { axiosInstance } from '../../utils/apis';
+import './style.css';
+import { SearchBoxStyle, SelectInputStyle } from './classes';
 
 const TherapistPage = () => {
   const [therapists, setTherapists] = useState([]);
@@ -85,46 +86,52 @@ const TherapistPage = () => {
               justifyContent: 'center',
               alignItems: 'center',
               mt: 4,
+              '@media (max-width: 600px)': {
+                display: 'block',
+              },
             }}
           >
-            <InputLabel id="price-filter-label" sx={{ mr: 2 }}> Filter Price :</InputLabel>
-            <InputBase
-              placeholder="Enter min"
-              inputProps={{ 'aria-label': 'price-filter' }}
-              value={minPrice}
-              onChange={handleMinPriceChange}
-              style={SelectInputStyle}
-              sx={{
-                '& .MuiInputBase-input': {
-                  fontSize: '1rem',
-                  color: 'inherit',
-                  padding: '10px 12px',
-                },
-                '& .MuiInputBase-input::placeholder': {
-                  color: '#999',
-                  opacity: 1,
-                },
-              }}
-            />
+            <InputLabel id="price-filter-label" sx={{ mr: 2, mb: '10px' }}> Filter Price :</InputLabel>
+            <Box display="flex">
 
-            <InputBase
-              placeholder=" Enter max"
-              inputProps={{ 'aria-label': 'price-filter' }}
-              value={maxPrice}
-              onChange={handleMaxPriceChange}
-              style={SelectInputStyle}
-              sx={{
-                '& .MuiInputBase-input': {
-                  fontSize: '1rem',
-                  color: 'inherit',
-                  padding: '10px 12px',
-                },
-                '& .MuiInputBase-input::placeholder': {
-                  color: '#999',
-                  opacity: 1,
-                },
-              }}
-            />
+              <InputBase
+                placeholder="Enter min"
+                inputProps={{ 'aria-label': 'price-filter' }}
+                value={minPrice}
+                style={SelectInputStyle}
+                onChange={handleMinPriceChange}
+                sx={{
+                  '& .MuiInputBase-input': {
+                    fontSize: '1rem',
+                    color: 'inherit',
+                    padding: '10px 12px',
+                  },
+                  '& .MuiInputBase-input::placeholder': {
+                    color: '#999',
+                    opacity: 1,
+                  },
+                }}
+              />
+
+              <InputBase
+                placeholder=" Enter max"
+                inputProps={{ 'aria-label': 'price-filter' }}
+                value={maxPrice}
+                onChange={handleMaxPriceChange}
+                style={SelectInputStyle}
+                sx={{
+                  '& .MuiInputBase-input': {
+                    fontSize: '1rem',
+                    color: 'inherit',
+                    padding: '10px 12px',
+                  },
+                  '& .MuiInputBase-input::placeholder': {
+                    color: '#999',
+                    opacity: 1,
+                  },
+                }}
+              />
+            </Box>
             <InputBase
               placeholder="Search..."
               inputProps={{ 'aria-label': 'search' }}
