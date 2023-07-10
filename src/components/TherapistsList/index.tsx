@@ -52,7 +52,7 @@ const TherapistList = ({
   }
 
   return (
-    <Grid container spacing={2} style={{ height: '800px' }}>
+    <Grid container spacing={2} style={{ height: 'fit-content' }}>
       {
       therapists.map((therapist: TherapistCardType) => (
         <GridCard therapist={therapist} key={therapist.userId} />

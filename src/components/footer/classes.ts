@@ -1,5 +1,5 @@
 interface Type {
-    [key: string]: string;
+  [key: string]: string | number | Record<string, string | number>;
 }
 
 const BoxContainer: Type = {
@@ -11,18 +11,29 @@ const BoxContainer: Type = {
 const BoxContainerFooter: Type = {
   maxWidth: 'container',
   display: 'flex',
-  flexDirection: 'row',
+  flexDirection: 'column',
   alignItems: 'center',
+  '@media (min-width: 600px)': {
+    flexDirection: 'row',
+  },
 };
+
 const TypographyBody1: Type = {
   color: '#fff',
   fontWeight: 'bold',
   fontSize: '18.52px',
   lineHeight: '28px',
-  width: '500px',
+  width: 'fit-content',
+  heigh: 'fit-content',
   textAlign: 'center',
   mx: 'auto',
-  mt: '-20px',
+  // mt: '-20px',
+  '@media (max-width: 600px)': {
+    width: '100%',
+    fontSize: '16px',
+    lineHeight: '24px',
+    mt: 0,
+  },
 };
 
 const TypographyH3: Type = {
@@ -31,7 +42,12 @@ const TypographyH3: Type = {
   fontSize: '22.52px',
   lineHeight: '28px',
   textAlign: 'center',
+  '@media (max-width: 600px)': {
+    fontSize: '20px',
+    lineHeight: '26px',
+  },
 };
+
 const TypographyBody2: Type = {
   color: '#fff',
   fontWeight: '500',
@@ -39,6 +55,11 @@ const TypographyBody2: Type = {
   lineHeight: '28px',
   textAlign: 'center',
   marginTop: '20px',
+  '@media (max-width: 600px)': {
+    fontSize: '16px',
+    lineHeight: '24px',
+    marginTop: '10px',
+  },
 };
 
 const BoxCopy: Type = {
@@ -49,5 +70,10 @@ const BoxCopy: Type = {
 };
 
 export {
-  BoxContainer, BoxContainerFooter, TypographyBody1, TypographyH3, BoxCopy, TypographyBody2,
+  BoxContainer,
+  BoxContainerFooter,
+  TypographyBody1,
+  TypographyH3,
+  BoxCopy,
+  TypographyBody2,
 };
