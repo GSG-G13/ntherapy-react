@@ -9,7 +9,6 @@ import { enqueueSnackbar } from 'notistack';
 import { AxiosError } from 'axios';
 import { TherapistList } from '../../components';
 import { axiosInstance } from '../../utils/apis';
-import './style.css';
 import { SearchBoxStyle, SelectInputStyle } from './classes';
 
 const TherapistPage = () => {
