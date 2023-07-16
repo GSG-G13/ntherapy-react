@@ -4,8 +4,7 @@ const headerCell = {
 const bodyCell = (themeMode:string) => ({
   margin: '10px',
   textAlign: 'center',
-  color: themeMode === 'dark' ? 'black' : '',
-  // ...other style properties
+  backgroundColor: themeMode === 'dark' ? '#181A1B' : '',
 });
 const spinner = {
   position: 'absolute',
