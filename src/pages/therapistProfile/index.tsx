@@ -2,7 +2,7 @@ import { useState, useContext } from 'react';
 import { Container } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import { AppointmentTableContainer, TherapistHeader } from '../../components';
-import { userDataContext } from '../../context';
+import { userDataContext, ThemeContext } from '../../context';
 
 const TherapistProfile = () => {
   const { id } = useParams();
@@ -11,6 +11,7 @@ const TherapistProfile = () => {
 
   const userContext = useContext(userDataContext);
   const userData = userContext?.userData;
+  const themes = useContext(ThemeContext);
 
   const isProfileOwner = Boolean(userData && id === userData.therapistId?.toString());
 
@@ -27,14 +28,22 @@ const TherapistProfile = () => {
   }
 
   return (
-    <Container>
-      <TherapistHeader isProfileOwner={isProfileOwner} setError={setError} />
-      {
+    <div style={{
+      backgroundColor: themes?.themeMode === 'dark' ? '#181A1B' : '',
+      paddingTop: '50px',
+      paddingBottom: '50px',
+    }}
+    >
+
+      <Container>
+        <TherapistHeader isProfileOwner={isProfileOwner} setError={setError} />
+        {
         isProfileOwner
         && <AppointmentTableContainer />
 
       }
-    </Container>
+      </Container>
+    </div>
   );
 };
 

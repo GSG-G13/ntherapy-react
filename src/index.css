@@ -8,18 +8,21 @@
 
 body {
   font-family: "Montserrat", sans-serif;
-  padding: 0!important;
+  padding: 0 !important;
   /* selection */
 }
+
 /* selection */
 ::selection {
   background: #516EFF;
   color: #000;
 }
+
 .link {
   text-decoration: none;
   margin: 5px;
 }
+
 .sign-in {
   background: #ffe766;
   padding: 8px;
@@ -27,12 +30,14 @@ body {
   width: 150px;
   text-align: center;
 }
-.logo{
+
+.logo {
   display: block;
   margin: auto;
   width: 100%;
   margin-bottom: 40px;
 }
+
 .therapy-card {
   display: flex;
   flex-direction: column;
@@ -42,9 +47,11 @@ body {
   min-height: 150px;
   border-left: 10px solid #516EFF;
 }
+
 .MuiFormHelperText-root {
-  color: red!important;
+  color: red !important;
 }
+
 .therapist-link {
   display: flex;
   flex-direction: column;
@@ -68,22 +75,25 @@ body {
   margin-top: 30px;
   font-weight: bold;
 }
+
 .search {
-    font-weight: bold;
+  font-weight: bold;
   text-transform: uppercase;
   display: inline-block;
   text-decoration: none;
   background-color: #ffe766;
   font-size: 25px;
-  border-radius:20px;
+  border-radius: 20px;
   padding: 20px 20px;
   margin-top: 30px;
 }
+
 .its-img {
   width: 50px;
   border-radius: 50%;
   border: 2px solid #ffe766;
 }
+
 .join-img {
   margin-right: 20px;
   width: 350px;
@@ -93,6 +103,7 @@ body {
   filter: opacity(0.8);
   border-left: 10px solid #516EFF;
 }
+
 .sign-img {
   margin-right: 20px;
   width: 560px;

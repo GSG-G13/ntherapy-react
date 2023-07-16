@@ -11,7 +11,13 @@ import { BoxStyle, ButtonStyle, TypographyStyle } from './classes';
 import { axiosInstance } from '../../../utils/apis';
 import { BioEditor, ChangePhoto, EditableTextField } from '..';
 import { TherapistData, Props } from './types';
-import { userDataContext } from '../../../context';
+import { userDataContext, ThemeContext } from '../../../context';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
 
 const TherapistHeader: React.FC<Props> = ({ isProfileOwner, setError }) => {
   const { id } = useParams();
@@ -21,6 +27,8 @@ const TherapistHeader: React.FC<Props> = ({ isProfileOwner, setError }) => {
   const [showReservationModal, setShowReservationModal] = useState(false);
   const userContext = useContext(userDataContext);
   const userData = userContext?.userData;
+  const themes = useContext(ThemeContext);
+
   const handleShowReservationModal = () => {
     if (!userData) {
       navigate('/login', { state: { from: location.pathname } });
@@ -89,7 +97,7 @@ const TherapistHeader: React.FC<Props> = ({ isProfileOwner, setError }) => {
             gridTemplateColumns="repeat(12, 1fr)"
             gap={2}
             sx={{
-              backgroundColor: '#fff',
+              backgroundColor: themes?.themeMode === 'dark' ? '#191A1B' : '',
               border: '2px solid #ddd',
               borderRadius: '8px',
               boxShadow: '1px 4px 6px rgba(0, 0, 0, 0.1)',
@@ -110,6 +118,7 @@ const TherapistHeader: React.FC<Props> = ({ isProfileOwner, setError }) => {
                 dataType="fullName"
                 onChange={handleChange('user.fullName')}
                 isProfileOwner={isProfileOwner}
+                themeMode={themes?.themeMode}
               />
 
               <EditableTextField
@@ -117,16 +126,26 @@ const TherapistHeader: React.FC<Props> = ({ isProfileOwner, setError }) => {
                 dataType="major"
                 onChange={handleChange('major')}
                 isProfileOwner={isProfileOwner}
+                themeMode={themes?.themeMode}
               />
 
               <Box sx={BoxStyle}>
                 <Typography sx={{
-                  fontWeight: 'bold', mb: 1, fontSize: '18px',
+                  fontWeight: 'bold',
+                  mb: 1,
+                  fontSize: '18px',
+                  color: themes?.themeMode === 'dark' ? '#eeee' : '#000',
                 }}
                 >
                   for session: $
                 </Typography>
-                <EditableTextField value={dataFromTherapist.hourlyRate} dataType="hourlyRate" onChange={handleChange('hourlyRate')} isProfileOwner={isProfileOwner} />
+                <EditableTextField
+                  value={dataFromTherapist.hourlyRate}
+                  dataType="hourlyRate"
+                  onChange={handleChange('hourlyRate')}
+                  isProfileOwner={isProfileOwner}
+                  themeMode={themes?.themeMode}
+                />
               </Box>
               {isProfileOwner
                 ? (
@@ -180,12 +199,14 @@ const TherapistHeader: React.FC<Props> = ({ isProfileOwner, setError }) => {
                     <BioEditor
                       textBio={dataFromTherapist.bio}
                       handleChangeTextBio={handleChange('bio')}
+                      themeMode={themes?.themeMode}
                     />
                   ) : (
                     <div
                       dangerouslySetInnerHTML={{ __html: dataFromTherapist.bio }}
                       style={{
                         marginTop: '50px',
+                        color: themes?.themeMode === 'dark' ? '#eeee' : '#000',
                       }}
                     />
                   )

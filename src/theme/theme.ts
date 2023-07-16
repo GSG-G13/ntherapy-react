@@ -2,6 +2,8 @@ import { createTheme } from '@mui/material/styles';
 
 const theme = createTheme({
   palette: {
+    mode: 'light',
+
     primary: {
       main: '#516EFF',
       dark: '#1F2B6C',
@@ -15,4 +17,21 @@ const theme = createTheme({
   },
 });
 
-export default theme;
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+
+    primary: {
+      main: '#516EFF',
+      dark: '#FFE766',
+    },
+    secondary: {
+      main: '#FFE766',
+    },
+  },
+  typography: {
+    fontFamily: ['Montserrat', 'sans-serif'].join(','),
+  },
+});
+
+export { theme, darkTheme };

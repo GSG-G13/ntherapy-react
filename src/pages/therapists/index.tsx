@@ -1,4 +1,6 @@
-import { useState, useEffect, ChangeEvent } from 'react';
+import {
+  useState, useEffect, ChangeEvent, useContext,
+} from 'react';
 import {
   Container, InputBase,
   IconButton, Box, Grid,
@@ -10,6 +12,7 @@ import { AxiosError } from 'axios';
 import { TherapistList } from '../../components';
 import { axiosInstance } from '../../utils/apis';
 import { SearchBoxStyle, SelectInputStyle } from './classes';
+import { ThemeContext } from '../../context';
 
 const TherapistPage = () => {
   const [therapists, setTherapists] = useState([]);
@@ -71,9 +74,10 @@ const TherapistPage = () => {
     setMaxPrice(e.target.value);
     setCurrentPage(1);
   };
+  const themes = useContext(ThemeContext);
 
   return (
-    <>
+    <div style={{ backgroundColor: themes?.themeMode === 'dark' ? '#181A1B' : '' }}>
       <Box sx={{ flexGrow: 1 }}>
         <Container>
           <Grid
@@ -84,7 +88,7 @@ const TherapistPage = () => {
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
-              mt: 4,
+              pt: 4,
               '@media (max-width: 600px)': {
                 display: 'block',
               },
@@ -102,7 +106,7 @@ const TherapistPage = () => {
                 sx={{
                   '& .MuiInputBase-input': {
                     fontSize: '1rem',
-                    color: 'inherit',
+                    color: themes?.themeMode === 'dark' ? 'black' : 'inherit',
                     padding: '10px 12px',
                   },
                   '& .MuiInputBase-input::placeholder': {
@@ -121,7 +125,7 @@ const TherapistPage = () => {
                 sx={{
                   '& .MuiInputBase-input': {
                     fontSize: '1rem',
-                    color: 'inherit',
+                    color: themes?.themeMode === 'dark' ? 'black' : 'inherit',
                     padding: '10px 12px',
                   },
                   '& .MuiInputBase-input::placeholder': {
@@ -140,7 +144,7 @@ const TherapistPage = () => {
               sx={{
                 '& .MuiInputBase-input': {
                   fontSize: '1rem',
-                  color: 'inherit',
+                  color: themes?.themeMode === 'dark' ? 'black' : 'inherit',
                   padding: '10px 12px',
                 },
                 '& .MuiInputBase-input::placeholder': {
@@ -156,7 +160,7 @@ const TherapistPage = () => {
           </Grid>
         </Container>
       </Box>
-      <Container>
+      <Container sx={{ pb: 8 }}>
         <TherapistList therapists={therapists} loading={loading} />
         <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
           <Pagination
@@ -168,7 +172,7 @@ const TherapistPage = () => {
           />
         </Box>
       </Container>
-    </>
+    </div>
   );
 };
 

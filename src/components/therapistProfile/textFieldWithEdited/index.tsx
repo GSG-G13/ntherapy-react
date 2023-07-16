@@ -13,7 +13,7 @@ import axiosInstance from '../../../utils/apis/axios';
 import Props from './types';
 
 const EditableTextField: React.FC<Props> = ({
-  value, dataType, onChange, isProfileOwner,
+  value, dataType, onChange, isProfileOwner, themeMode,
 }) => {
   const [editMode, setEditMode] = useState(false);
   const [mouseOver, setMouseOver] = useState(false);
@@ -44,7 +44,7 @@ const EditableTextField: React.FC<Props> = ({
     }
   };
 
-  const style = getStyle(dataType);
+  const style = getStyle(dataType, themeMode);
   return (
     <TextField
       name="text"
