@@ -2,12 +2,11 @@ import { ReactElement } from 'react';
 import { RouterProvider } from 'react-router-dom';
 import { SnackbarProvider } from 'notistack';
 import router from './routes/index.tsx';
-import { AuthContext } from './context/index.ts';
-import CheckThemeProvider from './context/themeContext';
+import { AuthContext, ThemeProvider } from './context';
 import './index.css';
 
 const App = (): ReactElement => (
-  <CheckThemeProvider>
+  <ThemeProvider>
     <SnackbarProvider
       maxSnack={3}
       anchorOrigin={
@@ -19,7 +18,7 @@ const App = (): ReactElement => (
       </AuthContext>
 
     </SnackbarProvider>
-  </CheckThemeProvider>
+  </ThemeProvider>
 
 );
 

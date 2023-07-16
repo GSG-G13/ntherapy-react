@@ -11,7 +11,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { userDataContext } from '../context';
-import ThemeContext from '../context/themeCont';
+import ThemeContext from '../context/themeContext';
 import Logo from '../assets/img/logo.png';
 
 export { ProtectedUser } from '../routes/protected';
