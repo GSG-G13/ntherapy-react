@@ -10,7 +10,7 @@ import BioEditorProps from './types';
 import axiosInstance from '../../../utils/apis/axios';
 
 const BioEditor: React.FC<BioEditorProps> = ({
-  textBio, handleChangeTextBio,
+  textBio, handleChangeTextBio, themeMode,
 }) => {
   const [show, setShow] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -39,7 +39,7 @@ const BioEditor: React.FC<BioEditorProps> = ({
       {show ? (
         <>
           <ReactQuill
-            style={{ height: '150px', marginTop: 20 }}
+            style={{ height: '150px', marginTop: 20, color: themeMode === 'dark' ? '#eeee' : '#000' }}
             theme="snow"
             value={textBio}
             onChange={handleChangeTextBio}
@@ -65,6 +65,9 @@ const BioEditor: React.FC<BioEditorProps> = ({
           </IconButton>
           <div
             dangerouslySetInnerHTML={{ __html: textBio }}
+            style={{
+              color: themeMode === 'dark' ? '#eeee' : '#000',
+            }}
           />
         </>
       )}
