@@ -106,7 +106,7 @@ const TherapistPage = () => {
                 sx={{
                   '& .MuiInputBase-input': {
                     fontSize: '1rem',
-                    color: 'inherit',
+                    color: themes?.themeMode === 'dark' ? 'black' : 'inherit',
                     padding: '10px 12px',
                   },
                   '& .MuiInputBase-input::placeholder': {
@@ -125,7 +125,7 @@ const TherapistPage = () => {
                 sx={{
                   '& .MuiInputBase-input': {
                     fontSize: '1rem',
-                    color: 'inherit',
+                    color: themes?.themeMode === 'dark' ? 'black' : 'inherit',
                     padding: '10px 12px',
                   },
                   '& .MuiInputBase-input::placeholder': {
@@ -144,7 +144,7 @@ const TherapistPage = () => {
               sx={{
                 '& .MuiInputBase-input': {
                   fontSize: '1rem',
-                  color: 'inherit',
+                  color: themes?.themeMode === 'dark' ? 'black' : 'inherit',
                   padding: '10px 12px',
                 },
                 '& .MuiInputBase-input::placeholder': {
