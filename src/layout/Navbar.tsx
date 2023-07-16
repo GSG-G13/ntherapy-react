@@ -8,7 +8,10 @@ import {
 } from '@mui/material';
 import { useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { userDataContext } from '../context';
+import ThemeContext from '../context/themeCont';
 import Logo from '../assets/img/logo.png';
 
 export { ProtectedUser } from '../routes/protected';
@@ -24,6 +27,7 @@ const Navbar = () => {
   const userData = useContext(userDataContext);
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+  const themes = useContext(ThemeContext);
   const navigate = useNavigate();
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -47,12 +51,19 @@ const Navbar = () => {
   };
   return (
 
-    <AppBar position="static" sx={{ backgroundColor: '#F4F7FF', color: '#516EFF' }}>
+    <AppBar position="static" sx={{ backgroundColor: themes?.themeMode === 'dark' ? '#181A1B' : ' #F4F7FF', color: '#516EFF' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Link to="/">
             <img src={Logo} alt="logo" style={{ width: '160px' }} />
           </Link>
+          <IconButton
+            aria-label="Toggle theme mode"
+            onClick={themes?.handleThemeModeSwitch}
+            color="inherit"
+          >
+            {themes?.themeMode === 'light' ? <Brightness4Icon /> : <Brightness7Icon />}
+          </IconButton>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton

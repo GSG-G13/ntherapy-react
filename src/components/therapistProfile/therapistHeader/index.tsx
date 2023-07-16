@@ -6,12 +6,22 @@ import React, {
 } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
+import {
+  Navigation, Pagination, A11y,
+} from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import { SessionReservationModal, AppointmentsModal } from '../..';
 import { BoxStyle, ButtonStyle, TypographyStyle } from './classes';
 import { axiosInstance } from '../../../utils/apis';
 import { BioEditor, ChangePhoto, EditableTextField } from '..';
 import { TherapistData, Props } from './types';
 import { userDataContext } from '../../../context';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
 
 const TherapistHeader: React.FC<Props> = ({ isProfileOwner, setError }) => {
   const { id } = useParams();
@@ -194,6 +204,43 @@ const TherapistHeader: React.FC<Props> = ({ isProfileOwner, setError }) => {
               </Box>
             </Box>
           </Box>
+          <Box sx={{ mt: 10 }}>
+            <Swiper
+              modules={[Navigation, Pagination, A11y]}
+              spaceBetween={50}
+              slidesPerView={3}
+              navigation
+              pagination={{ clickable: true }}
+            >
+              <SwiperSlide>
+                {' '}
+                <ChangePhoto
+                  isProfileOwner={isProfileOwner}
+                  onChange={handleFileChange}
+                  hover={hover}
+                  setHover={setHover}
+                  imgUrl={`${dataFromTherapist.profileImg}?timestamp=${photoTimestamp}`}
+                />
+
+              </SwiperSlide>
+              <SwiperSlide>
+                <ChangePhoto
+                  isProfileOwner={isProfileOwner}
+                  onChange={handleFileChange}
+                  hover={hover}
+                  setHover={setHover}
+                  imgUrl={`${dataFromTherapist.profileImg}?timestamp=${photoTimestamp}`}
+                />
+              </SwiperSlide>
+              <SwiperSlide>Slide 3</SwiperSlide>
+              <SwiperSlide>Slide 4</SwiperSlide>
+              <SwiperSlide>Slide 4</SwiperSlide>
+              <SwiperSlide>Slide 4</SwiperSlide>
+              <SwiperSlide>Slide 4</SwiperSlide>
+              <SwiperSlide>Slide 4</SwiperSlide>
+            </Swiper>
+          </Box>
+
         </Box>
       ) : (
         <>
