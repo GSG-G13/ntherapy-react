@@ -1,7 +1,12 @@
 const headerCell = {
   textAlign: 'center', color: 'white', fontSize: '16px', textTransform: 'uppercase', fontStyle: 'bolder',
 };
-const bodyCell = { margin: '10px', textAlign: 'center' };
+const bodyCell = (themeMode:string) => ({
+  margin: '10px',
+  textAlign: 'center',
+  color: themeMode === 'dark' ? 'black' : '',
+  // ...other style properties
+});
 const spinner = {
   position: 'absolute',
   top: '50%',
