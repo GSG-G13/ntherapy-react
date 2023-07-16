@@ -6,7 +6,7 @@ import { Worldimg } from '../../assets';
 
 const World = () => (
   <Container>
-    <Grid container spacing={2} mt={5}>
+    <Grid container spacing={2} mt={5} pb={10}>
 
       <Grid
         item

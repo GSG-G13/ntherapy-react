@@ -23,13 +23,13 @@ const GridCard = ({ therapist }: TherapistCardProps) => (
         />
 
         <CardContent sx={{ padding: 0 }}>
-          <Typography gutterBottom component="div" sx={classes.DoctorName} color="primary.dark" margin="0">
+          <Typography gutterBottom component="div" sx={classes.DoctorName} margin="0">
             {therapist.user.fullName}
           </Typography>
-          <Typography variant="body1" color="primary.dark" textAlign="center">
+          <Typography variant="body1" textAlign="center">
             {therapist.major.trim().length > 30 ? `${therapist.major.slice(0, 20)}...` : therapist.major}
           </Typography>
-          <Typography variant="body1" color="primary.dark" textAlign="center" sx={{ fontWeight: '900' }}>
+          <Typography variant="body1" textAlign="center" sx={{ fontWeight: '900' }}>
             {therapist.hourlyRate}
             $ /hr
           </Typography>

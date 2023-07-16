@@ -5,7 +5,6 @@ interface Type {
 const BoxContainer: Type = {
   backgroundColor: '#5885ff',
   // boxShadow: '10px 10px 8px 6px #888888',
-  mt: '45px',
 };
 
 const BoxContainerFooter: Type = {

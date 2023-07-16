@@ -1,12 +1,15 @@
+
 .hersection {
-  background-color: #F4F7FF;
-  height: '29rem'
+  background-color: var(--body-bg-color);
+  height: 29rem;
 }
 
 .dark {
   background-color: #181A1B;
-
 }
+
+
+
 
 @media only screen and (max-width: 600px) {
   .hersection {

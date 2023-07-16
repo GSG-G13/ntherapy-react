@@ -12,7 +12,7 @@ const HeroSection = (): ReactElement => {
   return (
     <div className={themes?.themeMode === 'light' ? 'hersection' : 'dark'}>
       <Container>
-        <Grid container spacing={2} sx={{ pt: 2, mt: 1, pb: 4 }}>
+        <Grid container spacing={2} sx={{ pt: 2, mt: 0.01, pb: 4 }}>
           <Grid item xs={12} md={6} lg={6} sx={{ mt: 5 }}>
             <Typography variant="h5" color="primary" sx={{ fontWeight: 'bold', mb: 2, mt: 5 }}>
               Talk to your therapist

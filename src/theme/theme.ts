@@ -22,11 +22,11 @@ const darkTheme = createTheme({
     mode: 'dark',
 
     primary: {
-      main: '#000',
-      dark: '#000',
+      main: '#516EFF',
+      dark: '#FFE766',
     },
     secondary: {
-      main: '#0000',
+      main: '#FFE766',
     },
   },
   typography: {
