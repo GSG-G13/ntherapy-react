@@ -1,8 +1,11 @@
 import {
   Alert, Skeleton, Box, Grid, Container,
 } from '@mui/material';
+import { useContext } from 'react';
 import { TherapistCardType, GridCard } from '..';
 import { SkeletonBoxStyle } from './classes';
+import { ThemeContext } from '../../context';
+import { notFoundDark, notFoundLight } from '../../assets';
 
 const TherapistList = ({
   therapists,
@@ -10,7 +13,8 @@ const TherapistList = ({
 }: {
   therapists: TherapistCardType[];
   loading: boolean;
-}) => {
+  }) => {
+  const themes = useContext(ThemeContext);
   if (loading) {
     const dataArray:{
       id: string;
@@ -45,7 +49,7 @@ const TherapistList = ({
           No therapists found.
         </Alert>
         <Container sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <img src="https://cdn.dribbble.com/users/2382015/screenshots/6065978/media/8b4662f8023e4e2295f865106b5d3aa7.gif" alt="empty" style={{ width: '50%', height: '50%' }} />
+          <img src={themes?.themeMode === 'dark' ? notFoundDark : notFoundLight} alt="empty" style={{ width: '50%', height: '50%' }} />
         </Container>
       </Container>
     );
