@@ -55,6 +55,12 @@ const Footer = () => {
                 <Instagram fontSize="small" sx={{ color: '#fff' }} />
               </Link>
             </Box>
+            <Typography variant="body1" sx={TypographyBody2}>
+              <Link href="/bug-report" sx={{ color: '#fff' }}>
+                Report a bug
+              </Link>
+            </Typography>
+
           </Box>
         </Box>
       </Box>

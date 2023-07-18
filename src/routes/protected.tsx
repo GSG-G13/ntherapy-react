@@ -9,7 +9,6 @@ interface TypeChildren {
 }
 const ProtectedAdmin = () => {
   const userContext = useContext(userDataContext);
-  console.log(userContext?.userData);
   if (userContext?.userData?.role !== 'admin') {
     return <Navigate to="/" replace />;
   }

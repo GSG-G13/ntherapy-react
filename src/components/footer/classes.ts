@@ -38,6 +38,7 @@ const TypographyH3: Type = {
   color: '#fff',
   fontWeight: '600',
   fontSize: '22.52px',
+  paddingTop: '70px',
   lineHeight: '28px',
   textAlign: 'center',
   '@media (max-width: 600px)': {

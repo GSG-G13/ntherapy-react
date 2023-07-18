@@ -47,6 +47,20 @@ const fileUploadStyle:Type = {
   padding: '10px 0',
 };
 
+const errorStyle: Type = {
+  color: '#f44336',
+  fontFamily: 'Montserrat,sans-serif',
+  fontWeight: '400',
+  fontSize: '0.75rem',
+  lineHeight: '0',
+  textAlign: 'left',
+  marginTop: '0',
+  marginRight: '14px',
+  marginBottom: '10px',
+  marginLeft: '14px',
+  display: 'block',
+};
 export {
   boxStyle, textFieldStyle, buttonStyle, gridStyle, imageStyle, fileUploadStyle,
+  errorStyle,
 };
