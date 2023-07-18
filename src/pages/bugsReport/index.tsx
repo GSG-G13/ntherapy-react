@@ -1,8 +1,12 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
 import { Button } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import './style.css';
+import { AxiosError } from 'axios';
+import { enqueueSnackbar } from 'notistack';
+import { axiosInstance } from '../../utils/apis';
 
 const LinkText = styled(Link)`
   text-decoration: none;
@@ -28,10 +32,23 @@ const BugReportPage = () => {
     setSeverity(e.target.value);
   };
 
-  const handleSubmit = (e:FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsLoading(true);
-    setIsSubmitted(true);
+  const handleSubmit = async (e:FormEvent<HTMLFormElement>) => {
+    try {
+      e.preventDefault();
+      setIsLoading(true);
+      await axiosInstance.post('/bugs', {
+        title,
+        description,
+        priority: severity.toLowerCase(),
+      });
+      setIsLoading(false);
+      setIsSubmitted(true);
+    } catch (err) {
+      const error = err as AxiosError;
+      enqueueSnackbar(error.message, { variant: 'error' });
+      setIsLoading(false);
+      setIsSubmitted(false);
+    }
   };
 
   return (
@@ -80,9 +97,18 @@ const BugReportPage = () => {
               </select>
             </label>
           </div>
-          <button type="submit" className="submit-button" disabled={isLoading}>
-            {isLoading ? 'Submitting...' : 'Submit'}
-          </button>
+          <LoadingButton
+            type="submit"
+            className="submit-button"
+            loading={isLoading}
+            disabled={isLoading}
+            sx={{
+              backgroundColor: '#4caf50',
+              color: 'white',
+            }}
+          >
+            Submit
+          </LoadingButton>
         </form>
       )}
     </div>
