@@ -5,7 +5,8 @@ import React, {
   useState, useEffect, useContext,
 } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
+import { enqueueSnackbar } from 'notistack';
 import { SessionReservationModal, AppointmentsModal } from '../..';
 import { BoxStyle, ButtonStyle, TypographyStyle } from './classes';
 import { axiosInstance } from '../../../utils/apis';
@@ -25,6 +26,7 @@ const TherapistHeader: React.FC<Props> = ({ isProfileOwner, setError }) => {
   const location = useLocation();
   const [dataFromTherapist, setDataFromTherapist] = useState<TherapistData | null>(null);
   const [showReservationModal, setShowReservationModal] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
   const userContext = useContext(userDataContext);
   const userData = userContext?.userData;
   const themes = useContext(ThemeContext);
@@ -75,15 +77,22 @@ const TherapistHeader: React.FC<Props> = ({ isProfileOwner, setError }) => {
     });
   };
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const uploadURL = await axiosInstance.get('therapists/profile_img');
-      await axios.put(uploadURL.data.url, file, {
-        headers: {
-          'Content-Type': file.type,
-        },
-      });
-      setPhotoTimestamp(Date.now());
+    try {
+      const file = event.target.files?.[0];
+      if (file) {
+        setIsUploading(true);
+        const uploadURL = await axiosInstance.get('therapists/profile_img');
+        await axios.put(uploadURL.data.url, file, {
+          headers: {
+            'Content-Type': file.type,
+          },
+        });
+        setPhotoTimestamp(Date.now());
+        setIsUploading(false);
+      }
+    } catch (err) {
+      const error = err as AxiosError;
+      enqueueSnackbar(`Error uploading image: ${error.message}`, { variant: 'error' });
     }
   };
 
@@ -105,6 +114,8 @@ const TherapistHeader: React.FC<Props> = ({ isProfileOwner, setError }) => {
             }}
           >
 
+            {!isUploading
+            && (
             <ChangePhoto
               isProfileOwner={isProfileOwner}
               onChange={handleFileChange}
@@ -112,6 +123,19 @@ const TherapistHeader: React.FC<Props> = ({ isProfileOwner, setError }) => {
               setHover={setHover}
               imgUrl={`${dataFromTherapist.profileImg}?timestamp=${photoTimestamp}`}
             />
+            )}
+            {isUploading && (
+            <Skeleton
+              variant="rectangular"
+              width={300}
+              height={300}
+              sx={{
+                gridColumn: 'span 2',
+                gridRow: 'span 2',
+                borderRadius: '8px',
+              }}
+            />
+            ) }
             <Box sx={{ width: '500px', ml: '50px' }}>
               <EditableTextField
                 value={dataFromTherapist.user.fullName}

@@ -15,14 +15,16 @@ import {
   RadioGroup,
   FormControlLabel,
   Radio,
+  Typography,
 } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { useFormik } from 'formik';
 import validationSchema from './schema';
 import imageSrc from '../../assets/loginImg.jpg';
 import {
   boxStyle, textFieldStyle, buttonStyle, gridStyle, imageStyle, fileUploadStyle,
+  errorStyle,
 } from './classes';
 import './style.css';
 import { axiosInstance } from '../../utils/apis';
@@ -38,7 +40,6 @@ const Signup = () => {
   const [userType, setUserType] = useState('user');
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
   const [cvFileName, setCvFileName] = useState('');
   const [imageFileName, setImageFileName] = useState('');
 
@@ -95,8 +96,8 @@ const Signup = () => {
             profileImg: imgUrl,
             phoneNumber: values.phoneNumber,
           });
-          setIsSubmitted(true);
           showSnackbar('Registration successful! Please Check Your Email', 'success');
+          navigate('/');
         } else {
           await axiosInstance.post('/auth/register', {
             role: values.role,
@@ -106,12 +107,12 @@ const Signup = () => {
           });
           navigate('/login');
         }
-      } catch (err:any) {
-        showSnackbar(err.message, 'error');
+      } catch (err) {
+        const error = err as AxiosError;
+        showSnackbar(error.message, 'error');
       }
     },
   });
-
   const handleUserTypeChange = (event:React.ChangeEvent<HTMLInputElement>) => {
     setUserType(event.target.value);
     formik.setFieldValue('role', event.target.value);
@@ -187,6 +188,7 @@ const Signup = () => {
               type="file"
               style={{ display: 'none' }}
               onChange={handleFileUpload}
+
             />
             <Button
               variant="contained"
@@ -196,6 +198,13 @@ const Signup = () => {
               {cvFileName || 'Upload CV'}
             </Button>
           </label>
+          {formik.touched.cv && formik.errors.cv && (
+          <Typography
+            sx={errorStyle}
+          >
+            {formik.errors.cv}
+          </Typography>
+          )}
 
           <label htmlFor="img-upload">
             <input
@@ -210,6 +219,13 @@ const Signup = () => {
               {imageFileName || 'Upload Image'}
             </Button>
           </label>
+          {formik.touched.image && formik.errors.image && (
+          <Typography
+            sx={errorStyle}
+          >
+            {formik.errors.image}
+          </Typography>
+          )}
         </>
       );
     }
@@ -352,7 +368,7 @@ const Signup = () => {
               fullWidth
               sx={buttonStyle}
               loading={formik.isSubmitting}
-              disabled={!formik.isValid || formik.isSubmitting || isSubmitted}
+              disabled={formik.isSubmitting}
             >
               Join us
             </LoadingButton>
