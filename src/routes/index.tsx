@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import {
   LandingPage, Login, Signup, Therapists, TherapistPage, LoginAdmin, NotFound,
-  BugReportPage, AdminTherapists,
+  BugReportPage, AdminTherapists, AdminBugs,
 } from '../pages';
 import Layout from '../layout/Layout';
 import { ProtectedAdmin, ProtectedUser } from './protected';
@@ -46,12 +46,17 @@ const router = createBrowserRouter([
     element: <LoginAdmin />,
   },
   {
-    path: '/admin',
+    path: '/admin/therapists',
     element: <ProtectedAdmin />,
     children: [
       {
-        path: '/admin/therapists',
+        path: '/',
         element: <AdminTherapists />,
+      },
+      {
+        path: '/admin/bugs',
+        element: <AdminBugs />,
+
       },
     ],
   },

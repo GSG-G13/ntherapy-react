@@ -204,7 +204,7 @@ const Navbar = () => {
                         </Typography>
                       </Link>
                     ) : (
-                      <Link to="/admin">Dashboard</Link>
+                      <Link to="/admin/therapists">Dashboard</Link>
                     )}
 
                   </MenuItem>

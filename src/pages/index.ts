@@ -8,9 +8,11 @@ import LoginAdmin from './loginAdmin';
 import NotFound from './notFound';
 import BugReportPage from './bugsReport';
 import { ModelStyle } from '../components/therapistProfile/therapistHeader/classes';
+import AdminBugs from './adminBugs';
 
 export {
   AdminTherapists, LandingPage
   , Login, Signup, Therapists, TherapistPage, LoginAdmin, NotFound, ModelStyle,
   BugReportPage,
+  AdminBugs,
 };

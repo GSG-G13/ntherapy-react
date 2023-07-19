@@ -22,11 +22,14 @@ const DashBoard = () => {
   const handleToPageTherapists = () => {
     navigate('/admin/therapists');
   };
+  const handleToPageBugs = () => {
+    navigate('/admin/bugs');
+  };
 
   return (
     <Drawer variant="permanent" anchor="left" sx={{ width: '175px' }}>
       <Link to="/">
-        <img src={Logo} alt="logo" style={{ width: '160px' }} />
+        <img src={Logo} alt="logo" style={{ width: '180px' }} />
       </Link>
       <List style={{ paddingRight: '40px' }}>
         <ListItem button onClick={handleToPageHome}>
@@ -35,13 +38,13 @@ const DashBoard = () => {
           </ListItemIcon>
           <ListItemText primary="Home" />
         </ListItem>
-        <ListItem button>
+        <ListItem button onClick={handleToPageTherapists}>
           <ListItemIcon>
             <DashboardIcon />
           </ListItemIcon>
-          <ListItemText primary="Therapists" onClick={handleToPageTherapists} />
+          <ListItemText primary="Therapists" />
         </ListItem>
-        <ListItem button>
+        <ListItem button onClick={handleToPageBugs}>
           <ListItemIcon>
             <InboxIcon />
           </ListItemIcon>

@@ -1,12 +1,17 @@
 import { useEffect, useState } from 'react';
 import {
-  Table, TableContainer, TableHead, TableRow, TableCell, TableBody,
+  Table, TableContainer, TableHead, TableRow, TableCell, TableBody, Button,
 } from '@mui/material';
 import { AxiosError } from 'axios';
 import { enqueueSnackbar } from 'notistack';
+import DeleteIcon from '@mui/icons-material/Delete';
+import GitHubIcon from '@mui/icons-material/GitHub';
 import { axiosInstance } from '../../../utils/apis';
+import { dashHead, tableContainer } from './classes';
+import ModalGitHub from '../../modalForGithub';
 
 interface Bug {
+    id:number,
     title: string;
     description: string;
     priority: string;
@@ -15,6 +20,14 @@ interface Bug {
 }
 const Bugs = () => {
   const [bugs, setBugs] = useState<Bug[]>([]);
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  //   const handleGoToGitHub = () => {
+  //     <ModalGitHub  />;
+  //   };
 
   useEffect(() => {
     const getBugs = async () => {
@@ -30,24 +43,59 @@ const Bugs = () => {
   }, []);
 
   return (
-    <TableContainer>
+    <TableContainer sx={tableContainer}>
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>title</TableCell>
-            <TableCell>Description</TableCell>
-            <TableCell>priority</TableCell>
+            <TableCell sx={dashHead} align="center">
+              title
+            </TableCell>
+            <TableCell sx={dashHead} align="center">
+              Description
+            </TableCell>
+            <TableCell sx={dashHead} align="center">
+              priority
+            </TableCell>
+            <TableCell sx={dashHead} align="center">
+              Status
 
-            <TableCell>Status</TableCell>
+            </TableCell>
+            <TableCell sx={dashHead} align="center">
+              Actions
+
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {bugs.map((bug) => (
-            <TableRow>
-              <TableCell>{bug.title}</TableCell>
-              <TableCell>{bug.description}</TableCell>
-              <TableCell>{bug.priority}</TableCell>
-              <TableCell>{bug.status}</TableCell>
+            <TableRow key={bug.id}>
+              <TableCell align="center">{bug.title}</TableCell>
+              <TableCell align="center">{bug.description}</TableCell>
+              <TableCell align="center">{bug.priority}</TableCell>
+              <TableCell align="center">{bug.status}</TableCell>
+              <TableCell align="center">
+
+                <Button
+                  variant="contained"
+                  startIcon={<DeleteIcon />}
+                  sx={{ backgroundColor: '#C62828', mr: 2 }}
+                >
+                  Delete
+                </Button>
+                <Button
+                  variant="contained"
+                  startIcon={
+                    <GitHubIcon />
+                         }
+                  sx={{
+                    backgroundColor: '#000',
+                  }}
+                  onClick={handleOpen}
+                >
+                  To GitHub
+                </Button>
+                <ModalGitHub open={open} setOpen={setOpen} id={bug.id} />
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
