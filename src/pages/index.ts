@@ -1,4 +1,4 @@
-import Admin from './admin';
+import AdminTherapists from './adminTherapists';
 import LandingPage from './landingPage';
 import Login from './login';
 import Signup from './signup';
@@ -10,6 +10,7 @@ import BugReportPage from './bugsReport';
 import { ModelStyle } from '../components/therapistProfile/therapistHeader/classes';
 
 export {
-  Admin, LandingPage, Login, Signup, Therapists, TherapistPage, LoginAdmin, NotFound, ModelStyle,
+  AdminTherapists, LandingPage
+  , Login, Signup, Therapists, TherapistPage, LoginAdmin, NotFound, ModelStyle,
   BugReportPage,
 };

@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import {
   LandingPage, Login, Signup, Therapists, TherapistPage, LoginAdmin, NotFound,
-  BugReportPage,
+  BugReportPage, AdminTherapists,
 } from '../pages';
 import Layout from '../layout/Layout';
 import { ProtectedAdmin, ProtectedUser } from './protected';
@@ -23,10 +23,7 @@ const router = createBrowserRouter([
         path: '/therapist/:id',
         element: <TherapistPage />,
       },
-      {
-        path: '/admin',
-        element: <ProtectedAdmin />,
-      },
+
       {
         path: '/bug-report',
         element: <BugReportPage />,
@@ -48,7 +45,16 @@ const router = createBrowserRouter([
     path: '/admin/login',
     element: <LoginAdmin />,
   },
-
+  {
+    path: '/admin',
+    element: <ProtectedAdmin />,
+    children: [
+      {
+        path: '/admin/therapists',
+        element: <AdminTherapists />,
+      },
+    ],
+  },
   { path: '*', element: <NotFound /> },
 
 ]);

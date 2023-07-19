@@ -8,11 +8,12 @@ import AppointmentTableContainer from './appointmentsTable';
 import { TherapistCardProps, TherapistCardType } from './TherapistCard/types';
 import GridCard from './TherapistCard';
 import TherapistList from './TherapistsList';
+import Dashboard from './dashboard/dashBoard';
 
 export {
   AppointmentsModal, SessionReservationModal,
   Payment, BookAppointment, CheckoutForm, GridCard, TherapistList, AppointmentTableContainer,
-  TherapistHeader,
+  TherapistHeader, Dashboard,
 };
 export type {
   TherapistCardProps,
