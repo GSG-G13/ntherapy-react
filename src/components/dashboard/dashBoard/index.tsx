@@ -23,7 +23,7 @@ const DashBoard = () => {
     navigate('/admin/therapists');
   };
   const handleToPageBugs = () => {
-    navigate('/admin/bugs');
+    navigate('/admin/therapists/bugs');
   };
 
   return (

@@ -1,22 +1,28 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
-  Button, Modal, Box, Typography, Select, MenuItem, IconButton,
+  Button, Modal, Box, Typography, Select, MenuItem, IconButton, SelectChangeEvent,
 } from '@mui/material';
 import { Close } from '@mui/icons-material';
 import { AxiosError } from 'axios';
 import { enqueueSnackbar } from 'notistack';
 import { axiosInstance } from '../../utils/apis';
 
-const ModalGitHub = ({ open, setOpen, id }: any) => {
-  const [selectedOption, setSelectedOption] = useState('unassigned');
+interface TypeModal {
+    open: boolean;
+    setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    id: number;
+}
+
+const ModalGitHub = ({ open, setOpen, id }: TypeModal) => {
+  const [selectedOption, setSelectedOption] = useState<string>('unassigned');
   const [contributors, setContributors] = useState<string[]>([]);
 
   const handleClose = () => {
     setOpen(false);
   };
 
-  const handleSelectChange = (event:any) => {
-    setSelectedOption(event.target.value);
+  const handleSelectChange = (event: SelectChangeEvent<string>) => {
+    setSelectedOption(event.target.value as string);
   };
 
   const handleGoToGitHub = async () => {
@@ -36,7 +42,7 @@ const ModalGitHub = ({ open, setOpen, id }: any) => {
     const getContributors = async () => {
       try {
         const response = await axiosInstance.get('/bugs/contributors');
-        setContributors(response?.contributors);
+        setContributors(response.data);
       } catch (error) {
         const axiosError = error as AxiosError;
         enqueueSnackbar(axiosError.message, { variant: 'error' });

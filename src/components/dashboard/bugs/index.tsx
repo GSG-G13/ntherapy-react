@@ -9,25 +9,14 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import { axiosInstance } from '../../../utils/apis';
 import { dashHead, tableContainer } from './classes';
 import ModalGitHub from '../../modalForGithub';
+import Bug from './types';
 
-interface Bug {
-    id:number,
-    title: string;
-    description: string;
-    priority: string;
-    status?: string | undefined;
-    assignedTo?: string | undefined;
-}
 const Bugs = () => {
   const [bugs, setBugs] = useState<Bug[]>([]);
   const [open, setOpen] = useState(false);
   const handleOpen = () => {
     setOpen(true);
   };
-
-  //   const handleGoToGitHub = () => {
-  //     <ModalGitHub  />;
-  //   };
 
   useEffect(() => {
     const getBugs = async () => {
@@ -41,6 +30,16 @@ const Bugs = () => {
     };
     getBugs();
   }, []);
+  const handleDeleteBugs = async (id: number) => {
+    try {
+      await axiosInstance.delete(`/bugs/${id}`);
+      setBugs((prevBugs) => prevBugs.filter((bug) => bug.id !== id));
+      enqueueSnackbar('Bug deleted successfully.', { variant: 'success' });
+    } catch (error) {
+      const axiosError = error as AxiosError;
+      enqueueSnackbar(axiosError.message, { variant: 'error' });
+    }
+  };
 
   return (
     <TableContainer sx={tableContainer}>
@@ -79,6 +78,7 @@ const Bugs = () => {
                   variant="contained"
                   startIcon={<DeleteIcon />}
                   sx={{ backgroundColor: '#C62828', mr: 2 }}
+                  onClick={() => handleDeleteBugs(bug.id)}
                 >
                   Delete
                 </Button>
