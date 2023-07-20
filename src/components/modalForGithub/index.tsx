@@ -32,6 +32,7 @@ const ModalGitHub = ({ open, setOpen, id }: TypeModal) => {
         assignedTo: selectedOption,
       });
       enqueueSnackbar('Successfully assigned to contributor.', { variant: 'success' });
+      handleClose();
     } catch (error) {
       const axiosError = error as AxiosError;
       enqueueSnackbar(axiosError.message, { variant: 'error' });
