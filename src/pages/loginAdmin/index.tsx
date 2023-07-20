@@ -37,7 +37,7 @@ const LoginAdmin = () => {
         });
         localStorage.setItem('access_token', resp.data.access_token);
         userContext?.setUserData(resp.data.data);
-        navigate('/admin');
+        navigate('/admin/therapists');
       } catch (e) {
         const error = e as AxiosError;
         showSnackbar(error.message, 'error');

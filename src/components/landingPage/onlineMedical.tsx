@@ -4,10 +4,11 @@ import {
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { online, online2, group } from '../../assets';
-import { userDataContext } from '../../context';
+import { userDataContext, ThemeContext } from '../../context';
 
 const OnlineMedical = () => {
   const userContext = useContext(userDataContext);
+  const themes = useContext(ThemeContext);
 
   return (
     <>
@@ -72,7 +73,7 @@ const OnlineMedical = () => {
         </Grid>
       </Container>
       <Container sx={{
-        backgroundColor: '#F4F7FF',
+        backgroundColor: themes?.themeMode === 'dark' ? '#181A1B' : '#F4F7FF',
         height: '25rem',
         '@media (max-width: 600px)': {
           height: '50rem',

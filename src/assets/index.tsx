@@ -6,7 +6,7 @@ import icon3 from './img/icon (3).png';
 import icon4 from './img/icon (4).png';
 import online from './img/online.png';
 import online2 from './img/online2.png';
-import group from './img/group.png';
+import group from './img/group-342cdd82.png';
 import meet from './img/meet.png';
 import Worldimg from './img/World.png';
 import Logo from './logo';
