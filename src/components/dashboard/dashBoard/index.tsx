@@ -7,9 +7,10 @@ import {
   ListItemText,
 } from '@mui/material';
 import {
-  Dashboard as DashboardIcon,
   Inbox as InboxIcon,
 } from '@mui/icons-material';
+import HomeIcon from '@mui/icons-material/Home';
+import PersonIcon from '@mui/icons-material/Person';
 
 import Logo from '../../../assets/img/logo.png';
 
@@ -34,13 +35,13 @@ const DashBoard = () => {
       <List style={{ paddingRight: '40px' }}>
         <ListItem button onClick={handleToPageHome}>
           <ListItemIcon>
-            <DashboardIcon />
+            <HomeIcon />
           </ListItemIcon>
           <ListItemText primary="Home" />
         </ListItem>
         <ListItem button onClick={handleToPageTherapists}>
           <ListItemIcon>
-            <DashboardIcon />
+            <PersonIcon />
           </ListItemIcon>
           <ListItemText primary="Therapists" />
         </ListItem>
