@@ -1,4 +1,6 @@
-import { useState, ChangeEvent, FormEvent } from 'react';
+import {
+  useState, ChangeEvent, FormEvent, useContext,
+} from 'react';
 import { Button } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import { Link } from 'react-router-dom';
@@ -7,6 +9,7 @@ import './style.css';
 import { AxiosError } from 'axios';
 import { enqueueSnackbar } from 'notistack';
 import { axiosInstance } from '../../utils/apis';
+import { ThemeContext } from '../../context';
 
 const LinkText = styled(Link)`
   text-decoration: none;
@@ -14,6 +17,7 @@ const LinkText = styled(Link)`
 `;
 
 const BugReportPage = () => {
+  const themes = useContext(ThemeContext);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [severity, setSeverity] = useState('Low');
@@ -52,10 +56,18 @@ const BugReportPage = () => {
   };
 
   return (
-    <div className="container">
+    <div className={`container ${themes?.themeMode === 'dark' ? 'dark' : ''}`}>
       {isSubmitted ? (
-        <div className="submitted-message">
-          <h2>Thank you for submitting the bug report!</h2>
+        <div
+          className="submitted-message"
+          style={{
+            color: themes?.themeMode === 'dark' ? 'white' : 'black',
+          }}
+        >
+          <h2>
+            Thank you for submitting the bug report!
+
+          </h2>
           <p>We appreciate your contribution. Our team will review the report shortly.</p>
           <Button
             variant="contained"
@@ -70,7 +82,11 @@ const BugReportPage = () => {
           </Button>
         </div>
       ) : (
-        <form className="bug-report-form" onSubmit={handleSubmit}>
+        <form
+          className="bug-report-form"
+          onSubmit={handleSubmit}
+
+        >
           <h2 className="bug-report-title">
             Submit Bug Report
 

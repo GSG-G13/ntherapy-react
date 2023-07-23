@@ -15,7 +15,13 @@ const OnlineMedical = () => {
       <Container>
         <Grid container spacing={2} mt={5}>
           <Grid item lg={6} xs={12} sx={{ mt: 5 }}>
-            <img src={online} alt="online" />
+            <img
+              src={online}
+              alt="online"
+              style={{
+                maxWidth: '100%', maxHeight: '100%', objectFit: 'cover', height: '100%', width: '100%',
+              }}
+            />
           </Grid>
           <Grid item lg={5} xs={12} sx={{ mt: 5, ml: 5 }}>
             <Typography variant="h5" color="primary" sx={{ fontWeight: 'bold', mb: 2, mt: 3 }}>
@@ -68,7 +74,13 @@ const OnlineMedical = () => {
 
           </Grid>
           <Grid item lg={5} xs={12} sx={{ mt: 5 }}>
-            <img src={online2} alt="online" />
+            <img
+              src={online2}
+              alt="online"
+              style={{
+                maxWidth: '100%', maxHeight: '100%', objectFit: 'cover', height: '100%', width: '100%',
+              }}
+            />
           </Grid>
         </Grid>
       </Container>
@@ -83,7 +95,13 @@ const OnlineMedical = () => {
       >
         <Grid container spacing={2} mt={5}>
           <Grid item lg={6} xs={12}>
-            <img src={group} alt="group" />
+            <img
+              src={group}
+              alt="group"
+              style={{
+                maxWidth: '100%', maxHeight: '100%', objectFit: 'cover', height: '100%', width: '100%',
+              }}
+            />
           </Grid>
           <Grid item lg={5} xs={12} sx={{ mt: 5 }}>
             <Typography variant="h5" color="primary" sx={{ fontWeight: 'bold', mb: 2, mt: 5 }}>

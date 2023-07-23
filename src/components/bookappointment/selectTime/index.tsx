@@ -18,6 +18,21 @@ const BookAppointment = ({ formik }: any) => {
   const [time, setTime] = useState([]);
   const { enqueueSnackbar } = useSnackbar();
 
+  const isPast = (date: Dayjs) => {
+    if (date.format('YYYY-MM-DD') !== dayjs().format('YYYY-MM-DD')) return false;
+    const currentHour = dayjs().hour();
+    const currentMinute = dayjs().minute();
+    const selectedHour = date.hour();
+    const selectedMinute = date.minute();
+    if (selectedHour < currentHour) {
+      return true;
+    }
+    if (selectedHour === currentHour && selectedMinute < currentMinute) {
+      return true;
+    }
+    return false;
+  };
+
   useEffect(() => {
     const getAppointments = async () => {
       try {
@@ -70,7 +85,7 @@ const BookAppointment = ({ formik }: any) => {
             helperText={formik.touched.appointmentId && formik.errors.appointmentId}
           >
             {time.map((ele: ElementTimeType) => {
-              if (!ele.isAvailable || ele.isBooked) {
+              if (!ele.isAvailable || ele.isBooked || isPast(dayjs(ele.datetime))) {
                 return null;
               }
               const timeRange = getTimeRange(ele.datetime);
