@@ -122,7 +122,16 @@ const Navbar = () => {
                   variant="outlined"
                   onClick={handleCloseNavMenu}
                   sx={{
-                    my: 2, color: '#516EFF', display: 'block', ml: 2,
+                    my: 2,
+                    color: '#516EFF',
+                    display: 'block',
+                    ml: 2,
+                    '&:hover': {
+                      backgroundColor: '#7100FF',
+                      color: '#fff',
+
+                    },
+
                   }}
                 >
                   {page.title}
