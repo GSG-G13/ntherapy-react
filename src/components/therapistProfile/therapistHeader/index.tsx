@@ -177,7 +177,7 @@ const TherapistHeader: React.FC<Props> = ({ isProfileOwner, setError }) => {
                     style={ButtonStyle}
                     onClick={handleOpenAppointmentsModal}
                   >
-                    Add Appointment
+                    Add Availability
                   </Button>
                 )
                 : (
