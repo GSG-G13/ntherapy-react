@@ -3,15 +3,19 @@ import {
   Pagination,
 
 } from '@mui/material';
-import { useEffect, useState, ChangeEvent } from 'react';
+import {
+  useEffect, useState, ChangeEvent, useContext,
+} from 'react';
 import { AxiosError } from 'axios';
 import { enqueueSnackbar } from 'notistack';
 
 import TherapistTable from '../../components/dashboard/table/therapists';
 import Filter from '../../components/dashboard/filter/filter';
 import { axiosInstance } from '../../utils/apis';
+import { ThemeContext } from '../../context';
 
 const AdminTherapists = () => {
+  const themes = useContext(ThemeContext);
   const [therapists, setTherapists] = useState<null | []>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
@@ -51,7 +55,11 @@ const AdminTherapists = () => {
   }, [currentPage, active]);
 
   return (
-    <div style={{ display: 'flex' }}>
+    <div style={{
+      display: 'flex',
+      backgroundColor: themes?.themeMode === 'dark' ? '#181A1B' : '#F4F7FF',
+    }}
+    >
       <Container sx={{ marginTop: '50px' }}>
         <Filter
           setActive={setActive as typeof useState<boolean | null>}
