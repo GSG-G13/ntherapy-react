@@ -99,11 +99,11 @@ const OnlineMedical = () => {
               src={group}
               alt="group"
               style={{
-                maxWidth: '100%', maxHeight: '100%', objectFit: 'cover', height: '100%', width: '100%',
+                maxWidth: '100%', maxHeight: '100%', objectFit: 'cover',
               }}
             />
           </Grid>
-          <Grid item lg={5} xs={12} sx={{ mt: 5 }}>
+          <Grid item lg={5} xs={12} sx={{ mt: 10, ml: 5 }}>
             <Typography variant="h5" color="primary" sx={{ fontWeight: 'bold', mb: 2, mt: 5 }}>
               Come on
               <br />
