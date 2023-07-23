@@ -43,7 +43,13 @@ const World = () => (
         </Button>
       </Grid>
       <Grid item lg={5} xs={12} sx={{ mt: 5 }}>
-        <img src={Worldimg} alt="Worldimg" />
+        <img
+          src={Worldimg}
+          alt="Worldimg"
+          style={{
+            maxWidth: '100%', maxHeight: '100%', objectFit: 'cover', height: '100%', width: '100%',
+          }}
+        />
       </Grid>
     </Grid>
   </Container>

@@ -34,7 +34,15 @@ const Questions = () => {
           </Typography>
         </Grid>
         <Grid item lg={6} xs={12}>
-          <img src={meet} alt="meet" style={{ height: '40rem' }} />
+          <img
+            src={meet}
+            alt="meet"
+            style={
+            {
+              maxWidth: '100%', maxHeight: '100%', objectFit: 'cover', height: '100%', width: '100%',
+            }
+          }
+          />
         </Grid>
         <Grid item lg={6} xs={12}>
           <Grid item xs={12}>
