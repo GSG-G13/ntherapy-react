@@ -10,11 +10,12 @@ import { AxiosError } from 'axios';
 import { axiosInstance } from '../../utils/apis';
 import { formContainer, loginContainer } from './style';
 import adminSchema from './adminSchema';
-import { userDataContext } from '../../context';
+import { userDataContext, ThemeContext } from '../../context';
 
 const LoginAdmin = () => {
   const { enqueueSnackbar } = useSnackbar();
   const userContext = useContext(userDataContext);
+  const themes = useContext(ThemeContext);
 
   const showSnackbar = (message:string, severity:VariantType) => {
     enqueueSnackbar(message, { variant: severity });
@@ -46,7 +47,14 @@ const LoginAdmin = () => {
   });
 
   return (
-    <Container sx={formContainer}>
+    <Container
+      sx={formContainer}
+      style={
+      {
+        backgroundColor: themes?.themeMode === 'dark' ? '#181A1B' : '#F4F7FF',
+      }
+    }
+    >
       <Box sx={{ width: '500px' }}>
         <img className="logo" src="https://imgur.com/uXh9MXM.png" alt="logo" />
       </Box>

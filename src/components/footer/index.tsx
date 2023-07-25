@@ -2,6 +2,7 @@ import {
   Box, Link, Typography, useMediaQuery, Theme,
 } from '@mui/material';
 import { Facebook, Twitter, Instagram } from '@mui/icons-material';
+import { Link as RouterLink } from 'react-router-dom';
 import {
   BoxContainer,
   BoxContainerFooter,
@@ -56,9 +57,9 @@ const Footer = () => {
               </Link>
             </Box>
             <Typography variant="body1" sx={TypographyBody2}>
-              <Link href="/bug-report" sx={{ color: '#fff' }}>
+              <RouterLink to="/bug-report">
                 Report a bug
-              </Link>
+              </RouterLink>
             </Typography>
 
           </Box>
